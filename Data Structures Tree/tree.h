@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:35:08 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/06 21:53:51 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/08 13:55:05 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_data
 
 typedef struct s_tree 
 {  
-    t_data      *data;  
+    char      **data;  
     struct s_tree *left;
     struct s_tree *right;   
 }               t_tree;

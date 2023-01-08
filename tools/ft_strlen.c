@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 21:35:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/08 13:49:28 by yoel-idr         ###   ########.fr       */
+/*   Created: 2022/10/08 10:22:21 by yoel-idr          #+#    #+#             */
+/*   Updated: 2022/12/17 10:20:17 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../include/pipex.h"
 
-
-int main(int ac, char **av)
+size_t	ft_strlen(const char *str)
 {
-    
+	size_t	i;
 
-    return (EXIT_SUCCESS);
+	if (!str)
+		return (0);
+	i = 0;
+	while (*str++)
+		i++;
+	return (i);
 }

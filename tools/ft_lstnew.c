@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 21:35:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/08 13:49:28 by yoel-idr         ###   ########.fr       */
+/*   Created: 2022/10/06 14:27:39 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/08 13:50:15 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../include/pipex.h"
 
-
-int main(int ac, char **av)
+t_list	*ft_lstnew(char *cmd)
 {
-    
+	t_list	*p;
 
-    return (EXIT_SUCCESS);
+	p = malloc(sizeof(t_list));
+	if (!p)
+		return (NULL);
+	p->args = ft_split(cmd, 32, 0);
+	p->next = NULL;
+	p->prev = NULL;
+	return (p);
 }

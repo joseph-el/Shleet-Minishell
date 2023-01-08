@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 21:35:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/08 13:49:28 by yoel-idr         ###   ########.fr       */
+/*   Created: 2022/10/08 10:22:32 by yoel-idr          #+#    #+#             */
+/*   Updated: 2022/12/19 09:42:17 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../include/pipex.h"
 
-
-int main(int ac, char **av)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-    
+	size_t	i;
 
-    return (EXIT_SUCCESS);
+	i = 0;
+	while (s1 && s2 && *s1 == *s2 && i < n)
+	{
+		if (*s1 == '\0' && *s2 == '\0')
+			return (0);
+		s1++;
+		s2++;
+		i++;
+	}
+	if (i == n)
+		return (0);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 21:35:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/08 13:49:28 by yoel-idr         ###   ########.fr       */
+/*   Created: 2022/12/18 09:47:13 by yoel-idr          #+#    #+#             */
+/*   Updated: 2022/12/18 10:38:07 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../include/pipex.h"
 
-
-int main(int ac, char **av)
+void	ft_putstr_fd(char *s, int fd)
 {
-    
-
-    return (EXIT_SUCCESS);
+	if (s)
+	{
+		while (*s)
+			write(fd, s++, 1);
+	}
 }

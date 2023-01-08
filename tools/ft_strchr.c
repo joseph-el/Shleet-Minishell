@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 21:35:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/08 13:49:28 by yoel-idr         ###   ########.fr       */
+/*   Created: 2022/10/08 10:21:39 by yoel-idr          #+#    #+#             */
+/*   Updated: 2022/12/13 08:47:59 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../include/pipex.h"
 
-
-int main(int ac, char **av)
+char	*ft_strchr(const char *str, int c)
 {
-    
-
-    return (EXIT_SUCCESS);
+	if (!str)
+		return (NULL);
+	while (*str && *str != (char)c)
+		str++;
+	if (*str == '\0' && *str != (char)c)
+		return (NULL);
+	return ((char *)str);
 }

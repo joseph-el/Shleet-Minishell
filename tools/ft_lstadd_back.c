@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 21:35:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/08 13:49:28 by yoel-idr         ###   ########.fr       */
+/*   Created: 2022/10/06 14:26:48 by yoel-idr          #+#    #+#             */
+/*   Updated: 2022/12/13 08:50:15 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../include/pipex.h"
 
-
-int main(int ac, char **av)
+void	ft_lstadd_back(t_list **lst, t_list *newC)
 {
-    
+	t_list	*p;
 
-    return (EXIT_SUCCESS);
+	if (!(*lst))
+		(*lst) = newC;
+	else
+	{
+		p = (*lst);
+		while (p->next)
+			p = p->next;
+		p->next = newC;
+		newC->prev = p;
+	}
 }

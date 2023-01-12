@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 10:21:39 by yoel-idr          #+#    #+#             */
-/*   Updated: 2022/12/13 08:47:59 by yoel-idr         ###   ########.fr       */
+/*   Created: 2021/12/19 17:05:50 by asabani           #+#    #+#             */
+/*   Updated: 2023/01/12 15:08:50 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "libft.h"
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strtok(char *str, char *sep)
 {
-	if (!str)
+	static char	*remainder;
+	char		*ret;
+	int			len;
+
+	if (str)
+		remainder = str;
+	if (!remainder)
 		return (NULL);
-	while (*str && *str != (char)c)
-		str++;
-	if (*str == '\0' && *str != (char)c)
+	while (*remainder && ft_strchr(sep, *remainder))
+		remainder++;
+	len = 0;
+	while (remainder[len] && !ft_strchr(sep, remainder[len]))
+		len++;
+	if (!len)
 		return (NULL);
-	return ((char *)str);
+	ret = ft_substr(remainder, 0, len);
+	remainder += len;
+	if (*remainder && ft_strchr(sep, *remainder))
+		remainder++;
+	return (ret);
 }

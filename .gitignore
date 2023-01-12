@@ -4,4 +4,5 @@
 *.out
 a.out
 minishell
-*.dSYM/
+*utils/
+*syn/

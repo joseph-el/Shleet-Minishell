@@ -5,8 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 18:57:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/09 18:57:53 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/12 15:48:42 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/12 16:02:46 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# include "lexer.h"
+
+t_list  *lexer(char *cmd)
+{
+    t_list  *s_lexer;
+
+    s_lexer = NULL;
+    if (!cmd)
+        return (NULL);
+    while (cmd && *cmd)
+    {
+        
+    }
+    
+}

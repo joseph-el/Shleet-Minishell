@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   libtools.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 13:23:46 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/06 21:23:26 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/12 15:18:46 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/12 15:20:20 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define MINISHELL_H
+#ifndef LIBTOOLS_H
+# define LIBTOOLS_H
 
 # include <fcntl.h>
 # include <limits.h>
@@ -31,16 +31,5 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#define HEAD 1
-
-typedef struct s_parce
-{
-    char    *cmd;
-    char    **line;
-    int     status;
-    
-}               t_parce;
-
-
-
 #endif
+

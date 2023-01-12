@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 14:27:03 by yoel-idr          #+#    #+#             */
-/*   Updated: 2022/12/18 10:37:05 by yoel-idr         ###   ########.fr       */
+/*   Created: 2022/10/08 10:12:37 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/12 15:21:07 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "libtools.h"
 
-void	clear_arr(char **arr)
+void	ft_bzero(void *s, size_t n)
 {
-	int	index;
-
-	if (!arr)
-		return ;
-	index = 0;
-	while (arr[index])
-		free(arr[index++]);
-	free(arr);
-}
-
-void	ft_lstclear(t_list **lst)
-{
-	t_list	*tmp;
-
-	if (!lst)
-		return ;
-	while (*lst)
-	{
-		tmp = (*lst);
-		(*lst) = (*lst)->next;
-		clear_arr(tmp->args);
-		free(tmp);
-	}
-	free((*lst));
-	lst = NULL;
+	ft_memset(s, 0, n);
 }

@@ -6,15 +6,13 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:20:38 by yoel-idr          #+#    #+#             */
-/*   Updated: 2022/10/19 09:35:59 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:35:09 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libtools.h"
 
-int	ft_isdigit(int c)
+int     ft_isdigit(int c)
 {
-	if ((c >= 48 && c <= 57))
-		return (1);
-	return (0);
+	return (c >= 48 && c <= 57);
 }

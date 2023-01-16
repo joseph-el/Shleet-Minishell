@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:20:22 by yoel-idr          #+#    #+#             */
-/*   Updated: 2022/10/14 10:31:23 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:31:24 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libtools.h"
 
 int	ft_isalpha(int c)
 {

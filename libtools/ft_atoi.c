@@ -5,47 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 10:12:22 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/12 15:20:56 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/16 23:49:13 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/16 23:50:17 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libtools.h"
 
-static int	check_return(unsigned long long number, int sign)
+static int	sign_check(int sign)
 {
-	if (number > 9223372036854775807 && sign == 1)
+	if (sign > 0)
 		return (-1);
-	if (number > 9223372036854775807 && sign == -1)
-		return (0);
 	return (0);
 }
 
 int	ft_atoi(const char *str)
 {
-	unsigned long long	number;
-	int					sign;
-	unsigned long long	x;
+	long	tmp;
+	long	result;
+	int		i;
+	int		sign;
 
-	number = 0;
+	tmp = 0;
+	i = 0;
+	result = 0;
 	sign = 1;
-	x = 0;
-	while (*str == 32 || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while (ft_isdigit(*str))
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	if (str[i] == '-')
+		sign *= -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (ft_isdigit(str[i]))
 	{
-		x = (x * 10) + (*str - '0');
-		if (x / 10 != number)
-			return (-1);
-		number = (number * 10) + (*str - '0');
-				str++;
-		if ((number > 9223372036854775807 && sign == 1)
-			|| (number > 9223372036854775807 && sign == -1))
-			return (check_return(number, sign));
+		result = (result * 10) + (str[i] - '0');
+		if (tmp > result)
+			return (sign_check(sign));
+		tmp = result;
+		i++;
 	}
-	return (number * sign);
+	return (result * sign);
 }

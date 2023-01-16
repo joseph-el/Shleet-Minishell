@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:22:32 by yoel-idr          #+#    #+#             */
-/*   Updated: 2022/10/15 23:06:57 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:33:10 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libtools.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

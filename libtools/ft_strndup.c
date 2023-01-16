@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 10:22:21 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 23:33:06 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/16 23:57:26 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/17 00:10:33 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libtools.h"
 
-size_t	ft_strlen(const char *str)
+char    *ft_strndup(char *src, int len)
 {
-	size_t	i;
+    char    *dest;
 
-	i = 0;
-	while (*str++)
-		i++;
-	return (i);
+    dest = malloc(len + 1);
+    if (!dest)
+        return (NULL);
+    ft_strlcpy(dest, src, len + 1);
+    return (dest);
 }

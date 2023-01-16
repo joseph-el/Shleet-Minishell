@@ -5,65 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 10:20:44 by yoel-idr          #+#    #+#             */
-/*   Updated: 2022/10/14 10:31:45 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/16 23:54:23 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/16 23:54:36 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libtools.h"
 
-int	count_len(int nb)
+int	len_calculator(long n)
 {
-	long	n;
-	int		url;
+	int	len;
 
-	n = nb;
-	url = 0;
+	len = 0;
 	if (n == 0)
 		return (1);
 	if (n < 0)
 	{
-		url++;
+		len++;
 		n *= -1;
 	}
-	while (n != 0)
+	while (n > 0)
 	{
 		n /= 10;
-		url++;
+		len++;
 	}
-	return (url);
-}
-
-char	*set_zero(char *str)
-{
-	str[0] = '0';
-	return (str);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*str;
-	int		i;
-	long	nb;
+	char	*num_str;
+	int		len;
+	long	num;
 
-	nb = n;
-	i = count_len(nb);
-	str = malloc(sizeof(char) * i + 1);
-	if (!str)
+	num = n;
+	len = len_calculator(num);
+	num_str = malloc (len + 1);
+	if (!num_str)
 		return (NULL);
-	str[i--] = '\0';
-	if (n == 0)
-		return (set_zero(str));
-	if (nb < 0)
+	num_str[len--] = '\0';
+	if (num == 0)
+		num_str[0] = '0';
+	if (num < 0)
 	{
-		str[0] = '-';
-		nb *= -1;
+		num_str[0] = '-';
+		num *= -1;
 	}
-	while (nb != 0)
+	while (num > 0)
 	{
-		str[i] = 48 + (nb % 10);
-		nb /= 10;
-		i--;
+		num_str[len--] = num % 10 + '0';
+		num /= 10;
 	}
-	return (str);
+	return (num_str);
 }

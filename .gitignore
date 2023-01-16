@@ -1,9 +1,0 @@
-.vscode/*
-.DS_STORE
-*.o
-*.out
-a.out
-minishell
-*utils/
-*syn/
-*helper/

@@ -5,36 +5,33 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/17 00:34:14 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/01/17 00:45:59 by yoel-idr         ###   ########.fr        #
+#    Created: 2022/10/08 09:13:22 by yoel-idr          #+#    #+#              #
+#    Updated: 2023/01/17 00:10:51 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME     	:= minishell
-LEXER 	 	:= lexer
-EXPENDER 	:= exp
-PARSE    	:= parse
-EXEC     	:= exec
+NAME 	:= libtools.a
 
-SRC_LEXER	:= ./srcs/lexer/lexer_utils.c ./srcs/lexer/lexer.c ./srcs/lexer/syntax.c
-LIB 		:= ./libtools/libtools.a ./libgc/gc.a
-UTILS 		:= ./srcs/utils/management_list.c
+SRC 	:=	ft_isdigit.c ft_isalnum.c ft_isspace.c ft_strlen.c ft_memset.c ft_memmove.c ft_strlcpy.c ft_strndup.c \
+			ft_strchr.c ft_strncmp.c  ft_memcmp.c ft_memcpy.c ft_strdup.c ft_atoi.c ft_substr.c ft_strjoin.c  ft_itoa.c ft_putstr_fd.c \
 
-debug 		:= -fsanitize=address -g
+FLAG 	:= -Wall -Wextra -Werror
+AR 		:= ar -rc
+OBJ  	:= $(SRC:.c=.o)
 
-all : 
-	echo "minishell"
-	
-lexer : $(UTILS) $(SRC_LEXER) $(LIB)
-		gcc $^ -o $(LEXER)
+all : $(NAME)
+	@echo "\nlibtools\n"
 
-dlexer : $(UTILS) $(SRC_LEXER)
-		gcc $(debug) $^ -o $(LEXER)
-
-lib		: 
-			@$(MAKE) -C libtools
-			@$(MAKE) -C libgc
-
+$(NAME) : $(OBJ)
+		@$(AR) $(NAME) $(OBJ)
+.c.o:
+		@cc $(FLAG) -c $< -o $@	
 clean :
-		rm $(NAME) $(LEXER) $ $(PARSE) $(EXEC)
-	
+		@$(RM) $(OBJ)
+		
+fclean : clean
+		@$(RM) $(NAME)
+
+re 	   : fclean all
+
+.PHONY := all clean fclean re

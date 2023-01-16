@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:21:13 by yoel-idr          #+#    #+#             */
-/*   Updated: 2022/10/15 22:49:54 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:31:44 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libtools.h"
 
 void	*ft_memset(void *str, int c, size_t n)
 {

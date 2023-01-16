@@ -5,315 +5,112 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 21:05:02 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 15:25:25 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/16 20:02:31 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/17 00:31:26 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+# include "../../includes/minishell.h"
 
-/*Linked list tools*/
-
-t_lexer *new_lexer(void)
-{
-    t_lexer *lexer;
-
-    lexer = gc_filter(g_global.gc, malloc(sizeof(t_lexer)));
-    if (! lexer)
-        return (NULL);
-    lexer->buttom = lexer->head = NULL;
-    lexer->l_size = 0;
-    return (lexer);
-}
-
-t_node *creat_node(char *data, t_token token)
-{
-    t_node  *n_node;
-
-    n_node = gc_filter(g_global.gc, malloc(sizeof(t_node)));
-    if (!n_node)
-        return (NULL);
-    n_node->data = data;
-    n_node->next = n_node->prev = NULL;
-    n_node->tok = token;
-    return (n_node);
-}
-
-void    push_back(t_lexer **lexer, t_node *n_node)
-{
-    if (!(*lexer)->head)
-        (*lexer)->head = n_node;
-    else
-    {
-        (*lexer)->buttom->next = n_node;
-        n_node->prev = (*lexer)->buttom;
-    }
-    (*lexer)->buttom = n_node;
-    (*lexer)->l_size++;
-}
-
-void print_list(t_node *node)
-{
-    int i;
-
-    i = 1;
-    if (!node)
-        puts("ERROR IN PRINT_LIST");
-    while(node)
-    {
-        printf("AFFICHE node |%d| type >>(%c)<< -> >>(%s)<<\n\n",i, (char)node->tok, node->data);
-        i ++;
-        node = node->next;
-    }   
-}
-
-/*
-------------------------------------------------------------------------------------------------------
-*/
-
-
-
-/* ------------- Lexer help functions -------------------- */
-
-  /*Handle whitwspace*/
-  
-void    whitespace(t_lexer *lexer, char **cmdline)
+char    *whitespace(t_list *l_lexer, char *l_cmd)
 {
     int len;
 
     len = 0;
-    while ((*cmdline)[len] && ft_isspace((*cmdline)[len]))
+    while (l_cmd[len] && ft_isspace(l_cmd[len]))
         len ++; 
     if (len)
-        push_back(&lexer, creat_node(NULL, WSPACE));
-    (*cmdline) += len; 
-}
- 
-  /*Handle single quote*/
-
-void    s_quote(t_lexer *lexer, char **cmdline)
-{
-    int len;
-    
-    push_back(&lexer, creat_node(ft_strndup(*cmdline, 1), SQUOTE));
-    (*cmdline) += 1;
-    len = 0;
-    while ((*cmdline)[len] && (*cmdline)[len] != '\n' && (*cmdline)[len] != SQUOTE)
-        len ++;
-    push_back(&lexer, creat_node(ft_strndup(*cmdline, len), WORD));
-    if ((*cmdline)[len] == SQUOTE)
-    {
-        push_back(&lexer, creat_node(ft_strndup((*cmdline) + len, 1), SQUOTE));
-        len ++;
-    }
-    (*cmdline) += len;
+        push_back(&l_lexer, creat_node(NULL, WSPACE));
+    return (l_cmd + len);
 }
 
-  /*Handle dollar*/
-
-void    dollar(t_lexer  *lexer, char **cmdline)
+char    *s_quote(t_list *l_lexer, char *l_cmd)
 {
     int len;
-    
-    if ((*cmdline)[1] == '?')
-    {
-        push_back(&lexer, creat_node(ft_strndup(*cmdline, 2), RECENTEXC));
-        (*cmdline) += 2;
-        return ;
-    }
+
+    push_back(&l_lexer, creat_node(ft_strdup("\'"), SQUOTE));
     len = 0;
-    (*cmdline) += 1;
-    while ((*cmdline)[len] && (*cmdline)[len] != '\n' && ft_isalnum((*cmdline)[len]))
+    while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != SQUOTE)
         len ++;
-    
     if (len)
-        push_back(&lexer, creat_node(ft_strndup((*cmdline), len), VAR));
-    (*cmdline) += len;
+        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));
+    if (l_cmd[len] == SQUOTE)
+        push_back(&l_lexer, creat_node(ft_strdup("\'"), SQUOTE));
+    return (l_cmd + (len + (l_cmd[len] == SQUOTE)));
 }
 
-  /*Handle double quote*/
-    
-void    d_quote(t_lexer *lexer, char **cmdline)
+char    *dollar(t_list  *l_lexer, char *l_cmd)
+{
+    int len;
+
+    if ((*l_cmd + 1) && (*l_cmd + 1) == '?')
+    {
+        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 3), RECENTEXC));
+        return (l_cmd + 2);
+    }
+    len = 0;
+    if (*l_cmd == DOLLAR)
+        len ++;
+    while (l_cmd[len] && (l_cmd[len] == '_' || ft_isalnum(l_cmd[len])))
+        len ++;
+    if (len)
+        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), VAR));
+    else
+    {
+        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 1), WORD));
+        len ++;
+    }
+    return (l_cmd + len);
+}
+
+char    *d_quote(t_list *l_lexer, char *l_cmd)
 {
     bool    mode;
     int     len;
-    
+
     mode = false;
     len = 0;
-    (*cmdline) += 1;
-    if ((*cmdline)[0] == DQUOTE)
+    if (l_cmd[0] == DQUOTE && l_cmd[1])
         mode = true;
-    push_back(&lexer, creat_node(ft_strndup(*cmdline, 1), DQUOTE));
-    while ((*cmdline)[len] && (*cmdline)[len] != '\n' && (*cmdline)[len] != DQUOTE && !mode)
+    while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != DQUOTE)
     {
-        if ((*cmdline)[len] == DOLLAR)
+        if (l_cmd[len] == DOLLAR)
         {
             if (len)
-                push_back(&lexer, creat_node(ft_strndup(*cmdline, len), WORD));
-            dollar(lexer, &(*cmdline) + len);
+                push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));
+            l_cmd = dollar(l_lexer, l_cmd + len);
             len = 0;
         }
         else
             len ++;
     }
-    if (len && !mode)
-        push_back(&lexer, creat_node(ft_strndup(*cmdline, len), WORD));
+    if (len)
+        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));
     if (mode)
-        push_back(&lexer, creat_node(ft_strdup(""), WORD));
-    if ((*cmdline)[len] == DQUOTE || mode)
-        push_back(&lexer, creat_node(ft_strndup(*cmdline, 1), DQUOTE));
-    (*cmdline) += len;
+        push_back(&l_lexer, creat_node(ft_strdup(""), WORD));
+    if (l_cmd[len] == DQUOTE || mode)
+        push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
+    return (l_cmd + (len + (l_cmd[len] == DQUOTE)));
 }
 
-
-/*
-------------------------------------------------------------------------------------------------------
-*/
-
-
-
-/*
------> Libft function
-*/
-
-void	ft_putstr_fd(char *s, int fd)
+char    *normal_stat(t_list *l_lexer, char *l_cmd)
 {
-	if (s)
-	{
-		while (*s)
-			write(fd, s++, 1);
-	}
+    bool    mode;
+    int     len;
+
+    mode = false;
+    len = 0;
+    while (l_cmd[len] && !ft_strchr("|&<>", l_cmd[len]) && !ft_isspace(l_cmd[len]))
+    {
+        if (l_cmd[len] == WILD)
+            mode = true;
+        len ++;
+    }
+    if (!mode)
+        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));
+    else
+        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WILD));
+    return (l_cmd + len);
 }
 
-char	*ft_strchr(const char *str, int c)
-{
-	if (!str)
-		return (NULL);
-	while (*str && *str != (char)c)
-		str++;
-	if (*str == '\0' && *str != (char)c)
-		return (NULL);
-	return ((char *)str);
-}
-
-int     ft_isspace(int c)
-{
-    return (c == 32 || (c >= 9 && c <= 13));
-}
-
-int     ft_isalnum(int c)
-{
-	return (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= '0' && c <= '9');
-}
-
-int     ft_isdigit(int c)
-{
-	return (c >= 48 && c <= 57);
-}
-
-char    *ft_strndup(char *src, int len)
-{
-    char    *dest;
-
-    dest = gc_filter(g_global.gc, malloc(len + 1));
-    if (!dest)
-        return (NULL);
-    strlcpy(dest, src, len + 1);
-    return (dest);
-}
-
-char    *ft_chardup(char src)
-{
-    char *dest;
-    
-    dest = gc_filter(g_global.gc, malloc(2));
-    if (!dest)
-        return (NULL);
-    *dest = src;
-    *(dest + 1) = 0;
-    return (dest);
-}
-
-char	*ft_strdup(char *s1)
-{
-	char	*dest;
-	size_t	i;
-
-	i = 0;
-	dest = gc_filter(g_global.gc, malloc(sizeof(char) * (strlen(s1) + 1)));
-	if (!dest)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		dest[i] = s1[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-    char    *ptr;
-	int		lenght;
-
-	if (!s1 || !s2)
-		return (NULL);
-	lenght = strlen(s1) + strlen(s2);
-	str = malloc(sizeof(char) * (lenght + 1));
-	if (!str)
-		return (NULL);
-    ptr = str;
-	memmove(str, s1, strlen(s1));
-	memmove(str + strlen(s1), s2, strlen(s2));
-	return (ptr);
-}
-
-/*FOR another Time*/
-
-
-// int    management_list(t_lexer **lexer, t_node *new, t_node *prev, lexer_flag flag)
-// {
-//     if (flag & ADD_BACK)
-//     {
-//         if (!(*lexer))
-//             (*lexer)->head = new;
-//         else
-//         {
-//             new->prev = (*lexer)->buttom;
-//             (*lexer)->buttom->next = new;            
-//         }
-//         (*lexer)->buttom = new;
-//         (*lexer)->l_size ++;
-//     }
-//     else if (flag & ADD_FRONT)
-//     {
-//         if (!(*lexer))
-//             (*lexer)->head = new;
-//         else
-//         {
-//             new->next = (*lexer)->head;
-//             (*lexer)->head->prev = new;
-//             (*lexer) = new;        
-//         }
-//         (*lexer)->l_size ++;
-//     }
-//     else if (flag & INSERT_NODE)
-//         if (!insert_node(lexer, new, prev));
-//             return (FAILURE);
-//     return (SUCCESS);
-// }
-
-// int insert_node(t_lexer **lexer, t_node *new, t_node *prev)
-// {
-//     if (!(*lexer) || !lexer)
-//         return (FAILURE);
-//     new->prev = prev;
-//     new->next = prev->next;
-//     (*lexer)->l_size ++;
-//     if (!prev || !prev->next)
-//         return (FAILURE);
-//     return (SUCCESS);     
-// }
 

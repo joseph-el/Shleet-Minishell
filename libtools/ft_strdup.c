@@ -6,26 +6,21 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:21:44 by yoel-idr          #+#    #+#             */
-/*   Updated: 2022/10/17 14:23:16 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:52:55 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libtools.h"
 
 char	*ft_strdup(const char *s1)
 {
 	char	*dest;
-	size_t	i;
+	size_t	len;
 
-	i = 0;
-	dest = malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	len = ft_strlen(s1);
+	dest = malloc(len + 1);
 	if (!dest)
 		return (NULL);
-	while (s1[i] != '\0')
-	{
-		dest[i] = s1[i];
-		i++;
-	}
-	dest[i] = '\0';
+	ft_strlcpy(dest, s1, len + 1);
 	return (dest);
 }

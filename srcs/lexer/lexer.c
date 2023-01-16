@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:05:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 09:12:56 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:26:51 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 }
 
 /* Main for test the Lexer */
+
+// ls -a << 'test' || ls -a && gcc -a && yoel-idr | cat -e > outfile | grep user | wc -l >> outfile 
 
 int main(int ac, char **av)
 {

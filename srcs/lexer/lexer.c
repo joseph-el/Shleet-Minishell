@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:05:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 09:26:51 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:52:26 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void    handle_state(t_lexer *lexer, char **cmdline)
     target[1] = (*cmdline)[1];
     
     tok1 = (*target == PIPE) * PIPE + (*target == GREAT) * GREAT + (*target == LESS) * LESS + (*target == SAND) * SAND;
+    
     tok2 = (*(target + 1) == GREAT) * GREAT + (*(target + 1) == LESS) * LESS + (*(target + 1) == PIPE) * PIPE + (*(target + 1) == SAND) * SAND;
+    
     type = ((tok1 + tok2) == REGREAT) * REGREAT + ((tok1 + tok2) == RELESS) * RELESS + ((tok1 + tok2) == AND) * AND + ((tok1 + tok2) == OR) * OR;
     
     if (tok1 && tok2)
@@ -115,42 +117,25 @@ t_lexer *set_token(char *cmdline)
 }
 
 
-
-
-
-
-
-
-
 /*demo lexer*/
 
 t_lexer *lexer(char *cmdline)
 {
     t_lexer *l_lexer;
-
+    bool     t_syntax;
+     
     l_lexer = set_token(cmdline);
     if (!l_lexer)
         return (NULL);
+    t_syntax = syntax(l_lexer);
+    
+    if (!t_syntax)
+        return (NULL);
+    puts("\n\nVALID SYNTAX\n");
     return (l_lexer);   
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-    char    *ptr;
-	int		lenght;
 
-	if (!s1 || !s2)
-		return (NULL);
-	lenght = strlen(s1) + strlen(s2);
-	str = malloc(sizeof(char) * (lenght + 1));
-	if (!str)
-		return (NULL);
-    ptr = str;
-	memmove(str, s1, strlen(s1));
-	memmove(str + strlen(s1), s2, strlen(s2));
-	return (ptr);
-}
 
 /* Main for test the Lexer */
 

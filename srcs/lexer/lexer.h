@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:04:19 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 08:51:21 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:52:43 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 
 #include "../../libgc/include/gc.h"
 
-# define UNEXPECTED_TOKEN	"syntax error near unexpected token"
-# define UNEXPECTED_EOF     "unexpected EOF while looking for matching"
-# define UNCLOSED_SQ        "unclosed single quotes"
-# define UNCLOSED_DQ	    "unclosed double quotes"
+# define UNEXPECTED_TOKEN	"syntax error near unexpected token\n"
+# define UNEXPECTED_EOF     "unexpected EOF while looking for matching\n"
+# define UNCLOSED_SQ        "unclosed single quotes\n"
+# define UNCLOSED_DQ	    "unclosed double quotes\n"
 
 # define FAILURE 1 << 1
 # define SUCCESS 1 << 0
@@ -91,8 +91,7 @@ typedef enum s_token
   AND = (SAND * 2),
   OR = (PIPE * 2),
   REGREAT = (GREAT * 2),
-  RELESS = (LESS * 2),
-  
+  RELESS = (LESS * 2)
 }             t_token;
 
 typedef struct  s_node
@@ -152,15 +151,22 @@ void print_list(t_node *node);
 // int insert_node(t_lexer **lexer, t_node *new, t_node *prev);
 
 
-
-
-
 /*
 ------------------------------------------------------------------------------------------------------
 */
 
 
 
+/*
+---------> Syntax of cmd
+*/
+
+t_node  *get_node(t_node *crr_node, int mode);
+bool    search(t_node *current, t_token tok);
+bool    redirect_syntax(t_node  *crr_node);
+bool connector_syntax(t_node *crr_node);
+bool    quote_syntax(t_node *crr_node);
+int syntax(t_lexer *l_lexer);
 
 /*
 -----> Libft function
@@ -181,5 +187,7 @@ char    *ft_strndup(char *src, int len);
 char    *ft_chardup(char src);
 
 char	*ft_strdup(char *s1);
+
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:05:02 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 09:26:32 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:44:08 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,13 @@ void    d_quote(t_lexer *lexer, char **cmdline)
 ------------------------------------------------------------------------------------------------------
 */
 
+
+
+
+
+
+
+
 /*
 -----> Libft function
 */
@@ -248,7 +255,23 @@ char	*ft_strdup(char *s1)
 	return (dest);
 }
 
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+    char    *ptr;
+	int		lenght;
 
+	if (!s1 || !s2)
+		return (NULL);
+	lenght = strlen(s1) + strlen(s2);
+	str = malloc(sizeof(char) * (lenght + 1));
+	if (!str)
+		return (NULL);
+    ptr = str;
+	memmove(str, s1, strlen(s1));
+	memmove(str + strlen(s1), s2, strlen(s2));
+	return (ptr);
+}
 
 /*FOR another Time*/
 

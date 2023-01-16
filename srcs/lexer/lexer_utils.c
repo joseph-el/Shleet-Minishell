@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:05:02 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/15 22:58:11 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:23:52 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void print_list(t_node *node)
     }   
 }
 
-
+// ls -a << 'test' || ls -a && gcc -a && yoel-idr | cat -e > outfile | grep user | wc -l >> outfile 
 /*
 ------------------------------------------------------------------------------------------------------
 */
@@ -95,20 +95,18 @@ void    whitespace(t_lexer *lexer, char **cmdline)
 void    s_quote(t_lexer *lexer, char **cmdline)
 {
     int len;
-
-    len = 0;
+    
     push_back(&lexer, creat_node(ft_strndup(*cmdline, 1), SQUOTE));
-    len ++;
+    (*cmdline) += 1;
+    len = 0;
     while ((*cmdline)[len] && (*cmdline)[len] != '\n' && (*cmdline)[len] != SQUOTE)
         len ++;
     push_back(&lexer, creat_node(ft_strndup(*cmdline, len), WORD));
     if ((*cmdline)[len] == SQUOTE)
     {
-        push_back(&lexer, creat_node(ft_strndup(*cmdline, 1), SQUOTE));
-        len ++;       
+        push_back(&lexer, creat_node(ft_strndup((*cmdline) + len, 1), SQUOTE));
+        len ++;
     }
-    // else
-    //     ft_putstr_fd(UNCLOSED_SQ, 2);
     (*cmdline) += len;
 }
 
@@ -118,21 +116,20 @@ void    dollar(t_lexer  *lexer, char **cmdline)
 {
     int len;
 
-    len = 1;
-    if ((*cmdline)[0] == '$' && *(cmdline)[1] == '?')
+    if (*(cmdline)[1] == '?')
     {
-        push_back(&lexer, creat_node(ft_strndup(*cmdline, 2), RE));
+        push_back(&lexer, creat_node(ft_strndup(*cmdline, 2), RECENTEXC));
         (*cmdline) += 2;
         return ;
     }
-    push_back(&lexer, creat_node(ft_strndup(*cmdline, 1), DOLLAR));
-    while ((*cmdline)[len] && (*cmdline)[len] != '\n' && ft_isalnum(**cmdline))
+    len = 0;
+    while ((*cmdline)[len] && (*cmdline)[len] != '\n' && ft_isalnum((*cmdline)[len]))
         len ++;
     if (len)
         push_back(&lexer, creat_node(ft_strndup((*cmdline), len), VAR));
     (*cmdline) += len;
 }
-  
+
   /*Handle double quote*/
     
 void    d_quote(t_lexer *lexer, char **cmdline)
@@ -141,8 +138,9 @@ void    d_quote(t_lexer *lexer, char **cmdline)
     int     len;
     
     mode = false;
-    len = 1;
-    if ((*cmdline)[0] == DQUOTE && (*cmdline)[1] == DQUOTE)
+    len = 0;
+    (*cmdline) += 1;
+    if ((*cmdline)[0] == DQUOTE)
         mode = true;
     push_back(&lexer, creat_node(ft_strndup(*cmdline, 1), DQUOTE));
     while ((*cmdline)[len] && (*cmdline)[len] != '\n' && (*cmdline)[len] != DQUOTE && !mode)
@@ -151,7 +149,7 @@ void    d_quote(t_lexer *lexer, char **cmdline)
         {
             if (len)
                 push_back(&lexer, creat_node(ft_strndup(*cmdline, len), WORD));
-            dollar(lexer, cmdline);
+            dollar(lexer, &(*cmdline) + len);
             len = 0;
         }
         else
@@ -159,11 +157,10 @@ void    d_quote(t_lexer *lexer, char **cmdline)
     }
     if (len && !mode)
         push_back(&lexer, creat_node(ft_strndup(*cmdline, len), WORD));
+    if (mode)
+        push_back(&lexer, creat_node(ft_strdup(""), WORD));
     if ((*cmdline)[len] == DQUOTE || mode)
-    {
         push_back(&lexer, creat_node(ft_strndup(*cmdline, 1), DQUOTE));
-        len ++;
-    }
     (*cmdline) += len;
 }
 
@@ -234,7 +231,23 @@ char    *ft_chardup(char src)
     return (dest);
 }
 
+char	*ft_strdup(char *s1)
+{
+	char	*dest;
+	size_t	i;
 
+	i = 0;
+	dest = gc_filter(g_global.gc, malloc(sizeof(char) * (strlen(s1) + 1)));
+	if (!dest)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 
 
 

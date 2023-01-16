@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:05:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/15 22:39:00 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:12:56 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void    handle_state(t_lexer *lexer, char **cmdline)
     target[0] = (*cmdline)[0];
     target[1] = (*cmdline)[1];
     
-    tok1 = (*target == PIPE) * PIPE + (*target == GREAT) * GREAT + (*target == LESS) * LESS + (*target == BG) * BG;
-    tok2 = (*(target + 1) == GREAT) * GREAT + (*(target + 1) == LESS) * LESS + (*(target + 1) == PIPE) * PIPE + (*(target + 1) == BG) * BG; \
-    type = ((tok1 + tok2) == IOGREAT) * IOGREAT + ((tok1 + tok2) == IOLESS) * IOLESS + ((tok1 + tok2) == AND) * AND + ((tok1 + tok2) == OR) * OR;
+    tok1 = (*target == PIPE) * PIPE + (*target == GREAT) * GREAT + (*target == LESS) * LESS + (*target == SAND) * SAND;
+    tok2 = (*(target + 1) == GREAT) * GREAT + (*(target + 1) == LESS) * LESS + (*(target + 1) == PIPE) * PIPE + (*(target + 1) == SAND) * SAND;
+    type = ((tok1 + tok2) == REGREAT) * REGREAT + ((tok1 + tok2) == RELESS) * RELESS + ((tok1 + tok2) == AND) * AND + ((tok1 + tok2) == OR) * OR;
     
     if (tok1 && tok2)
     {
@@ -90,6 +90,7 @@ t_lexer *set_token(char *cmdline)
         else if (*cmdline == SQUOTE)
         {            
             s_quote(l_lexer, &cmdline);
+
         }
         else if (*cmdline == DQUOTE)
         {
@@ -112,6 +113,13 @@ t_lexer *set_token(char *cmdline)
     push_back(&l_lexer, creat_node(NULL, ENDOFCMD));
     return (l_lexer);
 }
+
+
+
+
+
+
+
 
 
 /*demo lexer*/
@@ -165,7 +173,11 @@ int main(int ac, char **av)
     /*print list of lexer*/
     
     print_list(test->head);
-
+    
+    // affiche cmd
+    puts("");
+    puts(line);
+    
     puts("\nEXIT_SUCCESS\n");
     
     return (EXIT_SUCCESS);

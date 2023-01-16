@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:04:19 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 13:52:43 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:45:05 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef enum s_token
   
   AND = (SAND * 2),
   OR = (PIPE * 2),
-  REGREAT = (GREAT * 2),
+  REGREAT = (GREAT * 2) + 1,
   RELESS = (LESS * 2)
 }             t_token;
 

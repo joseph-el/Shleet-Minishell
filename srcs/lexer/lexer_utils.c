@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:05:02 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 10:44:08 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:25:25 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,18 @@ void    s_quote(t_lexer *lexer, char **cmdline)
 void    dollar(t_lexer  *lexer, char **cmdline)
 {
     int len;
-
-    if (*(cmdline)[1] == '?')
+    
+    if ((*cmdline)[1] == '?')
     {
         push_back(&lexer, creat_node(ft_strndup(*cmdline, 2), RECENTEXC));
         (*cmdline) += 2;
         return ;
     }
     len = 0;
+    (*cmdline) += 1;
     while ((*cmdline)[len] && (*cmdline)[len] != '\n' && ft_isalnum((*cmdline)[len]))
         len ++;
+    
     if (len)
         push_back(&lexer, creat_node(ft_strndup((*cmdline), len), VAR));
     (*cmdline) += len;
@@ -167,11 +169,6 @@ void    d_quote(t_lexer *lexer, char **cmdline)
 /*
 ------------------------------------------------------------------------------------------------------
 */
-
-
-
-
-
 
 
 

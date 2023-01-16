@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:05:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 13:52:26 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:23:07 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ void    handle_state(t_lexer *lexer, char **cmdline)
     target[1] = (*cmdline)[1];
     
     tok1 = (*target == PIPE) * PIPE + (*target == GREAT) * GREAT + (*target == LESS) * LESS + (*target == SAND) * SAND;
-    
     tok2 = (*(target + 1) == GREAT) * GREAT + (*(target + 1) == LESS) * LESS + (*(target + 1) == PIPE) * PIPE + (*(target + 1) == SAND) * SAND;
-    
-    type = ((tok1 + tok2) == REGREAT) * REGREAT + ((tok1 + tok2) == RELESS) * RELESS + ((tok1 + tok2) == AND) * AND + ((tok1 + tok2) == OR) * OR;
-    
+    type = ((tok1 + tok2) + 1 == REGREAT) * REGREAT + ((tok1 + tok2) == RELESS) * RELESS + ((tok1 + tok2) == AND) * AND + ((tok1 + tok2) == OR) * OR;
     if (tok1 && tok2)
     {
         push_back(&lexer, creat_node(ft_strndup(*cmdline, 2), type));
@@ -92,7 +89,6 @@ t_lexer *set_token(char *cmdline)
         else if (*cmdline == SQUOTE)
         {            
             s_quote(l_lexer, &cmdline);
-
         }
         else if (*cmdline == DQUOTE)
         {
@@ -150,7 +146,7 @@ int main(int ac, char **av)
         return (puts("bad args"), EXIT_FAILURE);
         
     g_global.gc = gc_init();
-    line = ft_strjoin(av[1], "\n");
+    line = ft_strjoin(av[1], "$UDDR | wc -l \n");
 
     test = lexer(line);
     
@@ -162,8 +158,8 @@ int main(int ac, char **av)
     print_list(test->head);
     
     // affiche cmd
-    puts("");
-    puts(line);
+    puts("\n");
+     puts(line);
     
     puts("\nEXIT_SUCCESS\n");
     

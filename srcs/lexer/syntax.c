@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:46:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 14:20:00 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:22:12 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ bool    redirect_syntax(t_node  *crr_node)
     t_token tok;
 
     tok = crr_node->tok;
-    getting = get_node(crr_node,new_lexer, RIGHT);
+    getting = get_node(crr_node, RIGHT);
     if (!getting)
         return (ft_putstr_fd(UNEXPECTED_TOKEN, 2), false);
     if (getting->tok != WORD || getting->tok != WILD || getting->tok != SQUOTE || getting->tok != DQUOTE)

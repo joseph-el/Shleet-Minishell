@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:46:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 14:12:49 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:20:00 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,34 @@ bool    search(t_node *current, t_token tok)
     return (false);
 }
 
-t_node  *get_node(t_node *crr_node, int mode)
-{
-    if (mode & LEFT)
-    {
-        if (!crr_node->prev)
-            return ( NULL);
-        else
-            while (crr_node->tok == WSPACE && crr_node->prev)
-                crr_node = crr_node->prev;
-        if (crr_node->prev)
-                return (crr_node->prev);
-        else
-            return (NULL);
-    }
-    else if (mode & RIGHT)
-    {
-        if (!crr_node->next)
-            return (NULL);
-        else
-            while (crr_node->tok == WSPACE && crr_node->next)
-                crr_node = crr_node->next;
-            if (crr_node->next)
-                return (crr_node->next);
-            else
-                return (NULL);        
-    }
-    return (NULL);
-}
+// t_node  *get_node(t_node *crr_node, int mode)
+// {
+//     if (mode & LEFT)
+//     {
+//         if (!crr_node->prev)
+//             return ( NULL);
+//         else
+//             while (crr_node->tok == WSPACE && crr_node->prev)
+//                 crr_node = crr_node->prev;
+//         if (crr_node->prev)
+//                 return (crr_node->prev);
+//         else
+//             return (NULL);
+//     }
+//     else if (mode & RIGHT)
+//     {
+//         if (!crr_node->next)
+//             return (NULL);
+//         else
+//             while (crr_node->tok == WSPACE && crr_node->next)
+//                 crr_node = crr_node->next;
+//             if (crr_node->next)
+//                 return (crr_node->next);
+//             else
+//                 return (NULL);        
+//     }
+//     return (NULL);
+// }
 
 t_node  *get_node(t_node *crr_node, int mode)
 {
@@ -60,11 +60,21 @@ t_node  *get_node(t_node *crr_node, int mode)
     {
         if (!crr_node)
             return (NULL);
-        while (crr_node->tok == WSPACE)
+        while (crr_node->tok == WSPACE && crr_node)
             crr_node = crr_node->prev;
         return (crr_node);
-    }\
+    }
+    else if (mode & RIGHT)
+    {
+        if (!crr_node)
+            return (NULL);
+        while (crr_node->tok == WSPACE && crr_node)
+            crr_node = crr_node->next;
+        return (crr_node);
+    }
+    return (NULL);
 }
+
 bool    quote_syntax(t_node *crr_node)
 {
     t_token tok;
@@ -86,9 +96,9 @@ bool connector_syntax(t_node *crr_node)
     t_node  *r_node;
     t_token tok;
 
-    l_node = get_node(crr_node, LEFT);
+    l_node = get_node(crr_node->prev, LEFT);
 
-    r_node = get_node(crr_node, RIGHT);
+    r_node = get_node(crr_node->next, RIGHT);
     tok = crr_node->tok;
     if (l_node->tok != WORD || l_node->tok != WILD || l_node->tok != SQUOTE || l_node->tok != DQUOTE)       
         return (ft_putstr_fd(UNEXPECTED_TOKEN, 2), false);
@@ -105,7 +115,7 @@ bool    redirect_syntax(t_node  *crr_node)
     t_token tok;
 
     tok = crr_node->tok;
-    getting = get_node(crr_node, RIGHT);
+    getting = get_node(crr_node,new_lexer, RIGHT);
     if (!getting)
         return (ft_putstr_fd(UNEXPECTED_TOKEN, 2), false);
     if (getting->tok != WORD || getting->tok != WILD || getting->tok != SQUOTE || getting->tok != DQUOTE)

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:50:45 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/17 00:46:16 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:34:20 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ typedef struct s_global
     short   status;
 }               t_global;
 
-extern t_global g_global;
+t_global g_global;
 
 
 
 
 
 
-
-
+void	gc_error(char *error_msg, char *specify, int status);
+void    l_status(int status);
 
 /*----------management_list---------------*/
 

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:02:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/17 00:31:26 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/18 00:52:06 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ char    *s_quote(t_list *l_lexer, char *l_cmd)
 
     push_back(&l_lexer, creat_node(ft_strdup("\'"), SQUOTE));
     len = 0;
-    while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != SQUOTE)
+    while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != '\'')
         len ++;
     if (len)
         push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));
-    if (l_cmd[len] == SQUOTE)
+    if (l_cmd[len] == '\'')
         push_back(&l_lexer, creat_node(ft_strdup("\'"), SQUOTE));
-    return (l_cmd + (len + (l_cmd[len] == SQUOTE)));
+    return (l_cmd + (len + (l_cmd[len] == '\'')));
 }
 
 char    *dollar(t_list  *l_lexer, char *l_cmd)
 {
     int len;
 
-    if ((*l_cmd + 1) && (*l_cmd + 1) == '?')
+    if (*(l_cmd + 1) == '?')
     {
-        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 3), RECENTEXC));
+        push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 2), RECENTEXC));
         return (l_cmd + 2);
     }
     len = 0;
@@ -70,9 +70,10 @@ char    *d_quote(t_list *l_lexer, char *l_cmd)
 
     mode = false;
     len = 0;
-    if (l_cmd[0] == DQUOTE && l_cmd[1])
+    if (l_cmd[0] == '\"' && l_cmd[1] == '\"')
         mode = true;
-    while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != DQUOTE)
+    push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
+    while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != '\"')
     {
         if (l_cmd[len] == DOLLAR)
         {
@@ -88,9 +89,9 @@ char    *d_quote(t_list *l_lexer, char *l_cmd)
         push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));
     if (mode)
         push_back(&l_lexer, creat_node(ft_strdup(""), WORD));
-    if (l_cmd[len] == DQUOTE || mode)
+    if (l_cmd[len] == '\"' || mode)
         push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
-    return (l_cmd + (len + (l_cmd[len] == DQUOTE)));
+    return (l_cmd + (len + (l_cmd[len] == '\"')));
 }
 
 char    *normal_stat(t_list *l_lexer, char *l_cmd)
@@ -102,7 +103,7 @@ char    *normal_stat(t_list *l_lexer, char *l_cmd)
     len = 0;
     while (l_cmd[len] && !ft_strchr("|&<>", l_cmd[len]) && !ft_isspace(l_cmd[len]))
     {
-        if (l_cmd[len] == WILD)
+        if (l_cmd[len] == '*')
             mode = true;
         len ++;
     }

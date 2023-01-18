@@ -1,0 +1,13 @@
+.vscode/*
+.DS_STORE
+*.o
+*.out
+a.out
+*.a
+minishell
+*utils/
+*syn/
+*helper/
+lexer
+*src/
+lexer

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 00:15:42 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/17 00:17:14 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:33:30 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void    print_lexer(t_node *node)
 
     i = 1;
     if (!node)
-        puts("ERROR IN PRINt_lexer");
+        puts("ERROR IN PRIN_lexer");
     while(node)
     {
         printf("AFFICHE node |%d| type >>(%c)<< -> >>(%s)<<\n\n",i, (char)node->tok, node->data);

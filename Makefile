@@ -6,7 +6,7 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 00:34:14 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/01/17 00:45:59 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/01/17 18:40:11 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,9 @@ debug 		:= -fsanitize=address -g
 all : 
 	echo "minishell"
 	
-lexer : $(UTILS) $(SRC_LEXER) $(LIB)
-		gcc $^ -o $(LEXER)
+lexer : clean
+		@echo "\nNo error\n"
+		@gcc $(UTILS) $(SRC_LEXER) $(LIB) ./srcs/minishell.c -o $(LEXER)
 
 dlexer : $(UTILS) $(SRC_LEXER)
 		gcc $(debug) $^ -o $(LEXER)
@@ -36,5 +37,10 @@ lib		:
 			@$(MAKE) -C libgc
 
 clean :
-		rm $(NAME) $(LEXER) $ $(PARSE) $(EXEC)
-	
+		@rm -drf $(NAME) $(LEXER) $ $(PARSE) $(EXEC)
+
+fclean : clean
+			@echo "\nClean ~\n"
+			@$(MAKE) -C libtools fclean
+			@$(MAKE) -C libgc fclean
+		

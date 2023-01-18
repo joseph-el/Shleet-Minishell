@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:51:32 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/17 00:33:53 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/18 01:04:17 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@ int main(int argc, char **args, char **env)
     
     g_global.gc = gc_init();
         
-    //line = strdup("echo \"This is exit status $? And this is my name $USER OLD $DEXER\" && cat Makefile | grep yoel-idr | wc -l > outfile && rm -drf outfile\n");
-    line = strdup("echo \'$DEXER\' || ls -a && ls *");
-    
+    //line = ft_strdup("echo \"This is exit status $USER And this is my name $USER OLD $DEXER\" && cat Makefile | grep yoel-idr | wc -l > outfile && rm -drf outfile\n");
+    line = ft_strdup("echo (\"hhhhhhhhh\")");
+
     l_lexer = lexer(line);
     if (!l_lexer)
         return (EXIT_FAILURE);
     
-
-
     /*---|print result|---*/
     
     print_lexer(l_lexer->head);

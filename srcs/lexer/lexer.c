@@ -6,11 +6,13 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:12:29 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/18 01:03:42 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/18 01:15:13 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
+
+/*Handle the following symbols: | << >> < > && || */
 
 char    *handle_state(t_list *l_lexter, char *l_cmd)
 {
@@ -37,6 +39,8 @@ char    *handle_state(t_list *l_lexter, char *l_cmd)
     return (l_cmd + ((tok1 && tok2) + (tok1 != 0)));
 }
 
+/*Handle the parentheses */
+
 char    *parentheses(t_list *l_lexer, char *l_cmd)
 {
     int len;
@@ -46,6 +50,7 @@ char    *parentheses(t_list *l_lexer, char *l_cmd)
     push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 1), target));
     return (l_cmd + 1);
 }
+/* the tokenizer */
 
 t_list  *set_token(char *l_cmd)
 {

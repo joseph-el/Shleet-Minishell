@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:46:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/18 00:58:05 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/18 01:18:06 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 //     }
 //     return (false);
 // }
+
+/* check the valide syntax of: | && || */
 
 bool connector_syntax(t_node *crr_node)
 {
@@ -43,6 +45,8 @@ bool connector_syntax(t_node *crr_node)
     return (true);
 }
 
+/* check the valide syntax of: > < >> << */
+
 bool    redirect_syntax(t_node  *crr_node)
 {
     t_node  *r_node;
@@ -59,6 +63,7 @@ bool    redirect_syntax(t_node  *crr_node)
     return (true);
 }
 
+/* check the valide syntax of: " and ' */
 
 bool    quote_syntax(t_node *crr_node, int *remember)
 {
@@ -87,6 +92,7 @@ bool    quote_syntax(t_node *crr_node, int *remember)
     return (true);
 }
 
+/* check the valide syntax of: ( ) */
 
 bool    g_parentheses(t_node *crr_node)
 {
@@ -117,6 +123,8 @@ bool    g_parentheses(t_node *crr_node)
     return (true);
 }
 
+/*The gc_error for print errors*/
+
 void	gc_error(char *error_msg, char *specify, int status)
 {
 	ft_putstr_fd("Shleet-Minishell", STDERR_FILENO);
@@ -129,6 +137,8 @@ void	gc_error(char *error_msg, char *specify, int status)
 	}
 	ft_putstr_fd("\n", STDERR_FILENO);
 }
+
+/*syntax of cmdline*/
 
 int syntax(t_lexer *l_lexer)
 {

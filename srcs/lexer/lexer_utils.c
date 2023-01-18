@@ -6,12 +6,13 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:02:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/18 00:52:06 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/18 01:14:54 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
+/* Handle whitwspace */
 char    *whitespace(t_list *l_lexer, char *l_cmd)
 {
     int len;
@@ -23,7 +24,7 @@ char    *whitespace(t_list *l_lexer, char *l_cmd)
         push_back(&l_lexer, creat_node(NULL, WSPACE));
     return (l_cmd + len);
 }
-
+/*Handle single quote*/
 char    *s_quote(t_list *l_lexer, char *l_cmd)
 {
     int len;
@@ -38,7 +39,7 @@ char    *s_quote(t_list *l_lexer, char *l_cmd)
         push_back(&l_lexer, creat_node(ft_strdup("\'"), SQUOTE));
     return (l_cmd + (len + (l_cmd[len] == '\'')));
 }
-
+/* Handle dollar */
 char    *dollar(t_list  *l_lexer, char *l_cmd)
 {
     int len;
@@ -62,7 +63,7 @@ char    *dollar(t_list  *l_lexer, char *l_cmd)
     }
     return (l_cmd + len);
 }
-
+/*Handle double quote*/
 char    *d_quote(t_list *l_lexer, char *l_cmd)
 {
     bool    mode;
@@ -93,7 +94,7 @@ char    *d_quote(t_list *l_lexer, char *l_cmd)
         push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
     return (l_cmd + (len + (l_cmd[len] == '\"')));
 }
-
+/*Handle Normal state and Wildcard (*) */
 char    *normal_stat(t_list *l_lexer, char *l_cmd)
 {
     bool    mode;

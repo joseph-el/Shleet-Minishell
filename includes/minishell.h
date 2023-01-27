@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 21:50:45 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/17 18:34:20 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/24 19:56:05 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/25 22:05:55 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,40 +27,34 @@
 # include <paths.h>
 # include <limits.h>
 
-#include "../libgc/include/gc.h"
-#include "../libtools/libtools.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
-#include "lexer.h"
+# include "../gc_memory/include/gc_memory.h"
+# include "../libtools/libtools.h"
+
+# include "environment.h"
+# include "lexer.h"
+# include "expander.h"
+
+# define BLACK "\033[0;30m"
+# define RED "\033[0;31m"
+# define YELLOW "\033[0;33m"
+# define GREEN "\033[0;32m"
+# define WHITE "\033[0;37m"
+
 
 typedef struct s_global
 {
     t_gc    *gc;
-    char    *prgrame_name;
+    t_env   *envp;
     short   status;
 }               t_global;
 
-t_global g_global;
+t_global    g_global;
 
 
+void	shleet_error(char *error_msg, char *specify, int status);
 
-
-
-
-void	gc_error(char *error_msg, char *specify, int status);
-void    l_status(int status);
-
-/*----------management_list---------------*/
-
-t_lexer *new_lexer(void);
-
-t_node *creat_node(char *data, t_token token);
-
-t_node  *get_node(t_node *crr_node, int mode);
-
-void    push_back(t_lexer **lexer, t_node *n_node);
-
-void    print_lexer(t_node *node); //debug
-
-/*--------------------------------------*/
 
 #endif

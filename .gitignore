@@ -5,9 +5,4 @@
 a.out
 *.a
 minishell
-*utils/
-*syn/
-*helper/
-lexer
-*src/
-lexer
+*.dSYM

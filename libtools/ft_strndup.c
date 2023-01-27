@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:57:26 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/17 00:10:33 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/25 10:05:52 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 char    *ft_strndup(char *src, int len)
 {
     char    *dest;
-
+    
+    if (!src)
+        return (NULL);
     dest = malloc(len + 1);
     if (!dest)
         return (NULL);

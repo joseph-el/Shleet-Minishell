@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:22:49 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 23:33:13 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:03:29 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	s += start;
 	while (len-- > 0)
 		*str++ = *s++;
-	*str = '\0';
+	*str = 0;
 	return (p);
 }

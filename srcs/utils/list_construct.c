@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   management_list.c                                  :+:      :+:    :+:   */
+/*   list_construct.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 00:15:42 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/17 18:33:30 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:36:53 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_lexer *new_lexer(void)
+t_list *new_list(void)
 {
-    t_lexer *lexer;
+    t_list *list;
 
-    lexer = gc_filter(g_global.gc, malloc(sizeof(t_lexer)));
-    if (! lexer)
+    list = gc(g_global.gc, malloc(sizeof(t_list)), TMP);
+    if (!list)
         return (NULL);
-    lexer->buttom = lexer->head = NULL;
-    lexer->l_size = 0;
-    return (lexer);
+    list->buttom = list->head = NULL;
+    list->l_size = 0;
+    return (list);
 }
 
 t_node *creat_node(char *data, t_token token)
 {
     t_node  *n_node;
 
-    n_node = gc_filter(g_global.gc, malloc(sizeof(t_node)));
+    n_node = gc(g_global.gc, malloc(sizeof(t_node)), TMP);
     if (!n_node)
         return (NULL);
+    gc(g_global.gc, data, TMP);
     n_node->data = data;
     n_node->next = n_node->prev = NULL;
     n_node->tok = token;
@@ -71,17 +72,4 @@ void    push_back(t_lexer **lexer, t_node *n_node)
     (*lexer)->l_size++;
 }
 
-void    print_lexer(t_node *node)
-{
-    int i;
 
-    i = 1;
-    if (!node)
-        puts("ERROR IN PRIN_lexer");
-    while(node)
-    {
-        printf("AFFICHE node |%d| type >>(%c)<< -> >>(%s)<<\n\n",i, (char)node->tok, node->data);
-        i ++;
-        node = node->next;
-    }   
-}

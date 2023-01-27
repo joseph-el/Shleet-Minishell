@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:54:23 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/16 23:54:36 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:02:35 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_itoa(int n)
 
 	num = n;
 	len = len_calculator(num);
-	num_str = malloc (len + 1);
+	num_str = malloc(len + 1);
 	if (!num_str)
 		return (NULL);
 	num_str[len--] = '\0';

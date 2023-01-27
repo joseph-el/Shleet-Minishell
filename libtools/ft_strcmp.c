@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 00:51:39 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/18 00:53:58 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/19 11:57:02 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/24 19:03:06 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libtools.h"
 
-bool    search(t_node *current, t_token token)
+int	ft_strcmp(char *s1, char *s2)
 {
-    if (!current)
-        return (false);
-    while (current)
-    {
-        if (token == current->tok)
-            return (true);
-        current = current->next;
-    }
-    return (false);
+	int	i;
+
+	i = 0;
+	while (s1[i] == s2[i])
+	{
+		if (s1[i] == '\0' && s2[i] == '\0')
+			return (0);
+		i ++;
+	}
+	return (s1[i] - s2[i]);
 }

@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:23 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/26 21:01:34 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:05:35 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	shleet_pwd(int fd)
 		ft_putstr_fd(cwd, fd);
 		return (ft_putchar_fd('\n', fd), 0);
 	}
-	return (-1);
+	return (EXIT_FAILURE);
 }

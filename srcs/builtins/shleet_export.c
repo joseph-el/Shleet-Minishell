@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/28 22:41:18 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/28 22:48:19 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	sort_and_print_env(t_env *env, int fd)
 	tmp = env;
 	while (tmp)
 	{
+		// CHECK CHECK
 		ft_putstr_fd(place_holder , fd);
 		hold = find_environment(env, sorted_arr[i]);
 		ft_putstr_fd(hold->type, fd);
@@ -87,6 +88,10 @@ int	sort_and_print_env(t_env *env, int fd)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @brief 
+ * @return 
+*/
 int	shleet_export(char **cmd, t_env *env, int fd)
 {
 	int i;
@@ -96,5 +101,6 @@ int	shleet_export(char **cmd, t_env *env, int fd)
 	if (!cmd[1])
 		return (sort_and_print_env(env, fd), EXIT_SUCCESS);
 	i = 0;
+	// HERE
 	return (EXIT_SUCCESS);
 }

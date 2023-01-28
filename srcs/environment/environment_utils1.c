@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:27:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/28 22:22:26 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/28 22:46:02 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,11 @@ void    print_environment(t_env *environment, int fd)
     while (environment)
     {
         ft_putstr_fd(environment->type, fd);
-        ft_putstr_fd("=", fd);
-        ft_putstr_fd(environment->content, fd);
+        if (!*environment->content)
+        {
+            ft_putstr_fd("=", fd);
+            ft_putstr_fd(environment->content, fd);
+        }
         ft_putstr_fd("\n", fd);
         environment = environment->next;
     }

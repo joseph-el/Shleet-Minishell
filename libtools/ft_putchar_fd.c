@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shleet_env.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 14:39:28 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/28 22:22:00 by aelkhali         ###   ########.fr       */
+/*   Created: 2022/10/13 22:29:43 by aelkhali          #+#    #+#             */
+/*   Updated: 2023/01/28 12:57:16 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libtools.h"
 
-void    shleet_env(t_env *env, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
-    if (!env)
-        return ;
-    else
-        print_environment(env, fd);
+	write(fd, &c, 1);
 }

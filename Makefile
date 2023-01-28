@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
+#    By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/27 14:33:17 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/01/27 19:14:05 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/01/28 21:41:17 by aelkhali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,13 @@ EXPENDER 	:= exp
 PARSE    	:= parse
 EXEC     	:= exec
 
-SRC_LEXER	:= ./srcs/lexer/lexer_utils.c ./srcs/lexer/lexer.c ./srcs/lexer/syntax.c
+ENV 		:= ./srcs/environment/environment.c srcs/environment/environment_utils1.c srcs/environment/environment_utils2.c
+BUILTINS	:= ./srcs/builtins/shleet_cd.c ./srcs/builtins/shleet_echo.c ./srcs/builtins/shleet_env.c ./srcs/builtins/shleet_pwd.c ./srcs/builtins/shleet_unset.c ./srcs/builtins/shleet_export.c
+SRC_LEXER	:= ./srcs/lexer/lexer_utils.c ./srcs/lexer/lexer.c ./srcs/lexer/syntax.c $(ENV) $(BUILTINS)
 LIB 		:= ./libtools/libtools.a ./gc_memory/gc_memory.a
 UTILS 		:=  ./srcs/utils/list_destroyer.c ./srcs/utils/list_construct.c ./srcs/utils/g_error.c
 EXP			:= ./srcs/expander/wildcard.c ./srcs/expander/io_utils.c ./srcs/expander/expander.c  ./srcs/expander/list_utils.c ./srcs/expander/utils.c
 debug 		:= -fsanitize=address -g3
-
 all : 
 	echo "minishell"
 	
@@ -39,7 +40,6 @@ lib		:
 			
 exp     : $(EXP)
 		gcc $^ -o $(EXPENDER)
-
 
 clean   :
 		@rm -drf $(NAME) $(LEXER) $ $(PARSE) $(EXEC)

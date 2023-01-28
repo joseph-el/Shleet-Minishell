@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:36:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/27 20:02:50 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/28 17:15:00 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	shleet_echo(char **cmd, int fd)
 	int	i;
 
 	i = 1;
-	if (!cmd || !*cmd || ft_strncmp(cmd[0], "echo", 5))
+	if (!cmd || !*cmd)
 		return (EXIT_FAILURE);
 	if (!cmd[1])
 		return (ft_putchar_fd('\n', fd), EXIT_SUCCESS);

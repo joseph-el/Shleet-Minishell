@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:27:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/27 20:43:03 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/28 22:22:26 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ char    *type_environment(char *_env)
         return (NULL);
     i = 0;
     while (_env[i] && _env[i] != '=')
-        i ++;
-    i += (_env[i] == '=');
+        i++;
     return (ft_strndup(_env, i));
 }
 
@@ -30,7 +29,7 @@ char    *content_environment(char *_env)
     if (!_env)
         return (NULL);
     while (*_env && *_env != '=')
-        _env ++;
+        _env++;
     _env += (*_env == '=');
     return (ft_strdup(_env));
 }
@@ -41,7 +40,7 @@ char    *get_environment(t_env *environment, char *type)
         return (NULL);
     while (environment)
     {
-        if (!ft_strcmp(environment->type, type))
+        if (!ft_strncmp(environment->type, type, ft_strlen(type) + 1))
             return (environment->content);
         environment = environment->next;
     }
@@ -54,23 +53,23 @@ t_env    *find_environment(t_env *environment, char *type)
         return (NULL);
     while (environment)
     {
-        if (!ft_strcmp(environment->type, type))
+        if (!ft_strncmp(environment->type, type, ft_strlen(type) + 1))  
             return (environment);
         environment = environment->next;
     }
     return (NULL);
 }
 
-void    print_environment(t_env *environment)
+void    print_environment(t_env *environment, int fd)
 {
     if (!environment)
         return ;
     while (environment)
     {
-        ft_putstr_fd(environment->type, STDOUT_FILENO);
-        ft_putstr_fd("=", STDOUT_FILENO);
-        ft_putstr_fd(environment->content, STDOUT_FILENO);
-        ft_putstr_fd("\n", STDOUT_FILENO);
+        ft_putstr_fd(environment->type, fd);
+        ft_putstr_fd("=", fd);
+        ft_putstr_fd(environment->content, fd);
+        ft_putstr_fd("\n", fd);
         environment = environment->next;
     }
 }

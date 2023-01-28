@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:27 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/27 20:03:18 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/28 19:50:54 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,27 @@
 
 void	shleet_unset(t_env **env, char *type)
 {
+	t_env	*target_env;
 	t_env	*tmp;
-    
-	if (!find_environment(*env, type))
+
+	target_env = find_environment(*env, type);
+	if (!env || !type || !target_env)
+		return ;
+	if (!target_env->prev && !target_env->next)
+		(*env) = NULL;
+	if (!target_env->prev)
 	{
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		(*env) = (*env)->next;
+		(*env)->prev = NULL;
 		return ;
 	}
-	tmp = (*env);
-	while (tmp)
+	if (!target_env->next)
 	{
-		if (!ft_memcmp(tmp->type, type, sizeof(type) + 1))
-			remove_environment(env, type);
-		tmp = tmp->next;
+		target_env->prev->next = NULL;
+		return ;
 	}
+	tmp = target_env->next;
+	target_env->prev->next = tmp;
+	target_env->prev = NULL;
+	target_env->next = NULL;
 }

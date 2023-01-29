@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:24:27 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 14:47:26 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:21:48 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_env   *new_environment(char *content, char *type)
 {
     t_env   *node_environment;
 
-    // node_environment = malloc(sizeof(t_env));
     node_environment = gc(g_global.gc, malloc(sizeof(t_env)), OVR);
     if (!node_environment)
         return (NULL);

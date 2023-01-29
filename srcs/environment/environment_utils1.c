@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:27:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 15:15:33 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:25:42 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,29 @@
 
 char    *type_environment(char *_env)
 {
-    int i;
+    char    *ret;
+    int     i;
 
     if (!_env)
         return (NULL);
     i = 0;
     while (_env[i] && _env[i] != '=')
         i++;
-    return (ft_strndup(_env, i));
+    ret = gc(g_global.gc, ft_strndup(_env, i), OVR);
+    return (ret);
 }
 
 char    *content_environment(char *_env)
 {
+    char    *ret;
+
     if (!_env)
         return (NULL);
     while (*_env && *_env != '=')
         _env++;
     _env += (*_env == '=');
-    return (ft_strdup(_env));
+    ret = gc(g_global.gc, ft_strdup(_env), OVR);
+    return (ret);
 }
 
 char    *get_environment(t_env *environment, char *type)

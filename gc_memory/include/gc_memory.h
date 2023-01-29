@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:50:11 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:01:28 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:56:20 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 # define CLEAN_TMP 1 << 0
 # define CLEAN_OVR 1 << 1
+# define CLEAN_ALL 1 << 5
 # define TMP 1 << 3
 # define OVR 1 << 4
-# define ALL 1 << 5
 
 typedef struct s_dustbin
 {

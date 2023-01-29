@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:36:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/28 17:15:00 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:45:50 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	shleet_echo(char **cmd, int fd)
 	if (!cmd || !*cmd)
 		return (EXIT_FAILURE);
 	if (!cmd[1])
-		return (ft_putchar_fd('\n', fd), EXIT_SUCCESS);
+		return (ft_putstr_fd("\n", fd), EXIT_SUCCESS);
 	if (cmd[1] && check_arg(cmd[1]))
 		i = 2;
 	while (cmd[i])
@@ -49,9 +49,9 @@ int	shleet_echo(char **cmd, int fd)
 		ft_putstr_fd(cmd[i++], fd);
 		if (!cmd[i])
 			break ;
-		ft_putchar_fd(' ', fd);
+		ft_putstr_fd(" ", fd);
 	}
 	if (!check_arg(cmd[1]))
-		ft_putchar_fd('\n', fd);
+		ft_putstr_fd("\n", fd);
 	return (EXIT_SUCCESS);
 }

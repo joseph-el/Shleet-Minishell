@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:21:11 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:19:20 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:19:03 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_node  *fill_content(t_list *l_list, t_node *object)
         return (NULL);
     if (object->prev && object->prev->tok & VAR && object->tok != HERDOC)
     {
-        object->prev->data = getenv(object->prev->data + 1); //test envVAR
+        object->prev->data = get_environment(g_global.envp, object->prev->data + 1);
         if (!object->prev->data)
             object->prev->data = gc(g_global.gc, ft_strdup(""), TMP);
         return (object);
@@ -44,7 +44,7 @@ t_node  *fill_content(t_list *l_list, t_node *object)
     {
         if (object->tok & VAR && get_node(object->prev, LEFT)->tok != HERDOC)
         {
-            object->data = getenv(object->data + 1); //test envVAR
+            object->data = get_environment(g_global.envp, object->data + 1); 
             if (!object->data)
                 object->data = gc(g_global.gc, ft_strdup(""), TMP);
         }

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:29:55 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:25:42 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:45:07 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ void	print_exp_env(t_env *node, int fd)
 	if (*node->content)
 	{
 		ft_putstr_fd("=", fd);
-		ft_putchar_fd('\"', fd);
+		ft_putstr_fd("\"", fd);
 		ft_putstr_fd(node->content, fd);
-		ft_putchar_fd('\"', fd);
+		ft_putstr_fd("\"", fd);
 	}
 	else if (node->is_var)
 	{
 		ft_putstr_fd("=", fd);
-		ft_putchar_fd('\"', fd);
-		ft_putchar_fd('\"', fd);
+		ft_putstr_fd("\"", fd);
+		ft_putstr_fd("\"", fd);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:22:52 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:13:16 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,21 @@ char	**realloc_array(char **array, char *new)
 	i = -1;
 	if (!array)
 	{
-		ret = malloc(sizeof(char *) * 2);
-		return (ret[0] = ft_strdup(new), ret[1] = NULL, ret);
+		ret = gc(g_global.gc, malloc(sizeof(char *) * 2), TMP);
+		return (ret[0] = gc(g_global.gc, ft_strdup(new), TMP),\
+			ret[1] = NULL, ret);
 	}
 	while (array[++i])
 		;
-	ret = malloc(sizeof(char *) * (i + 2));
+	ret = gc(g_global.gc, malloc(sizeof(char *) * (i + 2)), TMP);
 	if (!ret)
 		return (NULL);
 	i = -1;
 	while (array[++i])
-		ret[i] = ft_strdup(array[i]);
-	ret[i++] = ft_strdup(new);
+		ret[i] = gc(g_global.gc, ft_strdup(array[i]), TMP);
+	ret[i++] = gc(g_global.gc, ft_strdup(new), TMP);
 	ret[i] = NULL;
 	i = -1;
-	while (array[++i])
-		free(array[i]);
-	free(array);
 	return (ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:08:04 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:29:08 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:08:16 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,29 +83,33 @@ int main(int argc, char **args, char **env)
     t_lexer     *l_lexer = NULL;
     char        *line;
     
-    
     g_global.gc = gc_init();
     g_global.envp = init_environment(env);
     system("clear");
     while (true)
     {
         line = readline(GREEN"Shleet-Minishell>$ "WHITE);
-        if (!line)
-            break;
         gc_adding_adress(g_global.gc, line, TMP);
         add_history(line);
+        if (!ft_memcmp(line, "stop", sizeof("stop")))
+                break;
         l_lexer = lexer(line);
         exp = expander(l_lexer);
         if (!l_lexer || !exp)
+        {
+            puts("iam here");
             continue;
+        }
         print_expander(exp);
         puts("\n");
         puts(line);
         puts("\nEXIT_SUCCESS\n");
         if (!ft_memcmp(line, "clear", sizeof("clear")))
                 system("clear");
-        gc_purifying(&g_global.gc, TMP);
+        gc_purifying(&g_global.gc, CLEAN_TMP);
     }
-    
+    gc_purifying(&g_global.gc, CLEAN_ALL);
+
+    system("leaks lexer");
     return (EXIT_SUCCESS);
 }

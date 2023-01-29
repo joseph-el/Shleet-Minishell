@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 19:56:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 19:26:43 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:36:43 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <limits.h>
+# include <paths.h>
 
 # include <readline/readline.h>
 # include <readline/history.h>

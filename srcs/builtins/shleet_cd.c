@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:21 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/29 15:45:40 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:25:35 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	shleet_cd(char **cmd, t_env *env)
 	{
 		home = get_environment(env, "HOME");
 		if (!home)
-			return (EXIT_FAILURE);
+			return (shleet_error("cd", "HOME not set", 2), 1);
 		if (chdir(home) == 0)
 			return (update_pwds_data(env), EXIT_SUCCESS);
 		else

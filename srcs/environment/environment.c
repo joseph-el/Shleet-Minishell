@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:24:27 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 15:21:48 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:40:05 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ t_env   *init_environment(char **env)
     index = -1;
     while (env && env[++index])
         insert_environment(&environment, type_environment(env[index]), \
-             content_environment(env[index]), env[index]);
+        content_environment(env[index]), env[index]);
+    /**
+     * @brief fix when Shleet doesn’t find the PATH
+     * 
+     */
+    // if (!find_environment(environment, "PATH"))
+    //     insert_environment(&environment, gc(g_global.gc, ft_strdup("PATH"), OVR), gc(g_global.gc, ft_strdup(_PATH_STDPATH), OVR), WHAT IS THAT ?)
+    
     return (environment);
 }

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:52:38 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 18:47:06 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:41:21 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,20 @@ bool is_builtins(char *args)
     return (false);
 }
 
+#define LEFT_SIDE 1
+#define RIGHT_SIDE 4
+
+/**
+ * @brief 
+ * 
+ * @param cmd 
+ * @param io_src 
+ * @param io_dest 
+ */
+
 void    run_pipe(char *cmd, int *io_src, int *io_dest)
 {
-    
+
 }
 
 int executor(t_grb *for_execute, t_grb *secondly, t_type logical, exc_flag flag)

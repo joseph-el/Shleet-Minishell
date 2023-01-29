@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/29 19:25:41 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:21:30 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int	shleet_export(char **cmd, t_env **env)
 	i = 0;
 	while (cmd[++i])
 		insert_environment(env, type_environment(cmd[i]), \
-             content_environment(cmd[i]), cmd[i]);
+			content_environment(cmd[i]), cmd[i]);
 	return (EXIT_SUCCESS);
 }

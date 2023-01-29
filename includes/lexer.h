@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:57:21 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/26 16:33:43 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:07:26 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef enum s_token
   AND = 1 << 15,
   APPEND = 1 << 16,
   HERDOC = 1 << 17,
-  CMDEXC = 1 << 18,
   CONNECTOR = (PIPE | OR | AND),
   STRING = (SQUOTE | DQUOTE | WORD | VAR | WILD),
   REDIRECT = (GREAT | LESS | APPEND | HERDOC)
@@ -95,14 +94,7 @@ bool	redirect_syntax(t_node *crr_node);
 bool	quote_syntax(t_node *crr_node);
 int	  syntax(t_lexer *l_lexer);
 
-// t_list  *expander(t_lexer *l_list);
-// t_node  *wildcard(t_node *target);
-// bool    match(char *text, char *pattern);
-// t_node  *expand(t_list *l_list, t_node *object);
-// t_list  *expandcmd(t_list *l_list);
 
-// void    print_lexer(t_exp *node);
-void    print_arr(char **arr);
 t_list *new_list(void);
 t_node  *creat_node(char *data, t_token token);
 t_node  *get_node(t_node *crr_node, int mode);

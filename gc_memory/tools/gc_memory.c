@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:52:12 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/24 19:57:52 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:00:46 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,16 @@ void	gc_clean_dustbin(t_dustbin **dustbin)
 	(*dustbin) = NULL;
 }
 
-int	gc_purifying(t_gc *gc, int flag)
+int	gc_purifying(t_gc **gc, int flag)
 {
 	if (flag & CLEAN_TMP)
-		return (gc_clean_dustbin(&gc->temporary), EXIT_SUCCESS);
-	else if (flag & CLEAN_OVR)
-		return (gc_clean_dustbin(&gc->overall), EXIT_SUCCESS);
-	gc_clean_dustbin(&gc->temporary);
-	gc_clean_dustbin(&gc->overall);
+		return (gc_clean_dustbin(&(*gc)->temporary), EXIT_SUCCESS);
+	if (flag & CLEAN_OVR)
+		return (gc_clean_dustbin(&(*gc)->overall), EXIT_SUCCESS);
+	gc_clean_dustbin(&(*gc)->temporary);
+	gc_clean_dustbin(&(*gc)->overall);
+	free(*gc);
+	*gc = NULL;
 	return (EXIT_SUCCESS);
 }
 

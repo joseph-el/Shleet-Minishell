@@ -6,15 +6,13 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:50:11 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/25 00:08:39 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:01:28 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GC_MEMORY_H
 # define GC_MEMORY_H
 
-# include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -44,6 +42,6 @@ t_gc					*gc_init(void);
 t_gc					*gc_adding_adress(t_gc *gc, void *address, int flag);
 void	                *gc(t_gc *gc, void *newaddress, int flag);
 void					gc_clean_dustbin(t_dustbin **dustbin);
-int						gc_purifying(t_gc *gc, int flag);
+int						gc_purifying(t_gc **gc, int flag);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:27:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 15:25:42 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:24:51 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char    *type_environment(char *_env)
 {
-    char    *ret;
     int     i;
 
     if (!_env)
@@ -22,21 +21,17 @@ char    *type_environment(char *_env)
     i = 0;
     while (_env[i] && _env[i] != '=')
         i++;
-    ret = gc(g_global.gc, ft_strndup(_env, i), OVR);
-    return (ret);
+    return (gc(g_global.gc, ft_strndup(_env, i), OVR));
 }
 
 char    *content_environment(char *_env)
 {
-    char    *ret;
-
     if (!_env)
         return (NULL);
     while (*_env && *_env != '=')
         _env++;
     _env += (*_env == '=');
-    ret = gc(g_global.gc, ft_strdup(_env), OVR);
-    return (ret);
+    return (gc(g_global.gc, ft_strdup(_env), OVR));
 }
 
 char    *get_environment(t_env *environment, char *type)

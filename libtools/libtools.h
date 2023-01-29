@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libtools.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:27:32 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/28 12:58:37 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/19 11:57:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t len);
 void	*ft_memset(void *str, int c, size_t n);
 void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
 
 char	*ft_strchr(const char *str, int c);
 char	*ft_strdup(const char *s1);

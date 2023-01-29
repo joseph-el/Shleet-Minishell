@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 19:56:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 11:50:52 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:06:14 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 # include <signal.h>
 # include <dirent.h>
 # include <fcntl.h>
-# include <errno.h>
 # include <sys/wait.h>
 # include <sys/types.h>
-# include <paths.h>
 # include <limits.h>
 
 # include <readline/readline.h>
@@ -36,13 +34,13 @@
 # include "environment.h"
 # include "lexer.h"
 # include "expander.h"
+# include "executor.h"
 
 # define BLACK "\033[0;30m"
 # define RED "\033[0;31m"
 # define YELLOW "\033[0;33m"
 # define GREEN "\033[0;32m"
 # define WHITE "\033[0;37m"
-
 
 typedef struct s_global
 {
@@ -56,12 +54,11 @@ t_global    g_global;
 
 void	shleet_error(char *error_msg, char *specify, int status);
 
-/* bash builtins */
-int	    shleet_cd(char **cmd, t_env *env);
-int	    shleet_echo(char **cmd, int fd);
-void    shleet_env(t_env *env, int fd);
-int 	shleet_export(char **cmd, t_env **env, int fd);
-int	    shleet_pwd(int fd);
-void	shleet_unset(t_env **env, char *type);
+// int        shleet_cd(char **cmd, t_env *env);
+// int        shleet_echo(char **cmd, int fd);
+// int         shleet_export(char **cmd, t_env **env, int fd);
+// int        shleet_pwd(int fd);
+// void    shleet_env(t_env *env, int fd);
+// void    shleet_unset(t_env **env, char *type);
 
 #endif

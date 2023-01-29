@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 11:57:02 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/24 19:03:06 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/27 22:20:04 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/29 17:04:10 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libtools.h"
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
+# include <sys/stat.h>
+# include <errno.h>
+# include "minishell.h"
 
-	i = 0;
-	while (s1[i] == s2[i])
-	{
-		if (s1[i] == '\0' && s2[i] == '\0')
-			return (0);
-		i ++;
-	}
-	return (s1[i] - s2[i]);
-}
+# define E_GRB 0x1
+# define E_CMD 0x2
+# define E_PIPE 0x3
+# define E_LOGICAL 0x4
+
+typedef int exc_flag;
+
+
+void    run_logical(t_grb *left, t_grb *right, t_type type);
+bool    is_builtins(char *args);
+
+#endif

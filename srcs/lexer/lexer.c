@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 19:55:19 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/26 16:11:21 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:12:49 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ char	*handle_state(t_list  *l_lexer, char *l_cmd)
 
 	cr[0] = *l_cmd;
 	cr[1] = *(l_cmd + 1);
-	tok1 = (cr[0] == '|') * PIPE + (cr[0] == '>') * GREAT + (cr[0] == '<') * LESS + (cr[0] == '&') * AND;
-	tok2 = (cr[1] == '|') * PIPE + (cr[1] == '>') * GREAT + (cr[1] == '<') * LESS + (cr[1] == '&') * AND;
-	type = (tok1 == PIPE && tok2 == PIPE) * OR + (tok1 == GREAT && tok2 == GREAT) * APPEND \
-		+ (tok1 == LESS && tok2 == LESS) * HERDOC + (tok1 == AND && tok2 == AND) * AND;
+	tok1 = (cr[0] == '|') * PIPE + (cr[0] == '>') * GREAT + \
+		(cr[0] == '<') * LESS + (cr[0] == '&') * AND;
+	tok2 = (cr[1] == '|') * PIPE + (cr[1] == '>') * GREAT + \
+		 (cr[1] == '<') * LESS + (cr[1] == '&') * AND;
+	type = (tok1 == PIPE && tok2 == PIPE) * OR + (tok1 == GREAT && tok2 == GREAT) * \
+		APPEND + (tok1 == LESS && tok2 == LESS) * HERDOC + (tok1 == AND && tok2 == AND) * AND;
 	if (tok1 && tok2)
 		push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 2), type));
 	else if (tok1 != AND)
@@ -91,7 +93,7 @@ t_lexer	*lexer(char *cmdline)
 		return (NULL);
 	if (!syntax(l_lexer))
 	{
-		// g_global.status = 
+		// g_global.status = // status
 		return (NULL);
 	}
 	return (l_lexer);

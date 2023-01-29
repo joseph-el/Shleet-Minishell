@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 19:10:32 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/27 20:00:07 by aelkhali         ###   ########.fr       */
+/*   Created: 2023/01/28 14:00:38 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/29 17:21:24 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ t_node  *wildcard(t_node *target)
     while (element)
     {
         if (match(element->d_name, target->data))
-            ret = gc(g_global.gc, ft_strjoin(gc(g_global.gc, ft_strjoin(ret, element->d_name), TMP), " "), TMP);
+            ret = gc(g_global.gc, ft_strjoin(gc(g_global.gc, \
+                ft_strjoin(ret, element->d_name), TMP), " "), TMP);
         element = readdir(folder);
     }
     if (ret)

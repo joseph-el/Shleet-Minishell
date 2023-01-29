@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 00:15:42 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/26 16:36:53 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:16:22 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_node *creat_node(char *data, t_token token)
     n_node = gc(g_global.gc, malloc(sizeof(t_node)), TMP);
     if (!n_node)
         return (NULL);
-    gc(g_global.gc, data, TMP);
     n_node->data = data;
     n_node->next = n_node->prev = NULL;
     n_node->tok = token;

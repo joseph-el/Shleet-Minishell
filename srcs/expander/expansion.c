@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 14:46:45 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/27 17:43:00 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/28 14:21:11 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/29 17:19:20 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,23 @@ t_node  *fill_content(t_list *l_list, t_node *object)
 {
     if (!object)
         return (NULL);
+    if (object->prev && object->prev->tok & VAR && object->tok != HERDOC)
+    {
+        object->prev->data = getenv(object->prev->data + 1); //test envVAR
+        if (!object->prev->data)
+            object->prev->data = gc(g_global.gc, ft_strdup(""), TMP);
+        return (object);
+    }
     while (object && object->tok & (WORD | VAR))
     {
-        if (object->tok & VAR && get_node(object->prev, LEFT)->tok & ~HERDOC)
+        if (object->tok & VAR && get_node(object->prev, LEFT)->tok != HERDOC)
         {
             object->data = getenv(object->data + 1); //test envVAR
             if (!object->data)
                 object->data = gc(g_global.gc, ft_strdup(""), TMP);
         }
-        object->prev->data = gc(g_global.gc, ft_strjoin(object->prev->data, object->data), TMP);
+        object->prev->data = gc(g_global.gc, \
+            ft_strjoin(object->prev->data, object->data), TMP);
         object = delete_node(l_list, object)->next;
     }
     return (object->prev);
@@ -60,7 +68,12 @@ t_lexer  *list_expansion(t_lexer *l_list)
             if (head->tok & (WORD | VAR))
                 head = fill_content(l_list, head->next);
             else if (head->tok & WILD)
-                head = wildcard(head);
+            {
+                if (head->prev && head->prev->tok & REDIRECT)
+                    head->tok = WORD;
+                else
+                    head = wildcard(head);
+            }
         }
         if (head->tok & WSPACE)
             next = delete_node(l_list, head)->next;

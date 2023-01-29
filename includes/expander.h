@@ -5,19 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 21:52:00 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/27 19:16:11 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/28 13:49:40 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/29 17:06:30 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+# include "minishell.h"
+
 # define FILE_PERM 0664
 # define WIRITE_ 0
 # define READ_ 1
-
-# include "minishell.h"
 
 typedef enum s_node_type
 {
@@ -28,23 +28,32 @@ typedef enum s_node_type
     NODE_ENDOFCMD = 1 << 4
 }               t_type;
 
-typedef struct s_connector
+
+typedef struct s_cmdexc
 {
-    t_token         type;
-    struct  s_exp   *left;
-    struct  s_exp   *right;
-}               t_connector;
+    int             io_src;
+    int             io_dest;
+    char            **cmdexc;
+    t_type          node_type;
+    struct s_cmdexc *next;
+    struct s_cmdexc *prev;
+
+}               t_cmdexc;
+
+typedef struct s_grb
+{
+    t_cmdexc    *head;
+    t_cmdexc    *tail; 
+}               t_grb;
 
 typedef struct s_exp
 {
-    int                 io_inf;
-    int                 io_out;
-    char                **cmdexc;
-    t_connector         *connector;
-    t_type              node_type;
+    t_type              nature;
+    t_grb               *grb;
     struct s_exp        *prev;
     struct s_exp        *next;
 }               t_exp;
+
 
 typedef struct s_expander
 {
@@ -52,20 +61,46 @@ typedef struct s_expander
     t_exp   *tail;
 }               t_expander;
 
-t_expander  *expander(t_lexer *l_lexer);
+/**
+ * @brief expanding all
+ * 
+ * @param l_lexer 
+ * @return t_expander* 
+ */
 
-t_connector *new_connector(t_exp *left, t_exp *right, t_token type);
+t_expander	*expander(t_lexer *l_lexer);
+
+/**
+ * @brief list construct.c
+ * 
+ * @return t_grb t_expander t_exp t_cmdexc
+ */
+
 t_expander  *new_explist(void);
-t_lexer     *list_expansion(t_lexer *l_list);
-t_node      *fill_content(t_list *l_list, t_node *object);
-t_node      *wildcard(t_node *target);
-t_list      *quotes_removal(t_list *e_list);
-t_exp       *new_exp(t_type node_type);
-void        add_back(t_expander **expander, t_exp *n_node);
-int         herdoc(char *limiter, int *fds);
+t_cmdexc    *new_cmdexc(char **target, t_type nature);
+t_grb       *new_grb(void);
+t_exp       *new_exp(t_type nature);
+void        add_back(t_expander **expander, t_exp *n_exp);
+void        add_cmdexc_back(t_grb **grb, t_cmdexc *new_cmdexc);
 
 
+/**
+ * @brief expansion
+ * @return t_lexer
+ */
 
+t_node  *fill_content(t_list *l_list, t_node *object);
+t_lexer  *list_expansion(t_lexer *l_list);
+t_list  *quotes_removal(t_list *e_list);
+
+/**
+ * @brief test Toolss
+ * @return int char **
+ */
+
+int     herdoc(char *limiter, int *fds);
+char	**realloc_array(char **array, char *new);
+t_node  *wildcard(t_node *target);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:27:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:24:51 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:35:28 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char    *get_environment(t_env *environment, char *type)
         return (NULL);
     while (environment)
     {
-        if (!ft_strncmp(environment->type, type, ft_strlen(type) + 1))
+        if (!ft_strncmp(environment->type, type, ft_strlen(type)))
             return (environment->content);
         environment = environment->next;
     }
@@ -53,7 +53,7 @@ t_env    *find_environment(t_env *environment, char *type)
         return (NULL);
     while (environment)
     {
-        if (!ft_strncmp(environment->type, type, ft_strlen(type) + 1))  
+        if (!ft_strncmp(environment->type, type, ft_strlen(type)))  
             return (environment);
         environment = environment->next;
     }

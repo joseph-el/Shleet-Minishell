@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:56:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 14:58:03 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:47:21 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int controller(t_expander *l_expander)
     head = l_expander->head;
     if (!head || head->nature & NODE_ENDOFCMD)
         return (EXIT_FAILURE);
-    while (head && head->nature & ~NODE_ENDOFCMD)
+    while (head && head->nature != NODE_ENDOFCMD)
     {
         if (head->next && head->next->nature & (NODE_AND | NODE_OR))
         {

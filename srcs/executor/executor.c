@@ -6,27 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:52:38 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/28 22:06:10 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:47:06 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void    run_logical(t_grb *left, t_grb *right, t_type type)
-{
-    executor(left, type, E_LOGICAL);
-    if (type & NODE_AND)
-    {
-        if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) == 0)
-            executor(right, type, E_LOGICAL);
-    }
-    else
-    {
-        if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) != 0)
-            executor(right, type, E_LOGICAL);
-    }
-}
-
 
 void    run_grb(t_grb *object)
 {
@@ -67,19 +51,19 @@ void    run_pipe(char *cmd, int *io_src, int *io_dest)
     
 }
 
-// int executor(t_grb *for_execute, t_grb *secondly, t_type logical, exc_flag flag)
-// {
-//     short status;
+int executor(t_grb *for_execute, t_grb *secondly, t_type logical, exc_flag flag)
+{
+    short status;
 
-//     if (!for_execute)
-//         return (EXIT_FAILURE);
-//     if (flag == E_GRB)
-//         return (run_grb(for_execute), EXIT_SUCCESS);
-//     else if (flag == E_PIPE)
-//         return (run_pipes(for_execute), EXIT_SUCCESS);
-//     else if (flag == E_LOGICAL)
-//         return (run_logical(for_execute, secondly, logical), EXIT_SUCCESS);
-//     else if (flag == E_CMD)
-//         return (run_cmd(for_execute), EXIT_SUCCESS);
-//     return (EXIT_SUCCESS);
-// }
+    if (!for_execute)
+        return (EXIT_FAILURE);
+    if (flag == E_GRB)
+        return (run_grb(for_execute), EXIT_SUCCESS);
+    else if (flag == E_PIPE)
+        return (run_pipes(for_execute), EXIT_SUCCESS);
+    else if (flag == E_LOGICAL)
+        return (run_logical(for_execute, secondly, logical), EXIT_SUCCESS);
+    else if (flag == E_CMD)
+        return (run_cmd(for_execute), EXIT_SUCCESS);
+    return (EXIT_SUCCESS);
+}

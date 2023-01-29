@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:58:23 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 18:17:18 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:33:00 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ char    *get_path(char *cmdline)
 
     if (ft_strchr(cmdline, '/'))
         return (cmdline);
-    p_cmd = get_environment(g_global.envp, "PATH"); // test env
+    p_cmd = find_environment(g_global.envp, "PATH")->content;
     if (!p_cmd)
         return (NULL);
-    p_cmd += ft_strlen("PATH=");
     cmdline = gc(g_global.gc, ft_strjoin("/", cmdline), TMP);
     path = ft_split(p_cmd, ':');
     i = 0;
@@ -61,8 +60,7 @@ int ft_execve(char *cmd, char **cmd_argument)
     stat(p_cmd, &s_stat);
     if (S_ISDIR(s_stat.st_mode))
 		return (shleet_error(p_cmd, strerror(EISDIR), 1), exit(126), -1);
-    env = export_array(g_global.envp);// export arrays
+    env = export_to_array(g_global.envp);
     execve(p_cmd, cmd_argument, env);    
-
     return (-1);
 }

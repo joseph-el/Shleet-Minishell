@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/29 14:58:54 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:29:06 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-# define place_holder "declare -x "
 
-static char **export_to_array(t_env *head)
+char **export_to_array(t_env *head)
 {
 	char **ret;
 	int		i;

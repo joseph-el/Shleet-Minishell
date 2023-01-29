@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/29 18:29:06 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:25:41 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	sort_and_print_env(t_env *env, int fd)
 	return (EXIT_SUCCESS);
 }
 
-int	shleet_export(char **cmd, t_env **env, int fd)
+int	shleet_export(char **cmd, t_env **env)
 {
 	int i;
 	int flag;
@@ -100,7 +100,7 @@ int	shleet_export(char **cmd, t_env **env, int fd)
 	if (!cmd || !*cmd)
 		return (EXIT_FAILURE);
 	if (!cmd[1])
-		return (sort_and_print_env(*env, fd), EXIT_SUCCESS);
+		return (sort_and_print_env(*env, STDOUT_FILENO), EXIT_SUCCESS);
 	i = 0;
 	while (cmd[++i])
 		insert_environment(env, type_environment(cmd[i]), \

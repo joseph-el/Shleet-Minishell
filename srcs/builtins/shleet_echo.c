@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:36:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/29 17:45:50 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:24:59 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	check_arg(char *cmd_arg)
 	return (false);
 }
 
-int	shleet_echo(char **cmd, int fd)
+int	shleet_echo(char **cmd)
 {
 	int	i;
 
@@ -41,17 +41,17 @@ int	shleet_echo(char **cmd, int fd)
 	if (!cmd || !*cmd)
 		return (EXIT_FAILURE);
 	if (!cmd[1])
-		return (ft_putstr_fd("\n", fd), EXIT_SUCCESS);
+		return (ft_putstr_fd("\n", STDOUT_FILENO), EXIT_SUCCESS);
 	if (cmd[1] && check_arg(cmd[1]))
 		i = 2;
 	while (cmd[i])
 	{
-		ft_putstr_fd(cmd[i++], fd);
+		ft_putstr_fd(cmd[i++], STDOUT_FILENO);
 		if (!cmd[i])
 			break ;
-		ft_putstr_fd(" ", fd);
+		ft_putstr_fd(" ", STDOUT_FILENO);
 	}
 	if (!check_arg(cmd[1]))
-		ft_putstr_fd("\n", fd);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }

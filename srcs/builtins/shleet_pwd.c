@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_pwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:23 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/29 17:45:59 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:26:13 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	shleet_pwd(int fd)
+int	shleet_pwd(void)
 {
 	char	cwd[PATH_MAX];
 
 	if (getcwd(cwd, sizeof(cwd)))
 	{
-		ft_putstr_fd(cwd, fd);
-		return (ft_putstr_fd("\n", fd), EXIT_SUCCESS);
+		ft_putstr_fd(cwd, STDOUT_FILENO);
+		return (ft_putstr_fd("\n", STDOUT_FILENO), EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);
 }

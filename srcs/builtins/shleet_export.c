@@ -6,14 +6,14 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/28 22:48:19 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:58:54 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 # define place_holder "declare -x "
 
-char **export_to_array(t_env *head)
+static char **export_to_array(t_env *head)
 {
 	char **ret;
 	int		i;
@@ -34,7 +34,7 @@ char **export_to_array(t_env *head)
 	return (ret);
 }
 
-char	**sort_arr(char **env_type)
+static char	**sort_arr(char **env_type)
 {
 	int i;
 	char	*tmp;
@@ -55,6 +55,28 @@ char	**sort_arr(char **env_type)
 	return (env_type);
 }
 
+void	print_exp_environment(t_env *env, char **sorted_arr, int fd)
+{
+	int		i;
+	t_env	*hold;
+	t_env	*tmp;
+
+	if (!env)
+		return ;
+	tmp = env;
+	i = 0;
+	while (tmp)
+	{
+		ft_putstr_fd(place_holder , fd);
+		hold = find_environment(env, sorted_arr[i]);
+		ft_putstr_fd(hold->type, fd);
+		print_exp_env(hold, fd);
+		ft_putstr_fd("\n", fd);
+		tmp = tmp->next;
+		i++;
+	}
+}
+
 int	sort_and_print_env(t_env *env, int fd)
 {
 	int		i;
@@ -67,40 +89,22 @@ int	sort_and_print_env(t_env *env, int fd)
 	sorted_arr = sort_arr(export_to_array(env));
 	if (!sorted_arr)
 		return (EXIT_FAILURE);
-	i = 0;
-	tmp = env;
-	while (tmp)
-	{
-		// CHECK CHECK
-		ft_putstr_fd(place_holder , fd);
-		hold = find_environment(env, sorted_arr[i]);
-		ft_putstr_fd(hold->type, fd);
-		if (!hold->content)
-			return (ft_putstr_fd("\n", fd), EXIT_SUCCESS);
-		ft_putstr_fd("=", fd);
-		ft_putchar_fd("\"", fd);
-		ft_putstr_fd(get_environment(env, sorted_arr[i]), fd);
-		ft_putchar_fd("\"", fd);
-		ft_putstr_fd("\n", fd);
-		tmp = tmp->next;
-		i++;
-	}
+	print_exp_environment(env, sorted_arr, fd);
 	return (EXIT_SUCCESS);
 }
 
-/**
- * @brief 
- * @return 
-*/
-int	shleet_export(char **cmd, t_env *env, int fd)
+int	shleet_export(char **cmd, t_env **env, int fd)
 {
 	int i;
+	int flag;
 
 	if (!cmd || !*cmd)
 		return (EXIT_FAILURE);
 	if (!cmd[1])
-		return (sort_and_print_env(env, fd), EXIT_SUCCESS);
+		return (sort_and_print_env(*env, fd), EXIT_SUCCESS);
 	i = 0;
-	// HERE
+	while (cmd[++i])
+		insert_environment(env, type_environment(cmd[i]), \
+             content_environment(cmd[i]), cmd[i]);
 	return (EXIT_SUCCESS);
 }

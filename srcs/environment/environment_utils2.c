@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:29:55 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/28 22:35:09 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:57:54 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,23 @@ t_env   *last_environment(t_env *head)
     while (head->next)
         head = head->next;
     return (head);
+}
+
+void	print_exp_env(t_env *node, int fd)
+{
+	if (!node)
+		return ;
+	if (*node->content)
+	{
+		ft_putstr_fd("=", fd);
+		ft_putchar_fd('\"', fd);
+		ft_putstr_fd(node->content, fd);
+		ft_putchar_fd('\"', fd);
+	}
+	else if (node->is_var)
+	{
+		ft_putstr_fd("=", fd);
+		ft_putchar_fd('\"', fd);
+		ft_putchar_fd('\"', fd);
+	}
 }

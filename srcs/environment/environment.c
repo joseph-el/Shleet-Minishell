@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:24:27 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/28 16:23:00 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:47:26 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ t_env   *new_environment(char *content, char *type)
     node_environment->prev = NULL;
     node_environment->content = content;
     node_environment->type = type;
+    node_environment->is_var = 0;
     return (node_environment);
 }
 
-t_env   *insert_environment(t_env **environment, char *type, char *content)
+t_env   *insert_environment(t_env **environment, char *type, char *content, char *env)
 {
     t_env   *tmp_environment;
     t_env   *new_env;
@@ -35,12 +36,16 @@ t_env   *insert_environment(t_env **environment, char *type, char *content)
     if (*environment == NULL)
     {
         new_env = new_environment(content, type);
+        if(ft_strchr(env, '='))
+            new_env->is_var = 1;
         return (*environment = new_env, NULL);
     }
     tmp_environment = (*environment);
     while (tmp_environment->next)
         tmp_environment = tmp_environment->next;
     new_env = new_environment(content, type);
+    if(ft_strchr(env, '='))
+        new_env->is_var = 1;
     tmp_environment->next = new_env;
     new_env->prev = tmp_environment;
     return (*environment);
@@ -57,6 +62,6 @@ t_env   *init_environment(char **env)
     index = -1;
     while (env && env[++index])
         insert_environment(&environment, type_environment(env[index]), \
-             content_environment(env[index]));
+             content_environment(env[index]), env[index]);
     return (environment);
 }

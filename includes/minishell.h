@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 19:56:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/28 22:21:12 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/29 11:50:52 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	shleet_error(char *error_msg, char *specify, int status);
 /* bash builtins */
 int	    shleet_cd(char **cmd, t_env *env);
 int	    shleet_echo(char **cmd, int fd);
-void    shleet_env(t_env *env);
-int	    shleet_export(char **cmd, t_env *env, int fd);
+void    shleet_env(t_env *env, int fd);
+int 	shleet_export(char **cmd, t_env **env, int fd);
 int	    shleet_pwd(int fd);
 void	shleet_unset(t_env **env, char *type);
 

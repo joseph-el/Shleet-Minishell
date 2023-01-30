@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:21 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/30 12:17:08 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:27:53 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ int	shleet_cd(char **cmd, t_env *env)
 {
 	char	*home;
 
-	/*
-		handle if deleted OLDPWD, or if deleted PWD
-	*/
 	if (!cmd || !*cmd || !env)
 		return (EXIT_FAILURE);
 	if (!cmd[1])

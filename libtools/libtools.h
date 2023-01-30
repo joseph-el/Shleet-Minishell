@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libtools.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:27:32 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/19 11:57:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:10:20 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 int     ft_isalnum(int c);
 int     ft_isdigit(int c);
 int     ft_isspace(int c);
+int	    ft_isalpha(int c);
 int     ft_atoi(const char *str);
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
 int     ft_memcmp(const void *s1, const void *s2, size_t n);

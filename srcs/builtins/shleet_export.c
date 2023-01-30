@@ -6,33 +6,11 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/30 14:20:55 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:40:50 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	print_exp_environment(t_env *env, char **sorted_arr, int fd)
-{
-	int		i;
-	t_env	*hold;
-	t_env	*tmp;
-
-	if (!env)
-		return ;
-	tmp = env;
-	i = 0;
-	while (tmp)
-	{
-		ft_putstr_fd(place_holder , fd);
-		hold = find_environment(env, sorted_arr[i]);
-		ft_putstr_fd(hold->type, fd);
-		print_exp_env(hold, fd);
-		ft_putstr_fd("\n", fd);
-		tmp = tmp->next;
-		i++;
-	}
-}
 
 int	sort_and_print_env(t_env *env, int fd)
 {
@@ -62,9 +40,28 @@ int	is_joinable(char *_env)
 	return ((_env[i] == '=' && _env[i - 1] == '+'));
 }
 
+int key_isvalid(char *_env)
+{
+	int i;
+
+	i = 0;
+	if (!_env)
+		return (false);
+	if (_env[i] != '_' && !ft_isalpha(_env[i]))
+		return (false);
+	while (_env[i])
+	{
+		if ((_env[i] == '+' && _env[i + 1] == '=') || _env[i] == '=')
+			break;
+		if (!ft_isalnum(_env[i]) && _env[i] != '_')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 int	shleet_export(char **cmd, t_env **env)
 {
-	t_env	*hold;
 	int 	i;
 
 	if (!cmd || !*cmd)
@@ -74,19 +71,16 @@ int	shleet_export(char **cmd, t_env **env)
 	i = 0;
 	while (cmd[++i])
 	{
-		if (is_joinable(cmd[i]))
+		if (key_isvalid(cmd[i]))
 		{
-			hold = find_environment(*env, type_environment(cmd[i]));
-			if (!hold)
+			if (is_joinable(cmd[i]))
+				join_and_insert(env, cmd[i]);
+			else
 				insert_environment(env, type_environment(cmd[i]), \
 					content_environment(cmd[i]), cmd[i]);
-			else
-				hold->content = gc(g_global.gc, \
-					ft_strjoin(hold->content, content_environment(cmd[i])), OVR);
 		}
 		else
-			insert_environment(env, type_environment(cmd[i]), \
-				content_environment(cmd[i]), cmd[i]);
+			shleet_error(cmd[i], "not a valid identifier", 1);
 	}
 	return (EXIT_SUCCESS);
 }

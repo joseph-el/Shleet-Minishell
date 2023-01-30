@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:08:04 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 20:58:59 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:23:56 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,19 @@ int main(int argc, char **args, char **env)
     g_global.gc = gc_init();
     g_global.envp = init_environment(env);
     system("clear");
+    char *cmd[5];
+    cmd[0] = "export";
+    cmd[1] = "a++=b";
+    cmd[2] = "15TEST=10";
+    cmd[3] = "ANASS=BHD";
+    cmd[4] = NULL;
+    shleet_export(cmd, &g_global.envp);
+    cmd[1] = NULL;
+    shleet_export(cmd, &g_global.envp);
+    
+    return (0);
+    // DEBG END
+
     while (true)
     {
         line = readline(GREEN"Shleet-Minishell>$ "WHITE);

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
+#    By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/08 09:13:22 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/01/29 17:46:37 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/01/30 17:10:34 by aelkhali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	:= libtools.a
 
-SRC 	:=	ft_strcmp.c ft_isdigit.c ft_isalnum.c ft_isspace.c ft_strlen.c ft_memset.c ft_memmove.c ft_strlcpy.c ft_strndup.c ft_split.c\
+SRC 	:=	ft_strcmp.c ft_isdigit.c ft_isalnum.c ft_isalpha.c ft_isspace.c ft_strlen.c ft_memset.c ft_memmove.c ft_strlcpy.c ft_strndup.c ft_split.c\
 			ft_strchr.c ft_strncmp.c  ft_memcmp.c ft_memcpy.c ft_strdup.c ft_atoi.c ft_substr.c ft_strjoin.c  ft_itoa.c ft_putstr_fd.c \
 
 FLAG 	:= -Wall -Wextra -Werror

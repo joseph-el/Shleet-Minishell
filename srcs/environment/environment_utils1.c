@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:27:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 18:35:28 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:15:05 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char    *type_environment(char *_env)
     i = 0;
     while (_env[i] && _env[i] != '=')
         i++;
+    i -= (_env[i] == '=' && _env[i - 1] == '+');
     return (gc(g_global.gc, ft_strndup(_env, i), OVR));
 }
 

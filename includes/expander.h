@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 13:49:40 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:06:30 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:29:07 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ typedef struct s_cmdexc
 
 typedef struct s_grb
 {
-    t_cmdexc    *head;
-    t_cmdexc    *tail; 
+    bool            is_executed;
+    t_cmdexc        *head;
+    t_cmdexc        *tail; 
 }               t_grb;
 
 typedef struct s_exp

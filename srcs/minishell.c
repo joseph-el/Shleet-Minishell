@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:08:04 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 20:58:59 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/30 23:49:43 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void    print_expander(t_expander *l_expander)
     }
 }
 
+int executor(t_expander *l_expander);
+
 int main(int argc, char **args, char **env)
 {
     t_expander  *exp = NULL;
@@ -86,6 +88,10 @@ int main(int argc, char **args, char **env)
     g_global.gc = gc_init();
     g_global.envp = init_environment(env);
     system("clear");
+
+    // ft_execve(args[1], args + 1);
+
+    // return (0);
     while (true)
     {
         line = readline(GREEN"Shleet-Minishell>$ "WHITE);
@@ -100,10 +106,11 @@ int main(int argc, char **args, char **env)
             puts("iam here");
             continue;
         }
-        print_expander(exp);
-        puts("\n");
-        puts(line);
-        puts("\nEXIT_SUCCESS\n");
+        executor(exp);
+        //print_expander(exp);
+        // puts("\n");
+        // puts(line);
+        // puts("\nEXIT_SUCCESS\n");
         if (!ft_memcmp(line, "clear", sizeof("clear")))
                 system("clear");
         gc_purifying(&g_global.gc, CLEAN_TMP);

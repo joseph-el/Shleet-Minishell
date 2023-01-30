@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:24:27 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 21:40:05 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:15:42 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_env   *insert_environment(t_env **environment, char *type, char *content, char
     if (*environment == NULL)
     {
         new_env = new_environment(content, type);
-        if(ft_strchr(env, '='))
+        if(env && ft_strchr(env, '='))
             new_env->is_var = 1;
         return (*environment = new_env, NULL);
     }
@@ -66,8 +66,8 @@ t_env   *init_environment(char **env)
      * @brief fix when Shleet doesn’t find the PATH
      * 
      */
-    // if (!find_environment(environment, "PATH"))
-    //     insert_environment(&environment, gc(g_global.gc, ft_strdup("PATH"), OVR), gc(g_global.gc, ft_strdup(_PATH_STDPATH), OVR), WHAT IS THAT ?)
+    if (!find_environment(environment, "PATH"))
+        insert_environment(&environment, gc(g_global.gc, ft_strdup("PATH"), OVR), gc(g_global.gc, ft_strdup(_PATH_STDPATH), OVR), NULL);
     
     return (environment);
 }

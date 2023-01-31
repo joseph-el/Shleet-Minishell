@@ -3,78 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/29 21:21:30 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:55:25 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char **export_to_array(t_env *head)
-{
-	char **ret;
-	int		i;
-
-	if (!head)
-		return (NULL);
-	i = size_environment(head);
-	ret = gc(g_global.gc, malloc(sizeof(char *) * (i + 1)), TMP);
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (head)
-	{
-		ret[i++] = gc(g_global.gc, ft_strdup(head->type), TMP);
-		head = head->next;
-	}
-	ret[i] = NULL;
-	return (ret);
-}
-
-static char	**sort_arr(char **env_type)
-{
-	int i;
-	char	*tmp;
-
-	i = 0;
-	while (env_type[i])
-	{
-		if (env_type[i + 1] && ft_strcmp(env_type[i], env_type[i + 1]) > 0)
-		{
-			tmp = env_type[i];
-			env_type[i] = env_type[i + 1];
-			env_type[i + 1] = tmp;
-			i = 0;
-		}
-		else
-			i ++;
-	}
-	return (env_type);
-}
-
-void	print_exp_environment(t_env *env, char **sorted_arr, int fd)
-{
-	int		i;
-	t_env	*hold;
-	t_env	*tmp;
-
-	if (!env)
-		return ;
-	tmp = env;
-	i = 0;
-	while (tmp)
-	{
-		ft_putstr_fd(place_holder , fd);
-		hold = find_environment(env, sorted_arr[i]);
-		ft_putstr_fd(hold->type, fd);
-		print_exp_env(hold, fd);
-		ft_putstr_fd("\n", fd);
-		tmp = tmp->next;
-		i++;
-	}
-}
 
 int	sort_and_print_env(t_env *env, int fd)
 {
@@ -92,10 +28,41 @@ int	sort_and_print_env(t_env *env, int fd)
 	return (EXIT_SUCCESS);
 }
 
-int	shleet_export(char **cmd, t_env **env)
+int	is_joinable(char *_env)
+{
+	int	i;
+
+	if (!_env)
+		return (false);
+	i = 0;
+	while (_env[i] && _env[i] != '=')
+        i++;
+	return ((_env[i] == '=' && _env[i - 1] == '+'));
+}
+
+int key_isvalid(char *_env)
 {
 	int i;
-	int flag;
+
+	i = 0;
+	if (!_env)
+		return (false);
+	if (_env[i] != '_' && !ft_isalpha(_env[i]))
+		return (false);
+	while (_env[i])
+	{
+		if ((_env[i] == '+' && _env[i + 1] == '=') || _env[i] == '=')
+			break;
+		if (!ft_isalnum(_env[i]) && _env[i] != '_')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+int	shleet_export(char **cmd, t_env **env)
+{
+	int 	i;
 
 	if (!cmd || !*cmd)
 		return (EXIT_FAILURE);
@@ -103,7 +70,17 @@ int	shleet_export(char **cmd, t_env **env)
 		return (sort_and_print_env(*env, STDOUT_FILENO), EXIT_SUCCESS);
 	i = 0;
 	while (cmd[++i])
-		insert_environment(env, type_environment(cmd[i]), \
-			content_environment(cmd[i]), cmd[i]);
+	{
+		if (key_isvalid(cmd[i]))
+		{
+			if (is_joinable(cmd[i]))
+				join_and_insert(env, cmd[i]);
+			else
+				insert_environment(env, type_environment(cmd[i]), \
+					content_environment(cmd[i]), cmd[i]);
+		}
+		else
+			shleet_error(cmd[i], "not a valid identifier", EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }

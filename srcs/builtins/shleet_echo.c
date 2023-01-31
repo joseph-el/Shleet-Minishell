@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:36:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/29 19:24:59 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:53:06 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	shleet_echo(char **cmd)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	if (!cmd || !*cmd)
 		return (EXIT_FAILURE);
-	if (!cmd[1])
+	if (!cmd[i])
 		return (ft_putstr_fd("\n", STDOUT_FILENO), EXIT_SUCCESS);
-	if (cmd[1] && check_arg(cmd[1]))
-		i = 2;
+	if (cmd[i] && check_arg(cmd[i]))
+		i = 1;
 	while (cmd[i])
 	{
 		ft_putstr_fd(cmd[i++], STDOUT_FILENO);
@@ -51,7 +51,7 @@ int	shleet_echo(char **cmd)
 			break ;
 		ft_putstr_fd(" ", STDOUT_FILENO);
 	}
-	if (!check_arg(cmd[1]))
+	if (!check_arg(cmd[0]))
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }

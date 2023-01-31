@@ -6,23 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:19:01 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 15:59:09 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:01:40 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*whitespace(t_list *l_lexer, char *l_cmd)
-{
-	int	len;
-
-	len = 0;
-	while (l_cmd[len] && l_cmd[len] != NEWLINE && ft_isspace(l_cmd[len]))
-		len++;
-	if (len)
-		push_back(&l_lexer, creat_node(NULL, WSPACE));
-	return (l_cmd + len);
-}
 
 char	*s_quote(t_list *l_lexer, char *l_cmd)
 {
@@ -62,12 +50,25 @@ char	*dollar(t_list *l_lexer, char *l_cmd)
 	return (l_cmd + len);
 }
 
+int		bare_quotes(t_lexer *l_lexer, char *l_cmd)
+{
+    push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
+	if (*l_cmd && *l_cmd == '\"')
+	{
+        push_back(&l_lexer, creat_node(ft_strdup(""), WORD));
+        push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
+		return (true);
+	}
+	return (false);
+}
+
 char	*d_quote(t_list *l_lexer, char *l_cmd)
 {
 	int		len;
 
 	len = 0;
-	push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
+	if (bare_quotes(l_lexer, &l_cmd))
+		return (l_cmd + 1);
 	while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != '\"')
 	{
 		if (l_cmd[len] == DOLLAR)

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 20:21:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/24 20:16:16 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:56:10 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,4 @@ t_node  *delete_node(t_list *list, t_node *fordelete)
     fordelete->next->prev = fordelete->prev;
     (list->l_size)--;
     return (fordelete);
-}
-
-void    clear_nodes(t_list *list)
-{
-    while (list->head)
-        list->head = delete_front(list)->next;
-    list = NULL;
 }

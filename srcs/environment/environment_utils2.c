@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:29:55 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:45:07 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:36:37 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int size_environment(t_env *head)
 t_env   *last_environment(t_env *head)
 {
     if (!head)
-       return (NULL);
+        return (NULL);
     while (head->next)
         head = head->next;
     return (head);

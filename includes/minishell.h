@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:01:39 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 18:50:41 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:19:41 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@
 # include "../libtools/libtools.h"
 
 # include "environment.h"
-# include "lexer.h"
-# include "expander.h"
 # include "executor.h"
+# include "expander.h"
+# include "lexer.h"
 
 # define BLACK "\033[0;30m"
 # define RED "\033[0;31m"
@@ -54,11 +54,12 @@ typedef struct s_global
 
 t_global    g_global;
 
-
 void    print_expander(t_expander *l_expander);
 void    print_arr(char **arr);
 
-
+/**
+ *  @brief  Global Utils
+ */
 
 void	shleet_error(char *error_msg, char *specify, int status);
 void    clean_out(void);
@@ -67,9 +68,9 @@ int     ft_pipe(int fds[2]);
 pid_t   ft_fork(void);
 
 
-
-
-/* builtins commands*/
+/**
+ *  @brief builtins commands
+ */
 int     shleet_cd(char **cmd, t_env *env);
 int     shleet_echo(char **cmd);
 void    shleet_exit(char **args);

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 13:49:40 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/30 16:29:07 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:17:46 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef enum s_node_type
     NODE_OR   = 1 << 3,
     NODE_ENDOFCMD = 1 << 4
 }               t_type;
-
 
 typedef struct s_cmdexc
 {
@@ -55,53 +54,21 @@ typedef struct s_exp
     struct s_exp        *next;
 }               t_exp;
 
-
 typedef struct s_expander
 {
     t_exp   *head;
     t_exp   *tail;
 }               t_expander;
 
-/**
- * @brief expanding all
- * 
- * @param l_lexer 
- * @return t_expander* 
- */
-
 t_expander	*expander(t_lexer *l_lexer);
 
-/**
- * @brief list construct.c
- * 
- * @return t_grb t_expander t_exp t_cmdexc
- */
-
-t_expander  *new_explist(void);
-t_cmdexc    *new_cmdexc(char **target, t_type nature);
-t_grb       *new_grb(void);
-t_exp       *new_exp(t_type nature);
-void        add_back(t_expander **expander, t_exp *n_exp);
+t_cmdexc    *merging_cmd(t_node **object);
+t_node      *wildcard(t_node *target);
+t_exp       *expand(t_node **object);
+int         set_rederct(int *io_infile, int *io_outfile, char *filename, t_token token);
+int         set_expand(t_expander *l_expander, t_lexer *l_lexer);
+int         herdoc(char *limiter, int *fds);
+char	    **realloc_array(char **array, char *new);
 void        add_cmdexc_back(t_grb **grb, t_cmdexc *new_cmdexc);
-
-
-/**
- * @brief expansion
- * @return t_lexer
- */
-
-t_node  *fill_content(t_list *l_list, t_node *object);
-t_lexer  *list_expansion(t_lexer *l_list);
-t_list  *quotes_removal(t_list *e_list);
-
-/**
- * @brief test Toolss
- * @return int char **
- */
-
-int     herdoc(char *limiter, int *fds);
-char	**realloc_array(char **array, char *new);
-t_node  *wildcard(t_node *target);
-
 
 #endif

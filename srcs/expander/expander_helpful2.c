@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_tools.c                                   :+:      :+:    :+:   */
+/*   expander_helpful2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 11:40:07 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:14:59 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	set_rederct(int *io_infile, int *io_outfile, char *filename, t_token token)
+{
+	int	o_flag;
+	int	*fds;
+
+	o_flag = O_RDONLY;
+	if (token & (APPEND | GREAT))
+	{
+		if (token & APPEND)
+			o_flag = O_CREAT | O_RDWR | O_APPEND;
+		else
+			o_flag = O_CREAT | O_RDWR | O_TRUNC;
+		return (*io_outfile = open(filename, o_flag, FILE_PERM));
+	}
+	if (token & LESS)
+		return (*io_infile = open(filename, o_flag, FILE_PERM));
+	fds = gc(g_global.gc, malloc(sizeof(int) * 2), TMP);
+	if (!fds || herdoc(filename, fds) < 0)
+		return (-1);
+	return (*io_infile = fds[0]);
+}
 
 int herdoc(char *limiter, int *fds)
 {

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   g_signel.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 19:55:19 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 20:01:52 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/01/31 19:31:52 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+# include "../../includes/minishell.h"
 
-t_lexer	*lexer(char *cmdline)
+void	interrput_handler(int sig)
 {
-	t_lexer *l_lexer;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	exit(EXIT_FAILURE);
+}
 
-	l_lexer = set_token(cmdline);
-	if (!l_lexer)
-		return (NULL);
-	if (!syntax(l_lexer))
-	{
-		// g_global.status = 2;
-		return (NULL);
-	}
-	return (l_lexer);
+void init_terminal(void)
+{
+	struct termios terminal;
+	
 }

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:07:13 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 18:51:50 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:35:43 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void    set_global(char **envp, t_expander **l_expander, t_lexer **l_lexer)
 {
     g_global.gc = gc_init();
     if (!g_global.gc)
-        return (shleet_error("malloc", strerror(errno), 1), exit(1));
+        return (shleet_error("malloc", strerror(ENOMEM), 1), exit(1));
     g_global.envp = init_environment(envp);
     *l_expander = NULL;
     *l_lexer = NULL;

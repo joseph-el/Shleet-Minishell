@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:01:39 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 20:19:41 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 22:09:03 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 # include "../gc_memory/include/gc_memory.h"
 # include "../libtools/libtools.h"
 
-# include "environment.h"
-# include "executor.h"
-# include "expander.h"
+// # include "environment.h"
+// # include "executor.h"
+// # include "expander.h"
 # include "lexer.h"
 
 # define BLACK "\033[0;30m"
@@ -71,6 +71,7 @@ pid_t   ft_fork(void);
 /**
  *  @brief builtins commands
  */
+
 int     shleet_cd(char **cmd, t_env *env);
 int     shleet_echo(char **cmd);
 void    shleet_exit(char **args);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+         #
+#    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/08 09:13:22 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/01/30 17:10:34 by aelkhali         ###   ########.fr        #
+#    Updated: 2023/01/31 22:05:24 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ AR 		:= ar -rc
 OBJ  	:= $(SRC:.c=.o)
 
 all : $(NAME)
-	@echo "\nlibtools\n"
 
 $(NAME) : $(OBJ)
 		@$(AR) $(NAME) $(OBJ)

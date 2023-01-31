@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:57:21 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 20:08:16 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 22:09:29 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef t_lexer t_list;
 
 t_lexer	*lexer(char *cmdline);
 t_list	*set_token(char *l_cmd);
-int     syntax(t_lexer *l_lexer);
+int      syntax(t_lexer *l_lexer);
 
 char	*handle_state(t_list  *l_lexer, char *l_cmd);
 char	*parentheses(t_list *l_lexer, char *l_cmd);

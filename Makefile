@@ -6,13 +6,13 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 20:20:19 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/01/31 21:14:25 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/01/31 22:05:44 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	 			:= minishell
 
-FLAGS 				:= -Wall -Wextra -Werror 
+FLAGS 				:= 
 READ_L				:= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
 SRCS 				:= srcs/
 CC 					:= cc
@@ -86,27 +86,32 @@ LIBTOOLS 			:= $(addprefix $(LIBTOOLS_PATH), libtools.a)
 
 
 
-
-
-all 				: $(NAME)
+all 				:	 $(NAME)
+							@echo $(GREEN) "Shleet-minishell" $(RESET)
 		
-$(NAME) 			:  $(GC_MEMORY) $(LIBTOOLS) $(OBJS)
+$(NAME) 			:  	$(GC_MEMORY) $(LIBTOOLS) $(OBJS)
 							$(CC) $(FLAGS) $^-o $@ $(READ_L)
 				
-$(LIBTOOLS)			 : $(addprefix $(LIBTOOLS_PATH), libtools.h)
+$(LIBTOOLS)			 : 	$(addprefix $(LIBTOOLS_PATH), libtools.h)
 							make -C  $(LIBTOOLS_PATH) all
 
-$(GC_MEMORY)    	:  $(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
+$(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
 							make -C $(GC_MEMORY_PATH) all
 
 
-.c.o		 : $(HEADERS)
-					$(CC) -c $< -o $@ -I $(INCLUDE) -I $(READ_L) -I $(LIBFT_PATH) -I $(addprefix $(GC_MEMORY_PATH), include)
+.c.o		 		: $(HEADERS)
+							$(CC) -c $< -o $@ -I $(INCLUDE) -I $(READ_L) -I $(LIBFT_PATH) -I $(addprefix $(GC_MEMORY_PATH), include)
 
-clean   	:	
-					$(RM) $(OBJS)
+clean   			:	
+							$(RM) $(OBJS)
+							make -C $(GC_MEMORY_PATH) clean
+							make -C $(LIBTOOLS) clean
 
-fclean 		:
+fclean 				: clean
+							$(GC_MEMORY_PATH) fclean
+							$(RM) $(NAME)
+							$(LIBFT_PATH) fclean
 
+re 					: fclean all
 
-re 			:
+.PHONY 				: all clean fclean re

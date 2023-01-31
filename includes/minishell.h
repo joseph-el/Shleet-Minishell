@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:01:39 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 15:29:03 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:50:41 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,13 @@ typedef struct s_global
 t_global    g_global;
 
 
-void	shleet_error(char *error_msg, char *specify, int status);
+void    print_expander(t_expander *l_expander);
+void    print_arr(char **arr);
 
+
+
+void	shleet_error(char *error_msg, char *specify, int status);
+void    clean_out(void);
 void    ft_close(int fd1, int fd2);
 int     ft_pipe(int fds[2]);
 pid_t   ft_fork(void);

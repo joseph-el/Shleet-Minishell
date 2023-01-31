@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:51:40 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 15:29:35 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:58:33 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,11 @@ int ft_pipe(int fds[2])
     if (ret == -1)
         shleet_error("pipe", "unable to create a pipe", 2);
     return (ret);
+}
+
+void    clean_out(void)
+{
+    gc_purifying(&g_global.gc, CLEAN_ALL);
+    rl_clear_history();
+    exit(EXIT_SUCCESS);
 }

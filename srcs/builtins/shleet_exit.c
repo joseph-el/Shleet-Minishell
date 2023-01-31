@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/31 14:31:09 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:49:24 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int is_number(char *arg)
 void    exit_code(int status, bool mode)
 {
     gc_purifying(&g_global.gc, CLEAN_ALL);
-    //rl_clear_history();
+    rl_clear_history();
     if (mode)
         exit(status);
     else

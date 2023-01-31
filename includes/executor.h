@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:20:04 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 16:20:53 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:42:30 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ pid_t   run_pipe(t_cmdexc *object, int fds[2], int *fd_tmp, int fd_flag);
 void    pipeline(t_cmdexc *left, t_cmdexc *right, int *fd_tmp);
 
 
-
+int executor(t_expander *l_expander);
 
 void    print_expander(t_expander *l_expander);
 void    print_arr(char **arr);

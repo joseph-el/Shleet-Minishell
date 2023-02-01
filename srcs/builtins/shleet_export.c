@@ -6,18 +6,15 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/31 14:50:27 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:33:59 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	sort_and_print_env(t_env *env, int fd)
 {
-	int		i;
 	char	**sorted_arr;
-	t_env	*tmp;
-	t_env	*hold;
 
 	if (!env)
 		return (EXIT_FAILURE);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_helpful.c                                    :+:      :+:    :+:   */
+/*   lexer_helpful2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:59:26 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 20:01:01 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:30:36 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "minishell.h"
 
 char	*handle_state(t_list  *l_lexer, char *l_cmd)
 {

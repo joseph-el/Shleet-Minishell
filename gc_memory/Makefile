@@ -6,7 +6,7 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 18:49:05 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/01/31 22:05:13 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/02/01 12:05:23 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ $(NAME) : $(OBJS)
 	@ar -rc $@ $^
 	
 .c.o : 
-		@cc $(FLAGS) -c -I $(INC) $< -o $@
+		@cc $(FLAGS) -c $< -o $@ -I $(INC)
 
 clean :
 		@rm -drf $(OBJS)

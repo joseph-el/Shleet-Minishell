@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 20:14:59 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:30:09 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	set_rederct(int *io_infile, int *io_outfile, char *filename, t_token token)
 {

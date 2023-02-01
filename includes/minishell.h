@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 11:01:39 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 22:09:03 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/02/01 12:06:47 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# include "../gc_memory/include/gc_memory.h"
-# include "../libtools/libtools.h"
+# include "gc_memory.h"
+# include "libtools.h"
 
-// # include "environment.h"
-// # include "executor.h"
-// # include "expander.h"
+# include "environment.h"
 # include "lexer.h"
+# include "expander.h"
+# include "executor.h"
 
 # define BLACK "\033[0;30m"
 # define RED "\033[0;31m"
@@ -54,8 +54,6 @@ typedef struct s_global
 
 t_global    g_global;
 
-void    print_expander(t_expander *l_expander);
-void    print_arr(char **arr);
 
 /**
  *  @brief  Global Utils

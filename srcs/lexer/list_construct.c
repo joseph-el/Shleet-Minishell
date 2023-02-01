@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 00:15:42 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 18:07:44 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:30:47 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_list *new_list(void)
 {

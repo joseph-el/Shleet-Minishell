@@ -5,19 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 18:57:21 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 22:09:29 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/31 23:46:35 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/02/01 11:20:36 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 #define LEXER_H
 
-# include <stdbool.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-#include "minishell.h"
+# include "minishell.h"
 
 # define  UNEXPECTED_TOKEN	     "syntax error near unexpected token "
 # define  UNCLOSED_SQ            "unclosed single quotes "
@@ -69,33 +65,32 @@ typedef struct s_lexer
 
 typedef t_lexer t_list;
 
-t_lexer	*lexer(char *cmdline);
+t_lexer *lexer(char *cmdline);
 t_list	*set_token(char *l_cmd);
-int      syntax(t_lexer *l_lexer);
+int	    syntax(t_lexer *l_lexer);
 
-char	*handle_state(t_list  *l_lexer, char *l_cmd);
-char	*parentheses(t_list *l_lexer, char *l_cmd);
-char  *normal_stat(t_list *l_lexer, char *l_cmd);
-char	*whitespace(t_list *l_lexer, char *l_cmd);
-char	*d_quote(t_list *l_lexer, char *l_cmd);
-char	*s_quote(t_list *l_lexer, char *l_cmd);
-char	*dollar(t_list *l_lexer, char *l_cmd);
-int		bare_quotes(t_lexer *l_lexer, char *l_cmd);
+char	  *parentheses(t_list *l_lexer, char *l_cmd);
+char	  *d_quote(t_list *l_lexer, char *l_cmd);
+char	  *s_quote(t_list *l_lexer, char *l_cmd);
+char	  *dollar(t_list *l_lexer, char *l_cmd);
+int		  bare_quotes(t_lexer *l_lexer, char *l_cmd);
 
+char	  *handle_state(t_list  *l_lexer, char *l_cmd);
+char	  *normal_stat(t_list *l_lexer, char *l_cmd);
+char	  *whitespace(t_list *l_lexer, char *l_cmd);
 
 t_list  *new_list(void);
 t_node  *creat_node(char *data, t_token token);
 t_node  *get_node(t_node *crr_node, int mode);
 void    push_back(t_lexer **lexer, t_node *n_node);
 
-t_node  *delete_node(t_list *list, t_node *fordelete),
 t_node  *delete_front(t_list *list);
 t_node  *delete_back(t_list *list);
+t_node  *delete_node(t_list *list, t_node *fordelete);
 
-
-bool  g_parentheses(t_node *crr_node, t_node *left, t_node *right, int flag);
-bool	connector_syntax(t_node *crr_node);
-bool	redirect_syntax(t_node *crr_node);
-bool	quote_syntax(t_node *crr_node);
+bool    g_parentheses(t_node *crr_node, t_node *left, t_node *right, int flag);
+bool	  connector_syntax(t_node *crr_node);
+bool	  redirect_syntax(t_node *crr_node);
+bool	  quote_syntax(t_node *crr_node);
 
 #endif

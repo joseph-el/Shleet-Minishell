@@ -6,7 +6,7 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/08 09:13:22 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/01/31 22:05:24 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/02/01 12:17:01 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 		@$(AR) $(NAME) $(OBJ)
 .c.o:
+		@printf "\033[0;33mGenerating libtools objects... %-99.11s\r $(RESET)" $@
 		@cc $(FLAG) -c $< -o $@	
 clean :
 		@$(RM) $(OBJ)

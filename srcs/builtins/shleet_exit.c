@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/31 18:49:24 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:44:17 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int is_number(char *arg)
 {
@@ -33,7 +33,7 @@ int is_number(char *arg)
 void    exit_code(int status, bool mode)
 {
     gc_purifying(&g_global.gc, CLEAN_ALL);
-    rl_clear_history();
+    // rl_clear_history();
     if (mode)
         exit(status);
     else

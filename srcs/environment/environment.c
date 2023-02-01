@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:24:27 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 19:33:39 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:29:42 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_env   *new_environment(char *content, char *type)
 {

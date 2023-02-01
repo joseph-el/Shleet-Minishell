@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:53:00 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 17:35:07 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:29:48 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void    run_logical(t_exp *left, t_exp *right, t_type type)
 {

@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:23 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/31 14:52:11 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:29:04 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	shleet_pwd(char **cmd)
 {

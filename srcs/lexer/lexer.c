@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 19:55:19 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 20:01:52 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/31 23:53:06 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/02/01 11:30:41 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_lexer	*lexer(char *cmdline)
 {

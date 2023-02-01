@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 22:20:04 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 18:42:30 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/31 23:49:57 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/02/01 11:38:48 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <sys/stat.h>
 # include <errno.h>
+
 # include "minishell.h"
 
 # define E_GRB 0x1
@@ -22,23 +23,16 @@
 # define E_PIPE 0x3
 # define E_LOGICAL 0x4
 
-typedef int exc_flag;
+int     executor(t_expander *l_expander);
+int     ft_execve(char *cmd, char **cmd_argument);
 
-pid_t   run_pipe(t_cmdexc *object, int fds[2], int *fd_tmp, int fd_flag);
 void    run_logical(t_exp *left, t_exp *right, t_type type);
 void    run_cmdline(char *cmdline, char  **cmd_argument);
-bool    is_builtins(char *args, char **list_args);
-int     ft_execve(char *cmd, char **cmd_argument);
 void    run_cmd(t_cmdexc *cmdline);
 void    run_grb(t_grb *object);
+bool    is_builtins(char *args, char **list_args);
 
 pid_t   run_pipe(t_cmdexc *object, int fds[2], int *fd_tmp, int fd_flag);
 void    pipeline(t_cmdexc *left, t_cmdexc *right, int *fd_tmp);
-
-
-int executor(t_expander *l_expander);
-
-void    print_expander(t_expander *l_expander);
-void    print_arr(char **arr);
 
 #endif

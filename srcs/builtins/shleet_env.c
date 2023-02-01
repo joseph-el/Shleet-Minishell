@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:28 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/31 14:48:04 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:28:49 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void    shleet_env(char **args, t_env *env)
 {

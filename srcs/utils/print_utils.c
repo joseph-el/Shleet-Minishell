@@ -6,15 +6,15 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:32:44 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 18:33:27 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:35:14 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void    print_arr(char **arr)
 {
-    int len;    
+    size_t len;    
     len = 0;
     if (!arr[0] || !arr)
         return ;

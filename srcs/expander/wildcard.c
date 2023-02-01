@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:00:38 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 18:58:29 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:30:26 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 bool match(char *text, char *pattern)
 {

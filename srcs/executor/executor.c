@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 10:59:17 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 17:33:10 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:23:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "minishell.h"
 
 # define RIGHT_SIDE 1 << 1
 # define LEFT_SIDE 1 << 2
@@ -61,7 +61,7 @@ void    pipeline(t_cmdexc *left, t_cmdexc *right, int *fd_tmp)
 {
     pid_t   process[2];
     int     fds[2];
-    int     status;
+    // int     status;
     int     fd_flag;
     
     ft_pipe(fds);
@@ -81,11 +81,7 @@ void    pipeline(t_cmdexc *left, t_cmdexc *right, int *fd_tmp)
     
     process[1] = run_pipe(right, fds, fd_tmp, fd_flag);
 
-
-
 }
-
-
 
 int executor(t_expander *l_expander)
 {

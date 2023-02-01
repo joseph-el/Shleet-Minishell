@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   environment_utils3.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:35:08 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/30 17:40:26 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:29:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 char    **export_to_array(t_env *head)
 {

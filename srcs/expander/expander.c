@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 13:48:38 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 20:14:16 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:30:12 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_expander	*expander(t_lexer *l_lexer)
 {

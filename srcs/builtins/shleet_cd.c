@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:21 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/30 14:27:53 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:28:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	update_pwds_data(t_env *env)
 {

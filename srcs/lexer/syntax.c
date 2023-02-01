@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:55:07 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 20:02:10 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:30:55 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 bool	connector_syntax(t_node *crr_node)
 {

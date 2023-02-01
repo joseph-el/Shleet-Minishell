@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:07:13 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 19:35:43 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:23:26 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "minishell.h"
 
 t_global g_global = {.gc = NULL,.envp = NULL ,.status = 0};
 
@@ -30,12 +30,12 @@ int main(int argc, char **args, char **envp)
     t_lexer     *l_lexer;
     char        *line;
 
-    (void)args;
+    (void)argc;
     (void)args;
     set_global(envp, &l_expander, &l_lexer);
     while (true)
     {
-        init_term();
+        // init_term();
         line = readline(GREEN "Shleet-Minishell>$" WHITE);
         if (!line)
             break;

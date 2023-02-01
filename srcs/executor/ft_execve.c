@@ -6,13 +6,13 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:58:23 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 17:27:23 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:30:00 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-void    destroyer(char **arr)
+static void    destroyer(char **arr)
 {
 	int	index;
 
@@ -24,7 +24,7 @@ void    destroyer(char **arr)
 	free(arr);
 }
 
-char    *get_path(char *cmdline)
+static char    *get_path(char *cmdline)
 {
     char    **path;
     char    *p_cmd;

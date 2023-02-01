@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:19:01 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:30:33 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:56:48 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*s_quote(t_list *l_lexer, char *l_cmd)
 
 	push_back(&l_lexer, creat_node(ft_strdup("\'"), SQUOTE));
 	len = 0;
-	while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != '\'')
+	while (l_cmd[len] && l_cmd[len] != NEW_LINE && l_cmd[len] != '\'')
 		len++;
 	if (len)
 		push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));
@@ -69,7 +69,7 @@ char	*d_quote(t_list *l_lexer, char *l_cmd)
 	len = 0;
 	if (bare_quotes(l_lexer, l_cmd))
 		return (l_cmd + 1);
-	while (l_cmd[len] && l_cmd[len] != NEWLINE && l_cmd[len] != '\"')
+	while (l_cmd[len] && l_cmd[len] != NEW_LINE && l_cmd[len] != '\"')
 	{
 		if (l_cmd[len] == DOLLAR)
 		{

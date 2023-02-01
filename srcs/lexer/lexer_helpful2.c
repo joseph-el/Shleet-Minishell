@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:59:26 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:30:36 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:00:51 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ char	*normal_stat(t_list *l_lexer, char *l_cmd)
 	return (l_cmd + len);
 }
 
-char	*whitespace(t_list *l_lexer, char *l_cmd)
+char	*is_whitespace(t_list *l_lexer, char *l_cmd)
 {
 	int	len;
 
 	len = 0;
-	while (l_cmd[len] && l_cmd[len] != NEWLINE && ft_isspace(l_cmd[len]))
+	while (l_cmd[len] && l_cmd[len] != NEW_LINE && ft_isspace(l_cmd[len]))
 		len++;
 	if (len)
 		push_back(&l_lexer, creat_node(NULL, WSPACE));
@@ -75,10 +75,10 @@ t_list	*set_token(char *l_cmd)
 	if (!l_lexer)
 		return (NULL);
 	push_back(&l_lexer, creat_node(NULL, BEGINOFCMD));
-	while (*l_cmd && *l_cmd != NEWLINE)
+	while (*l_cmd && *l_cmd != NEW_LINE)
 	{
 		if (ft_isspace(*l_cmd))
-			l_cmd = whitespace(l_lexer, l_cmd);
+			l_cmd = is_whitespace(l_lexer, l_cmd);
 		else if (*l_cmd == '\'')
 			l_cmd = s_quote(l_lexer, l_cmd + 1);
 		else if (*l_cmd == '\"')

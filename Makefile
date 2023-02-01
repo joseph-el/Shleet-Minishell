@@ -6,14 +6,14 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 11:31:53 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/02/01 16:11:29 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/02/01 18:55:57 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	 			:= minishell 
 
-FLAGS 				:= -Wall -Wextra -Werror 
-READ_L				:= -lreadline -fsanitize=address -g3 #-L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
+FLAGS 				:= -Wall -Wextra -Werror
+READ_L				:= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib -I /opt/homebrew/Cellar/readline/8.2.1/include
 SRCS 				:= srcs/
 CC 					:= cc
 RM					:= rm -f
@@ -91,8 +91,8 @@ all 				:	$(NAME)
 							@echo  "$(GREEN) Shleet-minishell $(RESET)" 
 		
 $(NAME) 			:  	$(GC_MEMORY) $(LIBTOOLS) $(OBJS)
-							@$(CC) $(FLAGS) $(READ_L) $^ -o $@
-				
+							@$(CC) $(FLAGS) $^ -o $@ -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib 
+
 $(LIBTOOLS)			 : 	$(addprefix $(LIBTOOLS_PATH), libtools.h)
 							@make -C  $(LIBTOOLS_PATH) all 
 
@@ -100,8 +100,7 @@ $(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
 							@make -C $(GC_MEMORY_PATH) all 
 
 .c.o		 		:	$(HEADERS)
-#echo "\033[0;33mGenerating Shleet-Minishell objects... $(RESET) $< $(RESET)" 
-							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include)
+							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include) -I /opt/homebrew/Cellar/readline/8.2.1/include
 
 clean   			:	
 							@echo "$(BLUE) Deleting objects $(RESET)" 

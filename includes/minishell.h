@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 15:16:37 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:03:04 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_global    g_global;
  *  @brief  Global Utils
  */
 
+void    print_expander(t_expander *l_expander);
 void	shleet_error(char *error_msg, char *specify, int status);
 void    clean_out(void);
 void    ft_close(int fd1, int fd2);

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:46:35 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:20:36 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:00:51 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define  UNEXPECTED_TOKEN	     "syntax error near unexpected token "
 # define  UNCLOSED_SQ            "unclosed single quotes "
 # define  UNCLOSED_DQ	           "unclosed double quotes "
-# define  NEWLINE 10
+# define  NEW_LINE 10
 # define  DOLLAR 36
 # define  LEFT 1 << 0
 # define  RIGHT 1 << 1
@@ -77,7 +77,7 @@ int		  bare_quotes(t_lexer *l_lexer, char *l_cmd);
 
 char	  *handle_state(t_list  *l_lexer, char *l_cmd);
 char	  *normal_stat(t_list *l_lexer, char *l_cmd);
-char	  *whitespace(t_list *l_lexer, char *l_cmd);
+char	  *is_whitespace(t_list *l_lexer, char *l_cmd);
 
 t_list  *new_list(void);
 t_node  *creat_node(char *data, t_token token);

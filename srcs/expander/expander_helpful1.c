@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:12:55 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:30:05 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:33:34 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cmdexc    *merging_cmd(t_node **object)
             (*object) = (*object)->next;
         }
         else if ((*object)->tok & (VAR | WORD | WILD))
-            cmdexc = realloc_array(cmdexc, (*object)->data);
+            cmdexc = realloc_array(cmdexc, (*object)->data, (*object)->tok);
         (*object) = (*object)->next;
     }
     new->cmdexc = cmdexc;

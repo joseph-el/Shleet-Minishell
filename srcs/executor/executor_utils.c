@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:53:00 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:29:48 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:08:28 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void    run_cmdline(char *cmdline, char  **cmd_argument)
 {
     // if (is_builtins(cmdline, cmd_argument + 1))
     //     return ;
-    fprintf(stderr, "Here ==> |%s|\n", cmdline);
     ft_execve(cmdline, cmd_argument);
     shleet_error(cmdline, strerror(errno), 1);
 	if (errno == ENOENT)

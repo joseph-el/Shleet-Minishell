@@ -6,13 +6,16 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:07:13 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 12:23:26 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:16:59 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define Shleet main
 
-t_global g_global = {.gc = NULL,.envp = NULL ,.status = 0};
+t_global g_global = {.gc = NULL,.envp = NULL ,.status = 0,.is_runing = 0};
+
+void init_terminal(void);
 
 void    set_global(char **envp, t_expander **l_expander, t_lexer **l_lexer)
 {
@@ -24,7 +27,7 @@ void    set_global(char **envp, t_expander **l_expander, t_lexer **l_lexer)
     *l_lexer = NULL;
 }
 
-int main(int argc, char **args, char **envp)
+int Shleet(int argc, char **args, char **envp)
 {
     t_expander  *l_expander;
     t_lexer     *l_lexer;
@@ -33,17 +36,21 @@ int main(int argc, char **args, char **envp)
     (void)argc;
     (void)args;
     set_global(envp, &l_expander, &l_lexer);
+    system("clear");
     while (true)
     {
-        // init_term();
-        line = readline(GREEN "Shleet-Minishell>$" WHITE);
+        init_terminal();
+        line = readline(GREEN "Shleet-Minishell>$ " WHITE);
         if (!line)
             break;
+        add_history(line);
         gc_adding_adress(g_global.gc, line, TMP);
+        g_global.is_runing = RUNING;
         l_lexer = lexer(line);
         l_expander = expander(l_lexer);
         executor(l_expander);
-        gc_purifying(&g_global.gc, TMP);
+        g_global.is_runing = BREAKING;
+        gc_purifying(&g_global.gc, CLEAN_TMP);
     }
     clean_out();
     return (EXIT_SUCCESS);

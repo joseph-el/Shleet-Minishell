@@ -6,14 +6,14 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 11:31:53 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/02/01 12:23:01 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/02/01 16:11:29 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	 			:= minishell
+NAME	 			:= minishell 
 
 FLAGS 				:= -Wall -Wextra -Werror 
-READ_L				:= -lreadline
+READ_L				:= -lreadline -fsanitize=address -g3 #-L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
 SRCS 				:= srcs/
 CC 					:= cc
 RM					:= rm -f
@@ -27,46 +27,46 @@ YELLOW 				:= \033[1;33m
 BLUE   				:= \033[0;34m
 RESET  				:= \033[0m
 
-MINISHELL_FILE  	:= ./srcs/minishell.c
+MINISHELL_FILE  	:=	minishell.c
 
-UTILS_FILES 		:=  ./srcs/utils/g_error.c \
-						./srcs/utils/g_signel.c \
-						./srcs/utils/print_utils.c \
-						./srcs/utils/g_utils.c \
+UTILS_FILES 		:=  utils/g_error.c \
+						utils/g_signel.c \
+						utils/print_utils.c \
+						utils/g_utils.c \
 
-LEXER_FILES 		:= 	./srcs/lexer/lexer.c \
-						./srcs/lexer/lexer_helpful1.c \
-						./srcs/lexer/lexer_helpful2.c \
-						./srcs/lexer/list_construct.c \
-						./srcs/lexer/list_destroyer.c \
+LEXER_FILES 		:= 	lexer/lexer.c \
+						lexer/lexer_helpful1.c \
+						lexer/lexer_helpful2.c \
+						lexer/list_construct.c \
+						lexer/list_destroyer.c \
 
-SYNTAX_FILES 		:=	./srcs/lexer/syntax.c \
+SYNTAX_FILES 		:=	lexer/syntax.c \
 
-EXPANDER_FILES 		:=	./srcs/expander/expander.c \
-						./srcs/expander/expander_helpful1.c \
-						./srcs/expander/expander_helpful2.c \
-						./srcs/expander/list_expansion.c \
-						./srcs/expander/list_construct.c \
-						./srcs/expander/wildcard.c \
+EXPANDER_FILES 		:=	expander/expander.c \
+						expander/expander_helpful1.c \
+						expander/expander_helpful2.c \
+						expander/list_expansion.c \
+						expander/list_construct.c \
+						expander/wildcard.c \
 
-EXECUTOR_FILES  	:=	./srcs/executor/executor.c \
-						./srcs/executor/executor_utils.c \
-						./srcs/executor/ft_execve.c \
-
-
-ENVIROMENT_FILES 	:= 	./srcs/environment/environment.c \
-						./srcs/environment/environment_utils1.c \
-						./srcs/environment/environment_utils2.c \
-						./srcs/environment/environment_utils3.c \
+EXECUTOR_FILES  	:=	executor/executor.c \
+						executor/executor_utils.c \
+						executor/ft_execve.c \
 
 
-BUILTINS_FILES  	:=  ./srcs/builtins/shleet_cd.c \
-						./srcs/builtins/shleet_echo.c \
-						./srcs/builtins/shleet_env.c \
-						./srcs/builtins/shleet_exit.c \
-						./srcs/builtins/shleet_export.c \
-						./srcs/builtins/shleet_pwd.c \
-						./srcs/builtins/shleet_unset.c \
+ENVIROMENT_FILES 	:= 	environment/environment.c \
+						environment/environment_utils1.c \
+						environment/environment_utils2.c \
+						environment/environment_utils3.c \
+
+
+BUILTINS_FILES  	:=  builtins/shleet_cd.c \
+						builtins/shleet_echo.c \
+						builtins/shleet_env.c \
+						builtins/shleet_exit.c \
+						builtins/shleet_export.c \
+						builtins/shleet_pwd.c \
+						builtins/shleet_unset.c \
 
 FILES   			:= 	$(ENVIROMENT_FILES) \
 						$(MINISHELL_FILE)   \
@@ -77,6 +77,7 @@ FILES   			:= 	$(ENVIROMENT_FILES) \
 						$(LEXER_FILES)      \
 						$(UTILS_FILES)      \
 
+FILES 				:= $(addprefix $(SRCS), $(FILES)) 
 OBJS 				:= $(FILES:%.c=%.o)
 
 GC_MEMORY_PATH		:= 	gc_memory/
@@ -84,6 +85,7 @@ LIBTOOLS_PATH		:= 	libtools/
 
 GC_MEMORY 			:= $(addprefix $(GC_MEMORY_PATH), gc_memory.a)
 LIBTOOLS 			:= $(addprefix $(LIBTOOLS_PATH), libtools.a)
+
 
 all 				:	$(NAME)
 							@echo  "$(GREEN) Shleet-minishell $(RESET)" 
@@ -98,7 +100,7 @@ $(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
 							@make -C $(GC_MEMORY_PATH) all 
 
 .c.o		 		:	$(HEADERS)
-# echo "\033[0;33mGenerating Shleet-Minishell objects... $(RESET) $< $(RESET)" 
+#echo "\033[0;33mGenerating Shleet-Minishell objects... $(RESET) $< $(RESET)" 
 							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include)
 
 clean   			:	

@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_signel.c                                         :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 15:45:46 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/02/01 16:22:39 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/02/01 16:22:59 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libtools.h"
 
-void	interrput_handler(int sig)
+char    *ft_strtrim(char const *s1, char const *set)
 {
-	(void)sig;	
-	
-	//exit(EXIT_FAILURE);
-}
+    int        i;
+    int        j;
 
-void init_terminal(void)
-{
-	// struct termios terminal;
-
-	if (signal(SIGINT, interrput_handler) == SIG_ERR)
-		shleet_error("signal", strerror(errno), 2);
-	
+    if (!s1)
+        return (NULL);
+    i = 0;
+    j = ft_strlen(s1) - 1;
+    while (ft_strchr(set, s1[i]) && s1[i])
+        i++;
+    if (s1[i] == '\0')
+        return (ft_strdup(""));
+    while (ft_strchr(set, s1[j]) && j)
+        j--;
+    return (ft_substr(s1, i, j - i + 1));
 }

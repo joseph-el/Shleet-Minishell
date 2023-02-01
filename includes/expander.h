@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:48:33 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:25:43 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:39:47 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_exp       *expand(t_node **object);
 int         set_expand(t_expander *l_expander, t_lexer *l_lexer);
 int	        set_rederct(int *io_infile, int *io_outfile, char *filename, t_token token);
 int         herdoc(char *limiter, int *fds);
-char	    **realloc_array(char **array, char *new);
+char	    **realloc_array(char **array, char *new, int flag);
 
 t_node      *fill_content(t_list *l_list, t_node *object);
 t_lexer     *list_expansion(t_lexer *l_list);

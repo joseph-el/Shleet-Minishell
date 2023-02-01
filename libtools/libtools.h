@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libtools.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:27:32 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/30 17:10:20 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:23:17 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_putstr_fd(char *s, int fd);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strdup(const char *s1);
 char    *ft_strndup(char *src, int len);
+char    *ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

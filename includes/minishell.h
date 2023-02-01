@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 12:06:47 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:16:37 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,15 @@
 # define YELLOW "\033[0;33m"
 # define GREEN "\033[0;32m"
 # define WHITE "\033[0;37m"
+# define BREAKING 1
+# define RUNING   2
 
 typedef struct s_global
 {
     t_gc    *gc;
     t_env   *envp;
-    short   status;
+    int     status;
+    int     is_runing;
 }               t_global;
 
 t_global    g_global;

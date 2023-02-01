@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:30:09 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:41:20 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int herdoc(char *limiter, int *fds)
     return (close(fds[WIRITE_]), fds[READ_]);
 }
 
-char	**realloc_array(char **array, char *new)
+char	**realloc_array(char **array, char *new, int flag)
 {
 	char	**ret;
 	int		i;
@@ -66,6 +66,10 @@ char	**realloc_array(char **array, char *new)
 		return (ret[0] = gc(g_global.gc, ft_strdup(new), TMP),\
 			ret[1] = NULL, ret);
 	}
+	if (flag & WILD)
+	
+	
+	
 	while (array[++i])
 		;
 	ret = gc(g_global.gc, malloc(sizeof(char *) * (i + 2)), TMP);
@@ -75,8 +79,7 @@ char	**realloc_array(char **array, char *new)
 	while (array[++i])
 		ret[i] = gc(g_global.gc, ft_strdup(array[i]), TMP);
 	ret[i++] = gc(g_global.gc, ft_strdup(new), TMP);
-	ret[i] = NULL;
-	return (ret);
+	return (ret[i] = NULL, ret);
 }
 
 void    add_cmdexc_back(t_grb **grb, t_cmdexc *new_cmdexc)

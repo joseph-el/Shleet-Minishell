@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 16:41:20 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:10:55 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,27 @@ int herdoc(char *limiter, int *fds)
     return (close(fds[WIRITE_]), fds[READ_]);
 }
 
+char	**adding_wildcard(char **array, char **wild)
+{
+	char	**ret;
+	int		i;
+	int		j;
+
+	i = j = -1;
+	while (array[++i])
+		;
+	while (wild[++j])
+		;
+	ret = gc(g_global.gc, malloc(sizeof(char *) * (i + j + 1)), TMP);
+	if (!ret)
+		return (NULL);
+	i = j = -1;
+	while (array[++i])
+		ret[i] = gc(g_global.gc, ft_strdup(array[i]), TMP);
+	while (wild[++j])
+		ret[i++] = gc(g_global.gc, ft_strdup(wild[j]), TMP);
+	return (ret[i] = NULL, ret);
+}
 char	**realloc_array(char **array, char *new, int flag)
 {
 	char	**ret;
@@ -67,9 +88,7 @@ char	**realloc_array(char **array, char *new, int flag)
 			ret[1] = NULL, ret);
 	}
 	if (flag & WILD)
-	
-	
-	
+		array = adding_wildcard(array, ft_split(new, 32));
 	while (array[++i])
 		;
 	ret = gc(g_global.gc, malloc(sizeof(char *) * (i + 2)), TMP);
@@ -78,7 +97,8 @@ char	**realloc_array(char **array, char *new, int flag)
 	i = -1;
 	while (array[++i])
 		ret[i] = gc(g_global.gc, ft_strdup(array[i]), TMP);
-	ret[i++] = gc(g_global.gc, ft_strdup(new), TMP);
+	if (flag & ~WILD)
+		ret[i++] = gc(g_global.gc, ft_strdup(new), TMP);
 	return (ret[i] = NULL, ret);
 }
 

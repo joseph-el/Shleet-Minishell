@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:50:52 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 23:51:07 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:29:07 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ typedef struct s_env
 }               t_env;
 
 /* Global Utils */
+
 char    **export_to_array(t_env *head);
 char	**sort_arr(char **env_type);
+char    **export_array(t_env *env);
 
 /* Print Environment utils */
 void	print_exp_env(t_env *node, int fd);

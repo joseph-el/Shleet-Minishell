@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 20:39:32 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 21:50:36 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/01/30 23:53:00 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/02/01 16:08:28 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,32 @@ void    run_logical(t_exp *left, t_exp *right, t_type type)
     }
 }
 
+void    run_grb(t_grb *object)
+{
+    t_cmdexc    *head;
+    int         *fd_tmp;
+
+    if (!object)
+        return ;
+    fd_tmp = gc(g_global.gc, malloc(sizeof(int)), TMP);
+    head = object->head;
+    while (head)
+    {
+        if (head->next && head->next->node_type == NODE_PIPE)
+        {
+            pipeline(head, head->next->next, fd_tmp);
+            head = head->next->next->next;
+        }
+        else
+        {
+            if (head->io_dest == -1 || head->io_src == -1)
+                return (shleet_error(strerror(ENOENT), NULL, 2));
+            run_cmd(head); 
+            head = head->next;
+        }
+    }
+}
+
 void    run_cmd(t_cmdexc *cmdline)
 {
     pid_t   process;
@@ -42,13 +68,13 @@ void    run_cmd(t_cmdexc *cmdline)
     if (process == -1)
         return ;
     if (wait(&status) == process)
-        g_global.status = WEXITSTATUS(status);
+        g_global.status = status;
 }
 
 void    run_cmdline(char *cmdline, char  **cmd_argument)
 {
     // if (is_builtins(cmdline, cmd_argument + 1))
-    //     return (exit(EXIT_SUCCESS));
+    //     return ;
     ft_execve(cmdline, cmd_argument);
     shleet_error(cmdline, strerror(errno), 1);
 	if (errno == ENOENT)

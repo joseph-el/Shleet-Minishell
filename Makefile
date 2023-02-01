@@ -6,14 +6,17 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 11:31:53 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/02/01 18:55:57 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/02/01 21:57:41 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	 			:= minishell 
 
-FLAGS 				:= -Wall -Wextra -Werror
-READ_L				:= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib -I /opt/homebrew/Cellar/readline/8.2.1/include
+FLAGS 				:= -Wall -Wextra -Werror -fsanitize=address -g
+# READ_L				:= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib -I /opt/homebrew/Cellar/readline/8.2.1/include
+# 	-lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include	
+
+
 SRCS 				:= srcs/
 CC 					:= cc
 RM					:= rm -f
@@ -91,7 +94,7 @@ all 				:	$(NAME)
 							@echo  "$(GREEN) Shleet-minishell $(RESET)" 
 		
 $(NAME) 			:  	$(GC_MEMORY) $(LIBTOOLS) $(OBJS)
-							@$(CC) $(FLAGS) $^ -o $@ -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib 
+							@$(CC) $(FLAGS) $^ -o $@ -lreadline -L /goinfre/yoel-idr/homebrew/Cellar/readline/8.2.1/lib 
 
 $(LIBTOOLS)			 : 	$(addprefix $(LIBTOOLS_PATH), libtools.h)
 							@make -C  $(LIBTOOLS_PATH) all 
@@ -100,7 +103,7 @@ $(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
 							@make -C $(GC_MEMORY_PATH) all 
 
 .c.o		 		:	$(HEADERS)
-							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include) -I /opt/homebrew/Cellar/readline/8.2.1/include
+							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include) -I /goinfre/yoel-idr/homebrew/opt/readline/include
 
 clean   			:	
 							@echo "$(BLUE) Deleting objects $(RESET)" 

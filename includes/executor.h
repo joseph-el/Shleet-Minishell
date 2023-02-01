@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:49:57 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:38:48 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 21:49:03 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@
 int     executor(t_expander *l_expander);
 int     ft_execve(char *cmd, char **cmd_argument);
 
-void    run_logical(t_exp *left, t_exp *right, t_type type);
-void    run_cmdline(char *cmdline, char  **cmd_argument);
-void    run_cmd(t_cmdexc *cmdline);
 void    run_grb(t_grb *object);
-bool    is_builtins(char *args, char **list_args);
+void    run_cmdline(char *cmdline, char  **cmd_argument);
+void    run_logical(t_exp *left, t_exp *right, t_type type);
+void    run_cmd(t_cmdexc *cmdline);
 
-pid_t   run_pipe(t_cmdexc *object, int fds[2], int *fd_tmp, int fd_flag);
-void    pipeline(t_cmdexc *left, t_cmdexc *right, int *fd_tmp);
+bool    is_builtins(char *args, char **list_args);
 
 #endif

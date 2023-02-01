@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:35:08 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/01 11:29:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:35:48 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,25 @@ void	print_exp_environment(t_env *env, char **sorted_arr, int fd)
 		tmp = tmp->next;
 		i++;
 	}
+}
+
+char    **export_array(t_env *env)
+{
+    char    **ret;
+    int     i;
+    
+    i = 0;
+    ret = gc(g_global.gc, malloc(sizeof(char *) * size_environment(env) + 1), TMP);
+    if (!ret)
+        return (NULL);
+    while (env)
+    {
+        ret[i++] = gc(g_global.gc, ft_strjoin(gc(g_global.gc, \
+			ft_strjoin(env->type, "="), TMP), env->content), TMP);
+		env = env->next;
+    }
+	ret[i] = NULL;
+    return (ret);
 }
 
 void	join_and_insert(t_env **env, char *cmd)

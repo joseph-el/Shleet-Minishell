@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:53:06 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:30:41 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 21:56:40 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_lexer	*lexer(char *cmdline)
 		return (NULL);
 	if (!syntax(l_lexer))
 	{
-		// g_global.status = 2;
+		g_global.status = 2;
 		return (NULL);
 	}
 	return (l_lexer);

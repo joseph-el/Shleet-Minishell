@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 17:10:55 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:52:37 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int herdoc(char *limiter, int *fds)
 			break ;
         gc_adding_adress(g_global.gc, line, TMP);
         write(fds[WIRITE_], line, ft_strlen(line));
-		write(fds[READ_], "\n", 1);
+		write(fds[WIRITE_], "\n", 1);
     }
     return (close(fds[WIRITE_]), fds[READ_]);
 }
@@ -60,7 +60,8 @@ char	**adding_wildcard(char **array, char **wild)
 	int		i;
 	int		j;
 
-	i = j = -1;
+	i = -1;
+	j = -1;
 	while (array[++i])
 		;
 	while (wild[++j])
@@ -75,6 +76,7 @@ char	**adding_wildcard(char **array, char **wild)
 		ret[i++] = gc(g_global.gc, ft_strdup(wild[j]), TMP);
 	return (ret[i] = NULL, ret);
 }
+
 char	**realloc_array(char **array, char *new, int flag)
 {
 	char	**ret;

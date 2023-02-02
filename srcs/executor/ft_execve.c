@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:58:23 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 20:34:11 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/02 00:25:39 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int ft_execve(char *cmd, char **cmd_argument)
     if (S_ISDIR(s_stat.st_mode))
 		return (shleet_error(p_cmd, strerror(EISDIR), 1), exit(126), -1);
     env = export_array(g_global.envp);
-    //print_arr(env);
     execve(p_cmd, cmd_argument, env);    
     return (-1);
 }

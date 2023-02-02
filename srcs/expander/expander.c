@@ -15,10 +15,10 @@
 t_expander	*expander(t_lexer *l_lexer)
 {
 	t_expander *l_expander;
-	int         status;
+	int status;
 
-    if (!l_lexer)
-        return (NULL);
+	if (!l_lexer)
+		return (NULL);
 	l_expander = new_explist();
 	if (!l_expander)
 		return (NULL);

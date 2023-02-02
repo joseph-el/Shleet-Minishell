@@ -6,16 +6,16 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:59:26 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 19:00:51 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 23:56:00 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*handle_state(t_list  *l_lexer, char *l_cmd)
+char	*handle_state(t_list *l_lexer, char *l_cmd)
 {
 	t_token	tok1;
-	t_token tok2;
+	t_token	tok2;
 	t_token	type;
 	int		cr[2];
 
@@ -24,9 +24,10 @@ char	*handle_state(t_list  *l_lexer, char *l_cmd)
 	tok1 = (cr[0] == '|') * PIPE + (cr[0] == '>') * GREAT + \
 		(cr[0] == '<') * LESS + (cr[0] == '&') * AND;
 	tok2 = (cr[1] == '|') * PIPE + (cr[1] == '>') * GREAT + \
-		 (cr[1] == '<') * LESS + (cr[1] == '&') * AND;
-	type = (tok1 == PIPE && tok2 == PIPE) * OR + (tok1 == GREAT && tok2 == GREAT) * \
-		APPEND + (tok1 == LESS && tok2 == LESS) * HERDOC + (tok1 == AND && tok2 == AND) * AND;
+		(cr[1] == '<') * LESS + (cr[1] == '&') * AND;
+	type = (tok1 == PIPE && tok2 == PIPE) * OR + (tok1 == GREAT
+			&& tok2 == GREAT) * APPEND + (tok1 == LESS && tok2 == LESS) * HERDOC
+		+ (tok1 == AND && tok2 == AND) * AND;
 	if (tok1 && tok2)
 		push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 2), type));
 	else if (tok1 != AND)
@@ -42,7 +43,8 @@ char	*normal_stat(t_list *l_lexer, char *l_cmd)
 	int		len;
 
 	len = 0;
-	while (l_cmd[len] && !ft_strchr("\'\"$<>&|()", l_cmd[len]) && !ft_isspace(l_cmd[len]))
+	while (l_cmd[len] && !ft_strchr("\'\"$<>&|()", l_cmd[len]) \
+		&& !ft_isspace(l_cmd[len]))
 	{
 		if (l_cmd[len] == '*')
 			mode = true;

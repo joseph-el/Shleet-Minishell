@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:19:01 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 18:56:48 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 23:54:27 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ char	*dollar(t_list *l_lexer, char *l_cmd)
 	return (l_cmd + len);
 }
 
-int		bare_quotes(t_lexer *l_lexer, char *l_cmd)
+int	bare_quotes(t_lexer *l_lexer, char *l_cmd)
 {
-    push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
+	push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
 	if (*l_cmd && *l_cmd == '\"')
 	{
-        push_back(&l_lexer, creat_node(ft_strdup(""), WORD));
-        push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
+		push_back(&l_lexer, creat_node(ft_strdup(""), WORD));
+		push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
 		return (true);
 	}
 	return (false);
@@ -64,7 +64,7 @@ int		bare_quotes(t_lexer *l_lexer, char *l_cmd)
 
 char	*d_quote(t_list *l_lexer, char *l_cmd)
 {
-	int		len;
+	int	len;
 
 	len = 0;
 	if (bare_quotes(l_lexer, l_cmd))
@@ -82,7 +82,7 @@ char	*d_quote(t_list *l_lexer, char *l_cmd)
 			len++;
 	}
 	if (len)
-		push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));    
+		push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), WORD));
 	if (l_cmd[len] == '\"')
 		push_back(&l_lexer, creat_node(ft_strdup("\""), DQUOTE));
 	return (l_cmd + (len + (l_cmd[len] == '\"')));
@@ -90,7 +90,7 @@ char	*d_quote(t_list *l_lexer, char *l_cmd)
 
 char	*parentheses(t_list *l_lexer, char *l_cmd)
 {
-	int target;
+	int	target;
 
 	target = (l_cmd[0] == ')') * RPAR + (l_cmd[0] == '(') * LPAR;
 	push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 1), target));

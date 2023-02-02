@@ -6,36 +6,35 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 19:53:50 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/02 00:13:48 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-# include <stdio.h>
-# include <stdbool.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <termios.h>
-# include <signal.h>
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
-# include <sys/wait.h>
-# include <sys/types.h>
 # include <limits.h>
 # include <paths.h>
-# include <errno.h>
+# include <signal.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include <unistd.h>
 
-# include <readline/readline.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 
-# include "gc_memory.h"
 # include "libtools.h"
-
-# include "environment.h"
+# include "gc_memory.h"
 # include "lexer.h"
+# include "environment.h"
 # include "expander.h"
 # include "executor.h"
 
@@ -45,44 +44,41 @@
 # define GREEN "\033[0;32m"
 # define WHITE "\033[0;37m"
 # define BREAKING 1
-# define RUNING   2
+# define RUNING 2
 
 typedef struct s_global
 {
-    t_gc    *gc;
-    t_env   *envp;
-    int     status;
-    int     is_runing;
-}               t_global;
+	t_gc	*gc;
+	t_env	*envp;
+	int		status;
+	int		is_runing;
+}			t_global;
 
-t_global    g_global;
-
+t_global	g_global;
 
 /**
  *  @brief  Global Utils
  */
 
-void    print_expander(t_expander *l_expander);
-void    print_arr(char **arr);
+void		print_expander(t_expander *l_expander);
+void		print_arr(char **arr);
 
-void	shleet_error(char *error_msg, char *specify, int status);
-void    clean_out(void);
-void    ft_close(int fd1, int fd2);
-int     ft_pipe(int fds[2]);
-pid_t   ft_fork(void);
-
+void		shleet_error(char *error_msg, char *specify, int status);
+void		clean_out(void);
+void		ft_close(int fd1, int fd2);
+int			ft_pipe(int fds[2]);
+pid_t		ft_fork(void);
 
 /**
  *  @brief builtins commands
  */
 
-int     shleet_cd(char **cmd, t_env *env);
-int     shleet_echo(char **cmd);
-void    shleet_exit(char **args);
-int     shleet_export(char **cmd, t_env **env);
-int	    shleet_pwd(char **cmd);
-void    shleet_env(char **args, t_env *env);
-void	shleet_unset(t_env **env, char **args);
-
+void		shleet_cd(char **cmd, t_env *env);
+int			shleet_echo(char **cmd);
+void		shleet_exit(char **args);
+int			shleet_export(char **cmd, t_env **env);
+int			shleet_pwd(char **cmd);
+void		shleet_env(char **args, t_env *env);
+void		shleet_unset(t_env **env, char **args);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:35:08 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/01 20:35:48 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 23:42:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	print_exp_environment(t_env *env, char **sorted_arr, int fd)
 	i = 0;
 	while (tmp)
 	{
-		ft_putstr_fd(place_holder , fd);
+		ft_putstr_fd(PLACE_HOLDER , fd);
 		hold = find_environment(env, sorted_arr[i]);
 		ft_putstr_fd(hold->type, fd);
 		print_exp_env(hold, fd);
@@ -82,7 +82,7 @@ char    **export_array(t_env *env)
     int     i;
     
     i = 0;
-    ret = gc(g_global.gc, malloc(sizeof(char *) * size_environment(env) + 1), TMP);
+    ret = gc(g_global.gc, malloc(sizeof(char *) * (size_environment(env) + 1)), TMP);
     if (!ret)
         return (NULL);
     while (env)

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:21 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/01 11:28:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/02 00:17:20 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,22 @@ static void	update_pwds_data(t_env *env)
 		pwd_node->content = gc(g_global.gc, ft_strdup(cwd), OVR);
 }
 
-int	shleet_cd(char **cmd, t_env *env)
+void	shleet_cd(char **cmd, t_env *env)
 {
 	char	*home;
-
-	if (!cmd || !*cmd || !env)
-		return (EXIT_FAILURE);
-	if (!cmd[1])
+	
+	if (!cmd[0])
 	{
 		home = get_environment(env, "HOME");
 		if (!home)
-			return (shleet_error("cd", "HOME not set", 2), 1);
+			return (shleet_error("cd", "HOME not set", 2));
 		if (chdir(home) == 0)
-			return (update_pwds_data(env), EXIT_SUCCESS);
+			return (update_pwds_data(env));
 		else
-			return (EXIT_FAILURE);
+			return;
 	}
-	if (chdir(cmd[1]) == -1)
-		return (EXIT_FAILURE);
-	return (update_pwds_data(env), EXIT_SUCCESS);
+	fprintf(stderr, "check path |%s|\n", cmd[0]);
+	if (chdir(cmd[0]) == -1)
+		return (shleet_error(cmd[0], strerror(errno), 1));
+	return (update_pwds_data(env));
 }

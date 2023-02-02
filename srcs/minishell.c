@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:07:13 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 19:26:26 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:48:40 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ int main(int argc, char **args, char **envp)
             break;
         add_history(line);
         gc_adding_adress(g_global.gc, line, TMP);
-        g_global.is_runing = RUNING;
         l_lexer = lexer(line);
         l_expander = expander(l_lexer);
         executor(l_expander);
-        g_global.is_runing = BREAKING;
         gc_purifying(&g_global.gc, CLEAN_TMP);
     }
     clean_out();

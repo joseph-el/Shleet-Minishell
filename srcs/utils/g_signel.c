@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 19:49:06 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/02 19:09:14 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ void	interrput_handler(int sig)
 	rl_redisplay();
 	g_global.status = EXIT_FAILURE;
 }
+
+
+// int	termset(int stat)
+// {
+// 	struct termios	term;
+// 	tcgetattr(STDOUT_FILENO, &term);
+// 	if (stat)
+// 		term.c_lflag &= ~(ECHOCTL);
+	
+// 	else
+// 		term.c_lflag |= ECHOCTL;
+// 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
+// 		return (123);
+// }
 
 void init_terminal(void)
 {

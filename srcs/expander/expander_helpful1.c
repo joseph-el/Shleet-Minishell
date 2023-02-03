@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:12:55 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 16:33:34 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:00:51 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,5 @@ int set_expand(t_expander *l_expander, t_lexer *l_lexer)
         else
             head = head->next;
     }
-    add_back(&l_expander, new_exp(NODE_ENDOFCMD));
     return (EXIT_SUCCESS);
 }

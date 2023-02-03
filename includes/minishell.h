@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/02 00:13:48 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:22:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		clean_out(void);
 void		ft_close(int fd1, int fd2);
 int			ft_pipe(int fds[2]);
 pid_t		ft_fork(void);
-
+int ft_dup2(int fd1, int fd2);
 /**
  *  @brief builtins commands
  */

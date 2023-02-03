@@ -5,73 +5,96 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 18:58:05 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/02 23:27:03 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/02/03 16:23:18 by yoel-idr          #+#    #+#             */
+/*   Updated: 2023/02/03 17:29:57 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+# include "minishell.h"
 
-pid_t   run_pipe(t_cmdexc *obj, int fds[2], int *fd_tmp, int fd_flag)
+# define PROCESS 16
+# define INPUT 2
+# define OUTPUT 4
+
+int fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 {
-    pid_t   pid;
-    int     fd_write;
-    int     fd_read;
+    int fd_write;
+    int fd_read;
 
-    if (fd_flag & LEFT_SIDE)
+    if (obj->io_dest == -1 || obj->io_src == -1)
+        return (shleet_error("No such file or directory", NULL, 1), -1);
+    fd_read = obj->io_src;
+    fd_write = fds[1];
+    if (flag & PROCESS)
     {
-        fd_write = fds[1];
-        fd_read = obj->io_src;
-        if (fd_flag & FD_TMP)
-            fd_read = *fd_tmp;
+        fd_read = fd_tmp;
+        if (obj->io_src != STDIN_FILENO)
+            fd_read = obj->io_src;
+        if (obj->io_dest != STDOUT_FILENO)
+            fd_write = obj->io_dest;
     }
-    
-    if (fd_flag & RIGHT_SIDE)
+    if (flag & OUTPUT)
     {
+        fd_read = fd_tmp;
         fd_write = obj->io_dest;
-        fd_read = *fd_tmp;
-        if (fd_flag & FD_TMP)
-            fd_write = fds[1];
     }
-    
-    pid = ft_fork();
-    if (pid == 0)
-    {
-        dup2(fd_write, 0);
-        dup2(fd_read, 1);
-        run_cmdline(obj->cmdexc[0], obj->cmdexc + 1);
-    }
-    char *test = get_next_line(fds[0]);
-    fprintf(stderr, "The content of fds[0] = |%s|\n", test);
-    return (pid);
+    return (ft_dup2(fd_write, 1) , ft_dup2(fd_read, 0));
 }
 
-void    pipeline(t_cmdexc *left, t_cmdexc *right, int *fd_tmp)
+void    process(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 {
-    pid_t   process[2];
-    int     fds[2];
-    int     status;
-    int     fd_flag;
+    pid_t   pid;
+    
+    pid = fork();
+    if (flag & INPUT && !pid)
+    {
+        if (fd_duplicate(obj, fds, fd_tmp, INPUT) < 0)
+            exit(1);
+        run_cmdline(obj->cmdexc);
+    }
+    else if (flag & PROCESS && !pid)
+    {
+        if (fd_duplicate(obj, fds, fd_tmp, PROCESS) < 0)
+            exit(1);
+        run_cmdline(obj->cmdexc);
+    }
+    else if (flag & OUTPUT && !pid)
+    {
+        if (fd_duplicate(obj, fds, fd_tmp, OUTPUT) < 0)
+            exit(1);
+        run_cmdline(obj->cmdexc);
+    }
+    close(fd_tmp);
+    fd_tmp = dup(fds[0]);
+}
 
-    pipe(fds);
-    
-    fd_flag = LEFT_SIDE | FD_TMP;
-    if (left->prev == NULL)
-        fd_flag = LEFT_SIDE;
-    
-    process[0] = run_pipe(left, fds, fd_tmp, fd_flag);
-    
-    fd_flag = RIGHT_SIDE;
-    if (right->next != NULL)
-        fd_flag = RIGHT_SIDE | FD_TMP;
-    
-    process[1] = run_pipe(right, fds, fd_tmp, fd_flag);
-    
-    close(fds[0]);
-    close(fds[1]);
-    
-    while (wait(&status) != -1);
-    g_global.status = WEXITSTATUS(status);
+void    pipeline(t_cmdexc *head)
+{
+    int fd_tmp;
+    int fds[2];
+    int status;
+
+    fd_tmp = 0;
+    while (head)
+    {
+        if (head->node_type == NODE_PIPE)
+        {
+            head = head->next;
+            continue;
+        }
+        ft_pipe(fds);
+        if (!head->prev)
+            process(head, fds, fd_tmp, INPUT);
+        else if (!head->next)
+            process(head, fds, fd_tmp, OUTPUT);
+        else
+            process(head, fds, fd_tmp, PROCESS);
+        ft_close(fds[0], fds[1]);
+        head = head->next;
+    }
+    while (wait(&status) != -1)
+        ;
+    g_global.status = status * 256;
 }
 
 int     executor(t_expander *l_expander)
@@ -81,7 +104,7 @@ int     executor(t_expander *l_expander)
     if (!l_expander)
         return (EXIT_FAILURE);
     head = l_expander->head;
-    while (head && head->nature != NODE_ENDOFCMD)
+    while (head)
     {
         if (head->next && head->next->nature & (NODE_AND | NODE_OR))
         {
@@ -94,6 +117,5 @@ int     executor(t_expander *l_expander)
             head = head->next;
         }
     }
-    fprintf(stderr, "FINISH Goood bye\n");
     return (EXIT_SUCCESS);
 }

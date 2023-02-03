@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/03 17:11:17 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/03 22:44:16 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,34 @@ void    run_cmd(t_cmdexc *cmdline)
     process = ft_fork();
     if (process == 0)
     {
-        dup2(cmdline->io_dest, 1);
-        dup2(cmdline->io_src, 0);
+        ft_dup2(cmdline->io_dest, 1);
+        ft_dup2(cmdline->io_src, 0);
         run_cmdline(cmdline->cmdexc);
     }
     if (process == -1)
         return ;
     if (wait(&status) == process)
-        g_global.status = status * 256;
+        g_global.status = WEXITSTATUS(status);
 }
 
 void    run_grb(t_grb *grb)
 {
-    if (!grb || !grb->head)
+    if (!grb || !grb->head || grb->is_executed)
         return ;
     if (is_pipe(grb->head))
     {
-        // fprintf(stderr, "Iam in pipeline\n");
         pipeline(grb->head);
     }
     else
-    {
-        // fprintf(stderr, "Iam in run_cmd\n");
         run_cmd(grb->head);
-    }
+    grb->is_executed = true;
 }
 
 void    run_cmdline(char **cmdline)
 {
     if (!cmdline)
         return ;
-    
-    // if (is_builtins(cmdline, cmd_argument + 1))
-    //     return ;
+    // fprintf(stderr, "Hey IAM in run_cmd\n");
     ft_execve(cmdline[0], cmdline);
     shleet_error(cmdline[0], strerror(errno), 1);
 	if (errno == ENOENT)

@@ -33,6 +33,7 @@ t_grb   *new_grb(void)
         return (NULL);
     l_grb->head = NULL;
     l_grb->tail = NULL;
+    l_grb->is_executed = false;
     return (l_grb);
 }
 

@@ -6,15 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:23:18 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/03 17:29:57 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/03 22:19:27 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
-
-# define PROCESS 16
-# define INPUT 2
-# define OUTPUT 4
 
 int fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 {
@@ -38,21 +34,22 @@ int fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
         fd_read = fd_tmp;
         fd_write = obj->io_dest;
     }
-    return (ft_dup2(fd_write, 1) , ft_dup2(fd_read, 0));
+    return (ft_dup2(fd_write, 1) * ft_dup2(fd_read, 0));
 }
 
 void    process(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 {
     pid_t   pid;
     
-    pid = fork();
+    pid = ft_fork();
     if (flag & INPUT && !pid)
     {
+        fprintf(stderr, "INPUT\n");
         if (fd_duplicate(obj, fds, fd_tmp, INPUT) < 0)
             exit(1);
         run_cmdline(obj->cmdexc);
     }
-    else if (flag & PROCESS && !pid)
+    else if (flag & PROCESS && pid == 0)
     {
         if (fd_duplicate(obj, fds, fd_tmp, PROCESS) < 0)
             exit(1);
@@ -60,6 +57,7 @@ void    process(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
     }
     else if (flag & OUTPUT && !pid)
     {
+    fprintf(stderr, "OUTPUT\n");
         if (fd_duplicate(obj, fds, fd_tmp, OUTPUT) < 0)
             exit(1);
         run_cmdline(obj->cmdexc);
@@ -77,7 +75,7 @@ void    pipeline(t_cmdexc *head)
     fd_tmp = 0;
     while (head)
     {
-        if (head->node_type == NODE_PIPE)
+        if (head->node_type & NODE_PIPE)
         {
             head = head->next;
             continue;
@@ -94,7 +92,8 @@ void    pipeline(t_cmdexc *head)
     }
     while (wait(&status) != -1)
         ;
-    g_global.status = status * 256;
+    g_global.status = WEXITSTATUS(status);
+    fprintf(stderr, "this is exec |%d|\n", status);
 }
 
 int     executor(t_expander *l_expander)
@@ -109,9 +108,9 @@ int     executor(t_expander *l_expander)
         if (head->next && head->next->nature & (NODE_AND | NODE_OR))
         {
             run_logical(head, head->next->next, head->next->nature);
-            head = head->next->next->next;
+            head = head->next->next;
         }
-        if (head && head->nature & NODE_CMDEXC)
+        else if (head && head->nature & NODE_CMDEXC)
         {
             run_grb(head->grb);
             head = head->next;

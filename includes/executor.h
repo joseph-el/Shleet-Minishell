@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:49:57 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/03 16:29:44 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:56:55 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 # include <errno.h>
 # include <sys/stat.h>
 
-
-
+# define PROCESS 16
+# define OUTPUT 4
+# define INPUT 2
 
 void    run_logical(t_exp *left, t_exp *right, t_type type);
 void    run_cmdline(char **cmdline);
@@ -32,10 +33,6 @@ void    pipeline(t_cmdexc *head);
 int     fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag);
 int     executor(t_expander *l_expander);
 int		ft_execve(char *cmd, char **cmd_argument);
-
-
-
-
 
 // # define RIGHT_SIDE 1 << 0
 // # define LEFT_SIDE 1 << 1

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:51:40 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/03 17:25:07 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:05:33 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void ft_close(int fd1, int fd2)
 {
-    if (fd1 > 2)
-        close(fd1);
-    if (fd2 > 2)
-        close(fd2);
+    close(fd1);
+    close(fd2);
 }
 
 pid_t   ft_fork(void)

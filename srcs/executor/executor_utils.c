@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/03 22:44:16 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:40:33 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,49 +27,65 @@ void    run_logical(t_exp *left, t_exp *right, t_type type)
     }
 }
 
-void    run_cmd(t_cmdexc *cmdline)
-{
-    pid_t   process;
-    int     status;
-    
-    process = ft_fork();
-    if (process == 0)
-    {
-        ft_dup2(cmdline->io_dest, 1);
-        ft_dup2(cmdline->io_src, 0);
-        run_cmdline(cmdline->cmdexc);
-    }
-    if (process == -1)
-        return ;
-    if (wait(&status) == process)
-        g_global.status = WEXITSTATUS(status);
-}
-
 void    run_grb(t_grb *grb)
 {
+    int fds[2]; // fix seg 
+    
     if (!grb || !grb->head || grb->is_executed)
         return ;
     if (is_pipe(grb->head))
-    {
         pipeline(grb->head);
-    }
     else
-        run_cmd(grb->head);
+        run_cmdline(grb->head, 0, fds, CMDEXC); // fix seg in executor : 24
     grb->is_executed = true;
 }
 
-void    run_cmdline(char **cmdline)
+bool    is_builtins(char *cmd, char **cmd_list)
 {
-    if (!cmdline)
+    (void)cmd_list;
+    if (!ft_strcmp(cmd, "echo"))
+        return (true);
+    else if (!ft_strcmp(cmd, "exit"))
+        return (true);
+    else if (!ft_strcmp(cmd, "export"))
+        return (true);
+    else if (!ft_strcmp(cmd, "cd"))
+        return (true);
+    else if (!ft_strcmp(cmd, "unset"))
+        return (true);
+    else if (!ft_strcmp(cmd, "pwd"))
+        return (true);
+    else if (!ft_strcmp(cmd, "env"))
+        return (true);
+    else
+        return (false);
+}
+
+void run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
+{
+    pid_t   pid;
+
+    if (!obj || !obj->cmdexc || is_builtins(obj->cmdexc[0], obj->cmdexc))
         return ;
-    // fprintf(stderr, "Hey IAM in run_cmd\n");
-    ft_execve(cmdline[0], cmdline);
-    shleet_error(cmdline[0], strerror(errno), 1);
-	if (errno == ENOENT)
-        exit(127);
-    if (errno == EACCES)
-		exit(126);
-    exit(EXIT_FAILURE);
+    pid = ft_fork();
+    if (pid == 0)
+    {
+        if (flag & (PIPE | INPUT | OUTPUT | PROCESS))
+            if (fd_duplicate(obj, fds, fd_tmp, flag) < 0)
+                exit(1);
+        if (flag & CMDEXC)
+            if (fd_duplicate(obj, fds, fd_tmp, flag) < 0)
+                exit(1);
+        ft_execve(obj->cmdexc[0], obj->cmdexc);
+        shleet_error(obj->cmdexc[0], strerror(errno), 1);
+        if (errno == ENOENT)
+            exit(127);
+        if (errno == EACCES)
+            exit(126);
+        exit(EXIT_FAILURE);
+    }
+    if (flag & (INPUT | PROCESS | OUTPUT))
+        return (close(fd_tmp), (void)(fd_tmp = dup(fds[0])));
 }
 
 bool is_pipe(t_cmdexc *head_grp)

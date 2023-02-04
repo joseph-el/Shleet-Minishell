@@ -1,0 +1,13 @@
+.
+..
+.DS_Store
+.git
+.gitignore
+Makefile
+gc_memory
+includes
+libtools
+minishell
+readme.md
+srcs
+test

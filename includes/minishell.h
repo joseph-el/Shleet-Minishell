@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/03 16:22:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:15:43 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ t_global	g_global;
 
 void		print_expander(t_expander *l_expander);
 void		print_arr(char **arr);
-
+int *io_save(void);
+void    	reset_io(int input, int output);
 void		shleet_error(char *error_msg, char *specify, int status);
 void		clean_out(void);
 void		ft_close(int fd1, int fd2);

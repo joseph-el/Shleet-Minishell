@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:49:57 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/03 18:56:55 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:11:08 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@
 # define PROCESS 16
 # define OUTPUT 4
 # define INPUT 2
+# define PIPE 1
+# define CMDEXC 8
 
 void    run_logical(t_exp *left, t_exp *right, t_type type);
-void    run_cmdline(char **cmdline);
+
+void    run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag);
+// int    run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag);
 void    run_cmd(t_cmdexc *cmdline);
 void    run_grb(t_grb *grb);
 bool    is_pipe(t_cmdexc *head_grp);

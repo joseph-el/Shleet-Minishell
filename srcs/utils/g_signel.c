@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/02 19:09:14 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:05:14 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,13 @@
 void	interrput_handler(int sig)
 {
 	(void)sig;	
-	// if (g_global.is_runing)
-	// 	return ;
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);
-
 	rl_redisplay();
-	g_global.status = EXIT_FAILURE;
+	g_global.status = 1;
 }
 
-
-// int	termset(int stat)
-// {
-// 	struct termios	term;
-// 	tcgetattr(STDOUT_FILENO, &term);
-// 	if (stat)
-// 		term.c_lflag &= ~(ECHOCTL);
-	
-// 	else
-// 		term.c_lflag |= ECHOCTL;
-// 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
-// 		return (123);
-// }
 
 void init_terminal(void)
 {
@@ -47,7 +31,7 @@ void init_terminal(void)
 	signal(SIGQUIT, SIG_IGN) == SIG_ERR || 
 	
 	signal(SIGTSTP, SIG_IGN) == SIG_ERR)
-		shleet_error("signal", strerror(errno), 2);
+		shleet_error("signal", strerror(errno), 1);
 	
 	// if (signal(SIGINT, SIG_DFL) == SIG_ERR || \
 	// 	signal(SIGQUIT, SIG_DFL) == SIG_ERR || \

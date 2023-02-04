@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:23:18 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/03 22:19:27 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:35:04 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,43 +34,15 @@ int fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
         fd_read = fd_tmp;
         fd_write = obj->io_dest;
     }
+    if (flag & CMDEXC)
+        fd_write = obj->io_dest;
     return (ft_dup2(fd_write, 1) * ft_dup2(fd_read, 0));
-}
-
-void    process(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
-{
-    pid_t   pid;
-    
-    pid = ft_fork();
-    if (flag & INPUT && !pid)
-    {
-        fprintf(stderr, "INPUT\n");
-        if (fd_duplicate(obj, fds, fd_tmp, INPUT) < 0)
-            exit(1);
-        run_cmdline(obj->cmdexc);
-    }
-    else if (flag & PROCESS && pid == 0)
-    {
-        if (fd_duplicate(obj, fds, fd_tmp, PROCESS) < 0)
-            exit(1);
-        run_cmdline(obj->cmdexc);
-    }
-    else if (flag & OUTPUT && !pid)
-    {
-    fprintf(stderr, "OUTPUT\n");
-        if (fd_duplicate(obj, fds, fd_tmp, OUTPUT) < 0)
-            exit(1);
-        run_cmdline(obj->cmdexc);
-    }
-    close(fd_tmp);
-    fd_tmp = dup(fds[0]);
 }
 
 void    pipeline(t_cmdexc *head)
 {
     int fd_tmp;
     int fds[2];
-    int status;
 
     fd_tmp = 0;
     while (head)
@@ -82,23 +54,20 @@ void    pipeline(t_cmdexc *head)
         }
         ft_pipe(fds);
         if (!head->prev)
-            process(head, fds, fd_tmp, INPUT);
+            run_cmdline(head, fd_tmp, fds, PIPE | INPUT);
         else if (!head->next)
-            process(head, fds, fd_tmp, OUTPUT);
+            run_cmdline(head, fd_tmp, fds, PIPE | OUTPUT);
         else
-            process(head, fds, fd_tmp, PROCESS);
+            run_cmdline(head, fd_tmp, fds, PIPE | PROCESS);
         ft_close(fds[0], fds[1]);
         head = head->next;
     }
-    while (wait(&status) != -1)
-        ;
-    g_global.status = WEXITSTATUS(status);
-    fprintf(stderr, "this is exec |%d|\n", status);
 }
 
 int     executor(t_expander *l_expander)
 {
     t_exp   *head;
+    int     status;
 
     if (!l_expander)
         return (EXIT_FAILURE);
@@ -116,5 +85,8 @@ int     executor(t_expander *l_expander)
             head = head->next;
         }
     }
+    while (wait(&status) != -1)
+        ;
+    g_global.status = WEXITSTATUS(status);
     return (EXIT_SUCCESS);
 }

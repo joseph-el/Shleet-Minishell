@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:23:18 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 21:35:04 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:57:21 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ void    pipeline(t_cmdexc *head)
         ft_close(fds[0], fds[1]);
         head = head->next;
     }
+    close(fd_tmp);
 }
 
 int     executor(t_expander *l_expander)
 {
     t_exp   *head;
-    int     status;
 
     if (!l_expander)
         return (EXIT_FAILURE);
@@ -85,8 +85,5 @@ int     executor(t_expander *l_expander)
             head = head->next;
         }
     }
-    while (wait(&status) != -1)
-        ;
-    g_global.status = WEXITSTATUS(status);
     return (EXIT_SUCCESS);
 }

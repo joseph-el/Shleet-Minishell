@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 21:40:33 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:54:48 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void    run_logical(t_exp *left, t_exp *right, t_type type)
 
 void    run_grb(t_grb *grb)
 {
-    int fds[2]; // fix seg 
+    int     status;
+    int     fds[2]; // fix seg 
     
     if (!grb || !grb->head || grb->is_executed)
         return ;
@@ -38,6 +39,9 @@ void    run_grb(t_grb *grb)
     else
         run_cmdline(grb->head, 0, fds, CMDEXC); // fix seg in executor : 24
     grb->is_executed = true;
+    while (wait(&status) != -1)
+        ;
+    g_global.status = WEXITSTATUS(status);
 }
 
 bool    is_builtins(char *cmd, char **cmd_list)

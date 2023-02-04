@@ -6,13 +6,13 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:07:13 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 21:21:25 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:59:56 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_global g_global = {.gc = NULL,.envp = NULL ,.status = 0,.is_runing = 0};
+t_global g_global = {.gc = NULL,.envp = NULL ,.status = 0};
 
 void init_terminal(void);
 

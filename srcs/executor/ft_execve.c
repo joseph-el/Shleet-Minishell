@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:58:23 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/31 00:25:04 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:03:04 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-void    destroyer(char **arr)
+static void    destroyer(char **arr)
 {
 	int	index;
 
@@ -24,7 +24,7 @@ void    destroyer(char **arr)
 	free(arr);
 }
 
-char    *get_path(char *cmdline)
+static char    *get_path(char *cmdline)
 {
     char    **path;
     char    *p_cmd;
@@ -60,8 +60,7 @@ int ft_execve(char *cmd, char **cmd_argument)
     stat(p_cmd, &s_stat);
     if (S_ISDIR(s_stat.st_mode))
 		return (shleet_error(p_cmd, strerror(EISDIR), 1), exit(126), -1);
-    
-    env = export_to_array(g_global.envp);
-    execve(p_cmd, cmd_argument, env);    
+    env = export_array(g_global.envp);
+    execve(p_cmd, cmd_argument, env);
     return (-1);
 }

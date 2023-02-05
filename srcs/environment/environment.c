@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:24:27 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 21:40:05 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:14:43 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_env   *new_environment(char *content, char *type)
 {
@@ -35,7 +35,7 @@ t_env   *insert_environment(t_env **environment, char *type, char *content, char
     if (*environment == NULL)
     {
         new_env = new_environment(content, type);
-        if(ft_strchr(env, '='))
+        if(env && ft_strchr(env, '='))
             new_env->is_var = 1;
         return (*environment = new_env, NULL);
     }
@@ -62,12 +62,8 @@ t_env   *init_environment(char **env)
     while (env && env[++index])
         insert_environment(&environment, type_environment(env[index]), \
         content_environment(env[index]), env[index]);
-    /**
-     * @brief fix when Shleet doesn’t find the PATH
-     * 
-     */
-    // if (!find_environment(environment, "PATH"))
-    //     insert_environment(&environment, gc(g_global.gc, ft_strdup("PATH"), OVR), gc(g_global.gc, ft_strdup(_PATH_STDPATH), OVR), WHAT IS THAT ?)
-    
+    if (!find_environment(environment, "PATH"))
+        insert_environment(&environment, gc(g_global.gc, ft_strdup("PATH"), OVR),\
+            gc(g_global.gc, ft_strdup(_PATH_STDPATH), OVR), NULL);
     return (environment);
 }

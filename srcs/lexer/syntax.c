@@ -6,36 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:55:07 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/25 11:52:10 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 23:53:13 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-
-/*
-    AND, OR, PIPE:
-    
-	- left: [WSPACE] (STRING | CLOSECPAR)
-	- right: [WSPACE] STRING or REDIRECT or OPENPAR 
-
-    "(":
-	- left: CMDBEGIN | [WSPACE] (AND | OR | PIPE | OPENPAR)
-	- right: [WSPACE] (STRING | REDIRECT | OPENPAR)
-
-    ")":
-	- left: [WSPACE] (STRING | CLOSECPAR)
-	- right: [WSPACE] (AND | OR | PIPE | CPAR | ENDOFCMD)
-
-    REDIRECT:
-    
-	- right: [WSPACE] STRING
-
-    PARENTHESES AND QUOTING:
-	
-	- inside each pair parentheses should not be an empthy command.
-	- every open parentheses has to have a matching closing parentheses.
-	- every single/double quote have to be closed.
-*/
+#include "minishell.h"
 
 bool	connector_syntax(t_node *crr_node)
 {
@@ -72,7 +47,8 @@ bool	quote_syntax(t_node *crr_node)
 	int	s_quotes;
 	int	d_quotes;
 
-	s_quotes = d_quotes = 0;
+	s_quotes = 0;
+	d_quotes = 0;
 	while (crr_node->tok != ENDOFCMD)
 	{
 		if (crr_node->tok & SQUOTE)
@@ -88,40 +64,41 @@ bool	quote_syntax(t_node *crr_node)
 	return (true);
 }
 
-bool    g_parentheses(t_node *crr_node, t_node *left, t_node *right, int flag)
+bool	g_parentheses(t_node *crr_node, t_node *left, t_node *right, int flag)
 {
-    int     l_par;
-    int     r_par;
-    
-    l_par = r_par = 0;
-    if (flag & COUNTER)
-    {
-        while (crr_node)
-        {
-            l_par += (crr_node->tok == LPAR);
-            r_par += (crr_node->tok == RPAR);
-            crr_node = crr_node->next;
-        }
+	int	l_par;
+	int	r_par;
+
+	l_par = 0;
+	r_par = 0;
+	if (flag & COUNTER)
+	{
+		while (crr_node)
+		{
+			l_par += (crr_node->tok == LPAR);
+			r_par += (crr_node->tok == RPAR);
+			crr_node = crr_node->next;
+		}
 		l_par += r_par;
-        return (!(l_par % 2));
-    }
-    if (!(crr_node->tok & (LPAR | RPAR)))
-        return (true);
-    if (crr_node->tok & LPAR && left->tok & (BEGINOFCMD | CONNECTOR | LPAR) \
+		return (!(l_par % 2));
+	}
+	if (!(crr_node->tok & (LPAR | RPAR)))
+		return (true);
+	if (crr_node->tok & LPAR && left->tok & (BEGINOFCMD | CONNECTOR | LPAR)
 		&& right->tok & (STRING | REDIRECT | LPAR))
-        return (true);
-    if (crr_node->tok & RPAR && left->tok & (STRING | RPAR) && right->tok \
-		& (CONNECTOR | RPAR | ENDOFCMD))
-        return (true);
-    return (shleet_error(UNEXPECTED_TOKEN, "`()`", 2), false);
+		return (true);
+	if (crr_node->tok & RPAR && left->tok & (STRING | RPAR)
+		&& right->tok & (CONNECTOR | RPAR | ENDOFCMD | APPEND | GREAT))
+		return (true);
+	return (shleet_error(UNEXPECTED_TOKEN, "`()`", 2), false);
 }
 
 int	syntax(t_lexer *l_lexer)
 {
-	t_node  *head;
-    t_node  *right;
-    t_node  *left;
-	int     error;
+	t_node	*head;
+	t_node	*right;
+	t_node	*left;
+	int		error;
 
 	head = l_lexer->head;
 	error = -1;
@@ -131,11 +108,11 @@ int	syntax(t_lexer *l_lexer)
 		return (shleet_error(UNEXPECTED_TOKEN, "`()`", 2), false);
 	while (head->tok != ENDOFCMD)
 	{
-        right = get_node(head->next, RIGHT);
-        left = get_node(head->prev, LEFT);
-        error = (redirect_syntax(head) && connector_syntax(head) \
-            && g_parentheses(head, left, right, 0)) ;
-        if (!error)
+		right = get_node(head->next, RIGHT);
+		left = get_node(head->prev, LEFT);
+		error = (redirect_syntax(head) && connector_syntax(head)
+				&& g_parentheses(head, left, right, 0));
+		if (!error)
 			return (false);
 		head = head->next;
 	}

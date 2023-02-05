@@ -3,62 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 23:53:00 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/30 23:55:11 by yoel-idr         ###   ########.fr       */
+/*   Created: 2023/02/01 14:33:24 by aelkhali          #+#    #+#             */
+/*   Updated: 2023/02/05 11:57:16 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+ #include "minishell.h"
 
-void    run_logical(t_exp *left, t_exp *right, t_type type)
+int	pipes_counter(t_cmdexc *head_grp)
 {
-    run_grb(left->grb);
-    if (type & NODE_AND)
-    {
-        if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) == 0)
-            run_grb(right->grb);
-    }
-    else
-    {
-        if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) != 0)
-            run_grb(right->grb);
-    }
+	int pipes;
+
+	pipes = 0;
+	if (!head_grp)
+		return (pipes);
+	while (head_grp)
+	{
+		if (head_grp->node_type & NODE_PIPE)
+			pipes++;
+		head_grp = head_grp->next;
+	}
+	return (pipes);
 }
 
-void    run_cmdline(char *cmdline, char  **cmd_argument)
+void	logical_manager(t_exp *logical_node)
 {
-    if (is_builtins(cmdline, cmd_argument + 1))
-        return ;
-    ft_execve(cmdline, cmd_argument + 1);
-    shleet_error(cmdline, strerror(errno), 1);
-	if (errno == ENOENT)
-        exit(127);
-    if (errno == EACCES)
-		exit(126);
+	if (!logical_node)
+		return ;
+	group_manager(logical_node->prev->grb->head);
+	if (logical_node->nature & NODE_AND)
+	{
+		if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) == 0)
+			group_manager(logical_node->next->grb->head);
+	}
+	if (logical_node->nature & NODE_OR)
+	{
+		if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) != 0)
+			group_manager(logical_node->next->grb->head);
+	}
+}
+
+void	group_manager(t_cmdexc *head_grp)
+{
+	if (!head_grp)
+		return ;
+	if (pipes_counter(head_grp))
+		exec_pipline(head_grp);
+	else
+		exec_cmd(head_grp);
 }
 
 bool    is_builtins(char *args, char **list_args)
 {
-    /**
-     * @brief checking for builtins
-     * @return run an builtins 
-     */
-    if (ft_memcmp(args, "echo", sizeof("echo") + 1))
-        return (true); // shleet_echo
-    else if (ft_memcmp(args, "cd", sizeof("cd") + 1))
-        return (true); //shleet_cd
-    else if (ft_memcmp(args, "export", sizeof("export") + 1))
-        return (true); //shleet_export
-    else if (ft_memcmp(args, "env", sizeof("env") + 1))
-        return (true); //shleet_env
-    else if (ft_memcmp(args, "unset", sizeof("unset") + 1))
-        return (true); //shleet_unset
-    else if (ft_memcmp(args, "exit", sizeof("exit") + 1))
-        return (true); //shleet_exit
-    else if (ft_memcmp(args, "pwd", sizeof("pwd") + 1))
-        return (true); //shleet_pwd
-    return (false);
+	if (!ft_strncmp(args, "echo", ft_strlen("echo")))
+		return (shleet_echo(list_args), true);
+	else if (!ft_strncmp(args, "cd", ft_strlen("cd")))
+		return (shleet_cd(list_args), true);
+	else if (!ft_strncmp(args, "export", ft_strlen("export")))
+		return (shleet_export(list_args), true);
+	else if (!ft_strncmp(args, "env", ft_strlen("env")))
+		return (shleet_env(list_args), true);
+	else if (!ft_strncmp(args, "unset", ft_strlen("unset")))
+		return (shleet_unset(list_args), true);
+	else if (!ft_strncmp(args, "exit", ft_strlen("exit")))
+		return (shleet_exit(list_args), true); 
+	else if (!ft_strncmp(args, "pwd", ft_strlen("pwd")))
+		return (shleet_pwd(list_args), true);
+	return (false);
 }
-

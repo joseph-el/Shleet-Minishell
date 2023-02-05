@@ -6,13 +6,13 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:20:38 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/19 22:10:23 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/01 10:34:25 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libtools.h"
 
-int     ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	return (c >= 48 && c <= 57);
 }

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 21:15:43 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:11:11 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_global
 	t_gc	*gc;
 	t_env	*envp;
 	int		status;
-	int		is_runing;
+	int		*fd_io;
 }			t_global;
 
 t_global	g_global;
@@ -62,8 +62,8 @@ t_global	g_global;
 
 void		print_expander(t_expander *l_expander);
 void		print_arr(char **arr);
-int *io_save(void);
-void    	reset_io(int input, int output);
+int 		*io_save(void);
+void    	reset_io(int *fds);
 void		shleet_error(char *error_msg, char *specify, int status);
 void		clean_out(void);
 void		ft_close(int fd1, int fd2);

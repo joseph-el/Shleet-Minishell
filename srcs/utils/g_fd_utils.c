@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 21:06:21 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 21:23:29 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:32:59 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ int *io_save(void)
     return (fds);
 }
 
-void    reset_io(int input, int output)
+void    reset_io(int *fds)
 {
     int ret1;
     int ret2;
-
-    ret1 = ft_dup2(input, 0);
-    ret2 = ft_dup2(output, 1);
+    
+    // close(0);
+    // close(1);
+    ret1 = ft_dup2(fds[0], 0);
+    ret2 = ft_dup2(fds[1], 1);
     if (ret1 < 0 || ret2 < 0)
         return (shleet_error("input output", "Failed to reset", 1));
 }

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:51:40 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 20:05:33 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:24:51 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ pid_t   ft_fork(void)
 int ft_dup2(int fd1, int fd2)
 {
     int ret;
-
+    
     ret = dup2(fd1, fd2);
     if (ret < 0)
     {
         shleet_error("dup2", "unable to duplicate", 1);
         return (-1);
     }
-    return (ret);
+    return (2);
 }
 
 int ft_pipe(int fds[2])

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 21:54:48 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/07 09:53:52 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void    run_logical(t_exp *left, t_exp *right, t_type type)
     }
     else
     {
+        right->grb->is_executed = true;
         if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) != 0)
             run_grb(right->grb);
     }
@@ -42,25 +43,25 @@ void    run_grb(t_grb *grb)
     while (wait(&status) != -1)
         ;
     g_global.status = WEXITSTATUS(status);
+    reset_io(g_global.fd_io);
 }
 
-bool    is_builtins(char *cmd, char **cmd_list)
+bool    is_builtins(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 {
-    (void)cmd_list;
-    if (!ft_strcmp(cmd, "echo"))
-        return (true);
-    else if (!ft_strcmp(cmd, "exit"))
-        return (true);
-    else if (!ft_strcmp(cmd, "export"))
-        return (true);
-    else if (!ft_strcmp(cmd, "cd"))
-        return (true);
-    else if (!ft_strcmp(cmd, "unset"))
-        return (true);
-    else if (!ft_strcmp(cmd, "pwd"))
-        return (true);
-    else if (!ft_strcmp(cmd, "env"))
-        return (true);
+    if (!ft_strncmp(obj->cmdexc[0], "echo", ft_strlen("echo")))
+        return (shleet_echo(obj->cmdexc + 1), true);
+    else if (!ft_strncmp(obj->cmdexc[0], "exit", ft_strlen("exit")))
+        return (shleet_exit(obj->cmdexc + 1), true);
+    else if (!ft_strncmp(obj->cmdexc[0], "export", ft_strlen("export")))
+        return (shleet_export(obj->cmdexc + 1, &g_global.envp), true);
+    else if (!ft_strncmp(obj->cmdexc[0], "cd", ft_strlen("cd")))
+        return (shleet_cd(obj->cmdexc + 1, g_global.envp), true);
+    else if (!ft_strncmp(obj->cmdexc[0], "unset", ft_strlen("unset")))
+        return (shleet_unset(&g_global.envp, obj->cmdexc + 1), true);
+    else if (!ft_strncmp(obj->cmdexc[0], "pwd", ft_strlen("pwd")))
+        return (shleet_pwd(obj->cmdexc + 1), true);
+    else if (!ft_strncmp(obj->cmdexc[0], "env", ft_strlen("env")))
+        return (shleet_env(obj->cmdexc + 1, g_global.envp), true);
     else
         return (false);
 }
@@ -68,13 +69,13 @@ bool    is_builtins(char *cmd, char **cmd_list)
 void run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
 {
     pid_t   pid;
-
-    if (!obj || !obj->cmdexc || is_builtins(obj->cmdexc[0], obj->cmdexc))
+    
+    if (!obj || is_builtins(obj, fds, fd_tmp, flag))
         return ;
     pid = ft_fork();
     if (pid == 0)
     {
-        if (flag & (PIPE | INPUT | OUTPUT | PROCESS))
+        if (flag & (PIPE_LINE | INPUT | OUTPUT | PROCESS))
             if (fd_duplicate(obj, fds, fd_tmp, flag) < 0)
                 exit(1);
         if (flag & CMDEXC)

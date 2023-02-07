@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:23:18 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 21:57:21 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:27:26 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
         if (obj->io_dest != STDOUT_FILENO)
             fd_write = obj->io_dest;
     }
-    if (flag & OUTPUT)
+    if (flag & (OUTPUT | CMDEXC))
     {
         fd_read = fd_tmp;
+        if (obj->io_src != STDIN_FILENO || flag & CMDEXC)
+            fd_read = obj->io_src;
         fd_write = obj->io_dest;
     }
-    if (flag & CMDEXC)
-        fd_write = obj->io_dest;
     return (ft_dup2(fd_write, 1) * ft_dup2(fd_read, 0));
 }
 
@@ -54,11 +54,11 @@ void    pipeline(t_cmdexc *head)
         }
         ft_pipe(fds);
         if (!head->prev)
-            run_cmdline(head, fd_tmp, fds, PIPE | INPUT);
+            run_cmdline(head, fd_tmp, fds, PIPE_LINE | INPUT);
         else if (!head->next)
-            run_cmdline(head, fd_tmp, fds, PIPE | OUTPUT);
+            run_cmdline(head, fd_tmp, fds, PIPE_LINE | OUTPUT);
         else
-            run_cmdline(head, fd_tmp, fds, PIPE | PROCESS);
+            run_cmdline(head, fd_tmp, fds, PIPE_LINE | PROCESS);
         ft_close(fds[0], fds[1]);
         head = head->next;
     }

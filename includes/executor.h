@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:49:57 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 21:11:08 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/05 13:10:55 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 # include "minishell.h"
 # include <errno.h>
 # include <sys/stat.h>
-
-# define PROCESS 16
-# define OUTPUT 4
-# define INPUT 2
-# define PIPE 1
-# define CMDEXC 8
+        
+# define BUILTINS "echo export cd env unset pwd exit"
+# define PROCESS 1
+# define OUTPUT 2
+# define INPUT 4
+# define PIPE_LINE 8
+# define CMDEXC 16
 
 void    run_logical(t_exp *left, t_exp *right, t_type type);
 

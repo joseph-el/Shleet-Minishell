@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/09 22:57:17 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/09 23:02:52 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
 {
     pid_t   pid;
     
-    if (!obj || builtins(obj, fds, fd_tmp, flag))
+    if (!obj || !obj->cmdexc || builtins(obj, fds, fd_tmp, flag))
         flag = BUILTINS;
     pid = ft_fork();
     if (flag & ~BUILTINS && !pid)

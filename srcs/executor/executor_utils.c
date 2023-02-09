@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/09 13:52:07 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:27:21 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,22 @@ void run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
     pid_t   pid;
     
     if (!obj || builtins(obj, fds, fd_tmp, flag))
-        return;
+        flag = BUILTINS;
     pid = ft_fork();
-    if (pid == 0)
+    if (flag & ~BUILTINS && !pid)
     {
         if (flag & (PIPE_LINE | INPUT | OUTPUT | PROCESS))
-            if (fd_duplicate(obj, fds, fd_tmp, flag) < 0)
-                exit(1);
+        {
+            fd_duplicate(obj, fds, fd_tmp, flag);
+            if (flag & OUTPUT)
+            {
+                char *dd;
+                dd = get_next_line(0);
+                fprintf(stderr, "check |%s|\n", dd);
+            }
+            
+        }
+        
         if (flag & CMDEXC)
             if (fd_duplicate(obj, fds, fd_tmp, flag) < 0)
                 exit(1);
@@ -112,7 +121,9 @@ void run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
             exit(126);
         exit(EXIT_FAILURE);
     }
-    if (flag & (INPUT | PROCESS | OUTPUT))
+    if (flag & BUILTINS)
+        kill(pid, SIGKILL); // just for test
+    if (flag & (INPUT | PROCESS | BUILTINS))
         return (close(fd_tmp), (void)(fd_tmp = dup(fds[0])));
 }
 

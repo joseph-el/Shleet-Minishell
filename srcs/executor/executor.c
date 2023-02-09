@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:23:18 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/09 13:49:33 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:36:32 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ void    pipeline(t_cmdexc *head)
             head = head->next;
             continue;
         }
-        ft_pipe(fds);
+        pipe(fds);
         if (!head->prev)
             run_cmdline(head, fd_tmp, fds, PIPE_LINE | INPUT);
         else if (!head->next)
             run_cmdline(head, fd_tmp, fds, PIPE_LINE | OUTPUT);
         else
             run_cmdline(head, fd_tmp, fds, PIPE_LINE | PROCESS);
-        ft_close(fds[0], fds[1]);
+        close(fds[0]);
+        close(fds[1]);
         head = head->next;
     }
-    close(fd_tmp);
 }
 
 int     executor(t_expander *l_expander)

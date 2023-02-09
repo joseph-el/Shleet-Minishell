@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 21:06:21 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/05 21:32:59 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:44:36 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void    reset_io(int *fds)
     int ret1;
     int ret2;
     
-    // close(0);
-    // close(1);
+
     ret1 = ft_dup2(fds[0], 0);
     ret2 = ft_dup2(fds[1], 1);
     if (ret1 < 0 || ret2 < 0)

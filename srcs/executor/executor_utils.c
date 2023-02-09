@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/09 16:27:21 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:57:17 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,20 @@ bool    builtins(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 {
     if (flag & PIPE_LINE && is_builtins(*obj->cmdexc))
         fd_duplicate(obj, fds, fd_tmp, flag);
-
-        
     if (!ft_strncmp(*obj->cmdexc, "echo", ft_strlen("echo")))
-        return (shleet_echo(obj->cmdexc + 1), true);
+        return (shleet_echo(obj->cmdexc + 1), reset_io(g_global.fd_io), 1);
     else if (!ft_strncmp(*obj->cmdexc, "exit", ft_strlen("exit")))
-        return (shleet_exit(obj->cmdexc + 1), true);
+        return (shleet_exit(obj->cmdexc + 1),reset_io(g_global.fd_io), 1);
     else if (!ft_strncmp(*obj->cmdexc, "export", ft_strlen("export")))
-        return (shleet_export(obj->cmdexc + 1, &g_global.envp), true);
+        return (shleet_export(obj->cmdexc + 1, &g_global.envp), reset_io(g_global.fd_io), 1);
     else if (!ft_strncmp(*obj->cmdexc, "cd", ft_strlen("cd")))
-        return (shleet_cd(obj->cmdexc + 1, g_global.envp), true);
+        return (shleet_cd(obj->cmdexc + 1, g_global.envp), reset_io(g_global.fd_io), 1);
     else if (!ft_strncmp(*obj->cmdexc, "unset", ft_strlen("unset")))
-        return (shleet_unset(&g_global.envp, obj->cmdexc + 1), true);
+        return (shleet_unset(&g_global.envp, obj->cmdexc + 1), reset_io(g_global.fd_io), 1);
     else if (!ft_strncmp(*obj->cmdexc, "pwd", ft_strlen("pwd")))
-        return (shleet_pwd(obj->cmdexc + 1), true);
+        return (shleet_pwd(obj->cmdexc + 1), reset_io(g_global.fd_io), 1);
     else if (!ft_strncmp(*obj->cmdexc, "env", ft_strlen("env")))
-        return (shleet_env(obj->cmdexc + 1, g_global.envp), true);
+        return (shleet_env(obj->cmdexc + 1, g_global.envp), reset_io(g_global.fd_io), 1);
     else
         return (false);
 }
@@ -98,18 +96,10 @@ void run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
     pid = ft_fork();
     if (flag & ~BUILTINS && !pid)
     {
+        close(*fds);
         if (flag & (PIPE_LINE | INPUT | OUTPUT | PROCESS))
-        {
-            fd_duplicate(obj, fds, fd_tmp, flag);
-            if (flag & OUTPUT)
-            {
-                char *dd;
-                dd = get_next_line(0);
-                fprintf(stderr, "check |%s|\n", dd);
-            }
-            
-        }
-        
+            if (fd_duplicate(obj, fds, fd_tmp, flag) < 0)
+                exit(1);
         if (flag & CMDEXC)
             if (fd_duplicate(obj, fds, fd_tmp, flag) < 0)
                 exit(1);
@@ -122,9 +112,7 @@ void run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
         exit(EXIT_FAILURE);
     }
     if (flag & BUILTINS)
-        kill(pid, SIGKILL); // just for test
-    if (flag & (INPUT | PROCESS | BUILTINS))
-        return (close(fd_tmp), (void)(fd_tmp = dup(fds[0])));
+        kill(pid, SIGKILL); // mbkach test hhhhh mal kill machy rajl mykhdmch wla jhhhh
 }
 
 bool is_pipe(t_cmdexc *head_grp)

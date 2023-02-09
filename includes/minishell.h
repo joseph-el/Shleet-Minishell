@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/05 21:11:11 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:26:16 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int 		*io_save(void);
 void    	reset_io(int *fds);
 void		shleet_error(char *error_msg, char *specify, int status);
 void		clean_out(void);
-void		ft_close(int fd1, int fd2);
+int ft_close(int fds[2], int fd_tmp);
 int			ft_pipe(int fds[2]);
 pid_t		ft_fork(void);
 int ft_dup2(int fd1, int fd2);

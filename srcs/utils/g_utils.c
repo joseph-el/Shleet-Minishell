@@ -6,16 +6,21 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:51:40 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/05 21:24:51 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:25:49 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_close(int fd1, int fd2)
+int ft_close(int fds[2], int fd_tmp)
 {
-    close(fd1);
-    close(fd2);
+    int ret;
+
+    close(fd_tmp);
+    ret = dup(fds[0]);
+    close(fds[WIRITE_]);
+    close(fds[READ_]);
+    return (ret);
 }
 
 pid_t   ft_fork(void)

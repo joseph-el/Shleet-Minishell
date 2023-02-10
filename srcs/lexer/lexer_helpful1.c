@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:19:01 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 23:54:27 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:07:34 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,14 @@ char	*dollar(t_list *l_lexer, char *l_cmd)
 		return (l_cmd + 2);
 	}
 	len = 0;
-	len += (*l_cmd == DOLLAR);
-	while (l_cmd[len] && (l_cmd[len] == '_' || ft_isalnum(l_cmd[len])))
+	while (l_cmd[len + 1] && (l_cmd[len + 1] == '_' || \
+		ft_isalnum(l_cmd[len + 1])))
 		len++;
 	if (len)
 		push_back(&l_lexer, creat_node(ft_strndup(l_cmd, len), VAR));
 	else
-	{
 		push_back(&l_lexer, creat_node(ft_strndup(l_cmd, 1), WORD));
-		len++;
-	}
-	return (l_cmd + len);
+	return (l_cmd + len + 1);
 }
 
 int	bare_quotes(t_lexer *l_lexer, char *l_cmd)

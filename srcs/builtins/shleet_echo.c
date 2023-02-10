@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:36:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/10 13:13:12 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:04:09 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	shleet_echo(char **cmd)
 
 	i = 0;
 	if (!cmd[i])
+	{
+		g_global.status = 0;
 		return (ft_putstr_fd("\n", STDOUT_FILENO));
+	}
 	if (cmd[i] && check_arg(cmd[i]))
 		i = 1;
 	while (cmd[i])
@@ -51,4 +54,5 @@ void	shleet_echo(char **cmd)
 	}
 	if (!check_arg(cmd[0]))
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	g_global.status = 0;
 }

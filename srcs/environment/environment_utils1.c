@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:27:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/10 12:31:42 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:49:30 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char    *get_environment(t_env *environment, char *type)
     if (!environment || !type)
         return (NULL);
     if (!ft_strcmp("?", type))
-        return (gc(g_global.gc, ft_itoa(g_global.status), TMP));
+        return (gc(g_global.gc, ft_itoa(shleet_status()), TMP));
     while (environment)
     {
         if (!ft_strncmp(environment->type, type, ft_strlen(type)))

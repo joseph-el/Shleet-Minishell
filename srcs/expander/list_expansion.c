@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:21:11 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:30:21 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:09:06 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_list  *quotes_removal(t_list *e_list)
 
 t_node  *fill_content(t_list *l_list, t_node *object)
 {
-    if (!object)
-        return (NULL);
     if (object->prev && object->prev->tok & VAR && object->tok != HERDOC)
     {
         object->prev->data = get_environment(g_global.envp, object->prev->data + 1);

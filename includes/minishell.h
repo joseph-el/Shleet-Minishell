@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/10 13:18:10 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:48:05 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_global	g_global;
  *  @brief  Global Utils
  */
 
+void 		init_signal(void);
 void		print_expander(t_expander *l_expander);
 void		print_arr(char **arr);
 int 		*io_save(void);
@@ -70,6 +71,7 @@ int 		ft_close(int fds[2], int fd_tmp);
 int			ft_pipe(int fds[2]);
 pid_t		ft_fork(void);
 int 		ft_dup2(int fd1, int fd2);
+int			shleet_status(void);
 bool    	is_builtins(char *arg);
 bool 		is_pipe(t_cmdexc *head_grp);
 

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:59:26 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 23:56:00 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:52:10 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_list	*set_token(char *l_cmd)
 	if (!l_lexer)
 		return (NULL);
 	push_back(&l_lexer, creat_node(NULL, BEGINOFCMD));
-	while (*l_cmd && *l_cmd != NEW_LINE)
+	while (l_cmd && *l_cmd && *l_cmd != NEW_LINE)
 	{
 		if (ft_isspace(*l_cmd))
 			l_cmd = is_whitespace(l_lexer, l_cmd);

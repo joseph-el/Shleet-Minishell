@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/10 13:18:45 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 22:10:25 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void    run_logical(t_exp *left, t_exp *right, t_type type)
     }
     else
     {
-        right->grb->is_executed = true;
         if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) != 0)
             run_grb(right->grb);
     }
@@ -30,9 +29,10 @@ void    run_logical(t_exp *left, t_exp *right, t_type type)
 
 void    run_grb(t_grb *grb)
 {
-    int     status;
     int     fds[2];
+    int     status;
     
+    status = 0;
     if (!grb || !grb->head || grb->is_executed)
         return ;
     if (is_pipe(grb->head))
@@ -42,13 +42,13 @@ void    run_grb(t_grb *grb)
     grb->is_executed = true;
     while (wait(&status) != -1)
         ;
-    g_global.status = WEXITSTATUS(status);
+    g_global.status = status;
     reset_io(g_global.fd_io);
 }
 
 bool    builtins(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 {
-    if (flag & PIPE_LINE && is_builtins(*obj->cmdexc))
+    if (is_builtins(*obj->cmdexc))
         fd_duplicate(obj, fds, fd_tmp, flag);
     if (!ft_strncmp(*obj->cmdexc, "echo", ft_strlen("echo")))
         return (shleet_echo(obj->cmdexc + 1), true);

@@ -6,26 +6,26 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:27 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/03 20:03:29 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:07:38 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	unset_node(t_env **env, char *type)
+void	unset_node(char *type)
 {
 	t_env	*target_env;
 	t_env	*tmp;
 
-	target_env = find_environment(*env, type);
+	target_env = find_environment(g_global.envp, type);
 	if (!target_env)
 		return ;
 	if (!target_env->prev && !target_env->next)
-		(*env) = NULL;
+		g_global.envp = NULL;
 	if (!target_env->prev)
 	{
-		(*env) = (*env)->next;
-		(*env)->prev = NULL;
+		g_global.envp = (g_global.envp)->next;
+		(g_global.envp)->prev = NULL;
 		return ;
 	}
 	if (!target_env->next)
@@ -41,13 +41,12 @@ void	unset_node(t_env **env, char *type)
 
 void	shleet_unset(char **args)
 {
-	t_env	*env;
 	int		i;
 
-	env = g_global.envp;
-	if (!env || !args || !*args)
+	if (!g_global.envp || !args || !*args)
 		return ;
 	i = -1;
 	while (args[++i])
-		unset_node(&env, type_environment(args[i]));
+		unset_node(type_environment(args[i]));
+	g_global.status = 0;
 }

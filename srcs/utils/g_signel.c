@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/10 13:00:08 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 22:15:13 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,24 @@ void	interrput_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	g_global.status = 1;
+	g_global.status = 256;
 }
 
+int	shleet_status(void)
+{
+	if (WIFEXITED(g_global.status))
+		return (WEXITSTATUS(g_global.status));
+	if (WIFSTOPPED(g_global.status))
+		return (128 + WSTOPSIG(g_global.status));
+	if (WIFSIGNALED(g_global.status))
+		return (128 + WTERMSIG(g_global.status));
+	return (EXIT_FAILURE);
+}
 
-void init_terminal(void)
+void init_signal(void)
 {
 	if (signal(SIGINT, interrput_handler) == SIG_ERR ||
-	
 	signal(SIGQUIT, SIG_IGN) == SIG_ERR || 
-	
 	signal(SIGTSTP, SIG_IGN) == SIG_ERR)
 		shleet_error("signal", strerror(errno), 1);
-	
-	// if (signal(SIGINT, SIG_DFL) == SIG_ERR || \
-	// 	signal(SIGQUIT, SIG_DFL) == SIG_ERR || \
-	// 	signal(SIGTSTP, SIG_DFL) == SIG_ERR)
-	
 }

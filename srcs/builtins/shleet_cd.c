@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:21 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/10 13:17:41 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:00:58 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	update_pwds_data(void)
 		pwd_node->content = gc(g_global.gc, ft_strdup(cwd), OVR);
 }
 
-void shleet_cd(char **cmd_args)
+void	shleet_cd(char **cmd_args)
 {
 	t_env	*home;
 
@@ -45,7 +45,10 @@ void shleet_cd(char **cmd_args)
 	}
 	if (cmd_args[1])
 		return (shleet_error("cd", "too many args", 2));
+	if (!*cmd_args[0])
+		return ;
 	if (chdir(cmd_args[0]) == -1)
 		return (shleet_error("cd", strerror(errno), 2));
+	g_global.status = 0;
 	return (update_pwds_data());
 }

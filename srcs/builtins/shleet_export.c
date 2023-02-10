@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/10 13:14:11 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:06:48 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	shleet_export(char **cmd)
 	if (!g_global.envp)
 		return ;
 	if (!cmd[0])
+	{
+		g_global.status = 0;
 		return ((void)sort_and_print_env(STDOUT_FILENO));
+	}
 	i = -1;
 	while (cmd[++i])
 	{
@@ -85,4 +88,5 @@ void	shleet_export(char **cmd)
 		else
 			shleet_error(cmd[i], "not a valid identifier", EXIT_FAILURE);
 	}
+	g_global.status = 0;
 }

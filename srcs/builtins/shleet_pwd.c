@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_pwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:23 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/10 13:15:02 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:07:23 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	shleet_pwd(char **cmd_args)
 			return ((void)get_cwd());
 		ft_putstr_fd(pwd->content, STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
+		g_global.status = 0;
 		return ;
 	}
 	shleet_error("pwd", "Args and options Not required by the subject !", 1);

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:09:46 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/10 12:58:56 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:47:14 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	shleet_error(char *error_msg, char *specify, int status)
 		ft_putstr_fd(specify, STDERR_FILENO);
 	}
 	ft_putstr_fd("\n", STDERR_FILENO);
-	g_global.status = status;
+	g_global.status = (status * 256);
 }
 
 pid_t   ft_fork(void)

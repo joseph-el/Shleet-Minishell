@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:32:44 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 13:35:14 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:27:53 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void    print_expander(t_expander *l_expander)
         puts("Error In print");
         return;
     }
-    
     while (exp)
     {
         if (exp->nature & NODE_ENDOFCMD)

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:51:40 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/09 22:25:49 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:01:05 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,43 +23,36 @@ int ft_close(int fds[2], int fd_tmp)
     return (ret);
 }
 
-pid_t   ft_fork(void)
+bool    is_builtins(char *arg)
 {
-    pid_t   _pid;
+    int len;
 
-    _pid = fork();
-    if (_pid < 0)
-    {
-        shleet_error("fork", "unable to creat a process", 1);
-        return (-1);
-    }
-    return (_pid);
+    len = ft_strlen(arg);
+    if 
+    (
+        !ft_strncmp(arg, "echo", len) || 
+        !ft_strncmp(arg, "exit", len) ||
+        !ft_strncmp(arg, "pwd", len) ||
+        !ft_strncmp(arg, "unset", len) ||
+        !ft_strncmp(arg, "cd", len) ||
+        !ft_strncmp(arg, "env", len) ||
+        !ft_strncmp(arg, "export", len)
+    )
+        return (true);
+    return (false);
 }
 
-int ft_dup2(int fd1, int fd2)
+bool is_pipe(t_cmdexc *head_grp)
 {
-    int ret;
-    
-    ret = dup2(fd1, fd2);
-    if (ret < 0)
+    if (!head_grp)
+        return (false);
+    while (head_grp)
     {
-        shleet_error("dup2", "unable to duplicate", 1);
-        return (-1);
+        if (head_grp->node_type == NODE_PIPE)
+            return (true);
+        head_grp = head_grp->next;
     }
-    return (2);
-}
-
-int ft_pipe(int fds[2])
-{
-    int ret;
-
-    ret = pipe(fds);
-    if (ret < 0)
-    {
-        shleet_error("pipe", "unable to create a pipe", 1);
-        return (-1);
-    }
-    return (ret);
+    return (false);
 }
 
 void    clean_out(void)

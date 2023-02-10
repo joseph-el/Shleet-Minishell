@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:27:54 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 11:29:30 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:31:42 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_env    *find_environment(t_env *environment, char *type)
         return (NULL);
     while (environment)
     {
-        if (!ft_strncmp(environment->type, type, ft_strlen(type)))  
+        if (!ft_strncmp(environment->type, type, ft_strlen(environment->type)))  
             return (environment);
         environment = environment->next;
     }

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/09 22:26:16 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:18:10 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,23 @@ int 		*io_save(void);
 void    	reset_io(int *fds);
 void		shleet_error(char *error_msg, char *specify, int status);
 void		clean_out(void);
-int ft_close(int fds[2], int fd_tmp);
+int 		ft_close(int fds[2], int fd_tmp);
 int			ft_pipe(int fds[2]);
 pid_t		ft_fork(void);
-int ft_dup2(int fd1, int fd2);
+int 		ft_dup2(int fd1, int fd2);
+bool    	is_builtins(char *arg);
+bool 		is_pipe(t_cmdexc *head_grp);
+
 /**
  *  @brief builtins commands
  */
 
-void		shleet_cd(char **cmd, t_env *env);
-int			shleet_echo(char **cmd);
+void		shleet_export(char **cmd);
+void		shleet_pwd(char **cmd);
+void		shleet_echo(char **cmd);
+void 		shleet_cd(char **cmd_args);
 void		shleet_exit(char **args);
-int			shleet_export(char **cmd, t_env **env);
-int			shleet_pwd(char **cmd);
-void		shleet_env(char **args, t_env *env);
-void		shleet_unset(t_env **env, char **args);
+void		shleet_env(char **args);
+void		shleet_unset(char **args);
 
 #endif

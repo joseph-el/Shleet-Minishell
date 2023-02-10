@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/04 20:05:14 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:00:08 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	interrput_handler(int sig)
 
 void init_terminal(void)
 {
-	// struct termios terminal;
 	if (signal(SIGINT, interrput_handler) == SIG_ERR ||
 	
 	signal(SIGQUIT, SIG_IGN) == SIG_ERR || 

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:36:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/01 11:28:45 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:13:12 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ bool	check_arg(char *cmd_arg)
 	return (false);
 }
 
-int	shleet_echo(char **cmd)
+void	shleet_echo(char **cmd)
 {
 	int	i;
 
 	i = 0;
 	if (!cmd[i])
-		return (ft_putstr_fd("\n", STDOUT_FILENO), EXIT_SUCCESS);
+		return (ft_putstr_fd("\n", STDOUT_FILENO));
 	if (cmd[i] && check_arg(cmd[i]))
 		i = 1;
 	while (cmd[i])
@@ -51,5 +51,4 @@ int	shleet_echo(char **cmd)
 	}
 	if (!check_arg(cmd[0]))
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	return (EXIT_SUCCESS);
 }

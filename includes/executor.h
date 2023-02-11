@@ -23,15 +23,14 @@
 # define OUTPUT 2
 # define INPUT 4
 
-int     ft_execve(char *cmd, char **cmd_argument);
-int     executor(t_expander *l_expander);
+int		ft_execve(char *cmd, char **cmd_argument);
+int		executor(t_expander *l_expander);
 
-bool    builtins(t_cmdexc *obj, int fds[2], int fd_tmp, int flag);
-int     fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag);
-void    run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag);
-void    run_logical(t_exp *left, t_exp *right, t_type type);
-void    pipeline(t_cmdexc *head);
-void    run_grb(t_grb *grb);
-
+bool	builtins(t_cmdexc *obj, int fds[2], int fd_tmp, int flag);
+int		fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag);
+void	run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag);
+void	run_logical(t_exp *left, t_exp *right, t_type type);
+void	pipeline(t_cmdexc *head);
+void	run_grb(t_grb *grb);
 
 #endif

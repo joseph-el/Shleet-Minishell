@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/10 21:06:48 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/11 11:56:06 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,21 @@ int	key_isvalid(char *_env)
 	return (true);
 }
 
-void	shleet_export(char **cmd)
+void	delete_and_insert(char *cmd)
 {
 	t_env	*tmp;
+
+	if (!cmd)
+		return ;
+	tmp = find_environment(g_global.envp, type_environment(cmd));
+	if (tmp)
+		delete_environment(&tmp);
+	insert_environment(&g_global.envp, type_environment(cmd), \
+		content_environment(cmd), cmd);
+}
+
+void	shleet_export(char **cmd)
+{
 	int		i;
 
 	if (!g_global.envp)
@@ -77,13 +89,7 @@ void	shleet_export(char **cmd)
 			if (is_joinable(cmd[i]))
 				join_and_insert(&g_global.envp, cmd[i]);
 			else
-			{
-				tmp = find_environment(g_global.envp, type_environment(cmd[i]));
-				if (tmp)
-					delete_environment(&tmp);
-				insert_environment(&g_global.envp, type_environment(cmd[i]), \
-					content_environment(cmd[i]), cmd[i]);
-			}
+				delete_and_insert(cmd[i]);
 		}
 		else
 			shleet_error(cmd[i], "not a valid identifier", EXIT_FAILURE);

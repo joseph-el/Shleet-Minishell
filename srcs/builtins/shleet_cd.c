@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:21 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/10 21:00:58 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:06:41 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	shleet_cd(char **cmd_args)
 		if (!home)
 			return (shleet_error("cd", "HOME not found", 2));
 		if (chdir(home->content) == 0)
+		{
+			g_global.status = 0;
 			return (update_pwds_data());
+		}
 		else
 			return (shleet_error("cd", "HOME not set", 2));
 	}

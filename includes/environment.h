@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:50:52 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 23:42:44 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:57:02 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void				print_environment(t_env *environment, int fd);
 
 /* Environment utils */
 t_env				*new_environment(char *content, char *type);
-t_env				*insert_environment(t_env **environment, char *type,
+t_env				*insert_environment(t_env **envs, char *type,
 						char *content, char *env);
 t_env				*init_environment(char **env);
 t_env				*last_environment(t_env *head);

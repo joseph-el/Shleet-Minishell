@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/11 17:59:37 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 00:30:43 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,43 +45,44 @@ char	*expand_heredoc(char *line)
 	while (line[i])
 	{
 		while (line[i] && line[i] != '$')
-			ret = gc(g_global.gc, ft_strjoin(ret, gc(g_global.gc, \
-				ft_strndup(line + i++, 1), TMP)), TMP);
+			ret = gc(g_global.gc, ft_strjoin(ret, gc(g_global.gc,
+							ft_strndup(line + i++, 1), TMP)), TMP);
 		i += (line[i] == '$');
 		j = i;
 		while (line[j] && (line[j] == '_' || ft_isalnum(line[j])))
 			j++;
 		if (j > i)
-			ret = gc(g_global.gc, ft_strjoin(ret, get_environment(g_global.envp, \
-				gc(g_global.gc, ft_strndup(line + i, j - i), TMP))), TMP);
+			ret = gc(g_global.gc, ft_strjoin(ret, get_environment(g_global.envp,
+							gc(g_global.gc, ft_strndup(line + i, j - i), TMP))),
+					TMP);
 		else
-			ret = gc(g_global.gc, ft_strjoin(ret, gc(g_global.gc, \
-				ft_strndup(line + (i - 1), 1), TMP)), TMP);
+			ret = gc(g_global.gc, ft_strjoin(ret, gc(g_global.gc,
+							ft_strndup(line + (i - 1), 1), TMP)), TMP);
 		i = j;
 	}
 	return (ret);
 }
 
-int herdoc(char *limiter, int *fds)
+int	herdoc(char *limiter, int *fds)
 {
-    char    *line;
-    int     limiter_size;
+	char	*line;
+	int		limiter_size;
 
-    if (!limiter || pipe(fds) == -1)
-        return (-1);
-    limiter_size = ft_strlen(limiter);
-    while (true)
-    {
-        line = readline("> ");
-        gc_adding_adress(g_global.gc, line, TMP);
-        if (!line || !ft_memcmp(limiter, line, limiter_size + 1))
+	if (!limiter || pipe(fds) == -1)
+		return (-1);
+	limiter_size = ft_strlen(limiter);
+	while (true)
+	{
+		line = readline("> ");
+		gc_adding_adress(g_global.gc, line, TMP);
+		if (!line || !ft_memcmp(limiter, line, limiter_size + 1))
 			break ;
 		if (ft_strchr(line, '$'))
 			line = expand_heredoc(line);
-        write(fds[WIRITE_], line, ft_strlen(line));
+		write(fds[WIRITE_], line, ft_strlen(line));
 		write(fds[WIRITE_], "\n", 1);
-    }
-    return (close(fds[WIRITE_]), fds[READ_]);
+	}
+	return (close(fds[WIRITE_]), fds[READ_]);
 }
 
 char	**adding_wildcard(char **array, char **wild)
@@ -99,7 +100,8 @@ char	**adding_wildcard(char **array, char **wild)
 	ret = gc(g_global.gc, malloc(sizeof(char *) * (i + j + 1)), TMP);
 	if (!ret)
 		return (NULL);
-	i = j = -1;
+	i = -1;
+	j = -1;
 	while (array[++i])
 		ret[i] = gc(g_global.gc, ft_strdup(array[i]), TMP);
 	while (wild[++j])
@@ -116,7 +118,7 @@ char	**realloc_array(char **array, char *new, int flag)
 	if (!array)
 	{
 		ret = gc(g_global.gc, malloc(sizeof(char *) * 2), TMP);
-		return (ret[0] = gc(g_global.gc, ft_strdup(new), TMP),\
+		return (ret[0] = gc(g_global.gc, ft_strdup(new), TMP),
 			ret[1] = NULL, ret);
 	}
 	if (flag & WILD)

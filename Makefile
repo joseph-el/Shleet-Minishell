@@ -6,7 +6,7 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 11:31:53 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/02/04 21:13:42 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/02/12 00:38:39 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,12 +29,23 @@ GREEN  				:= \033[1;32m
 YELLOW 				:= \033[1;33m
 BLUE   				:= \033[0;34m
 RESET  				:= \033[0m
+COM_COLOR   		:= \033[0;34m
+OBJ_COLOR   		:= \033[0;36m
+OK_COLOR    		:= \033[0;32m
+NO_COLOR    		:= \033[m
+
+OK_STRING    		:= "[OK]"
+COM_STRING  	    := "Compiling"
+SHLEET    	 		:= "Shleet-minishell"
+GARBAGE      		:= "gc_memory"
+LIBT		 		:= "libtools"
+DELETE       		:= "Deleting objects"
+
 
 MINISHELL_FILE  	:=	minishell.c
 
 UTILS_FILES 		:=  utils/g_error.c \
 						utils/g_signel.c \
-						utils/print_utils.c \
 						utils/g_utils.c \
 						utils/g_fd_utils.c \
 
@@ -92,7 +103,9 @@ LIBTOOLS 			:= $(addprefix $(LIBTOOLS_PATH), libtools.a)
 
 
 all 				:	$(NAME)
-							@echo  "$(GREEN) Shleet-minishell $(RESET)" 
+							@printf "\n%b          %b" "$(GREEN) $(GARBAGE)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; 
+							@printf "%b           %b" "$(GREEN) $(LIBT)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; 
+							@printf "%b   %b" "$(GREEN) $(SHLEET)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; 
 		
 $(NAME) 			:  	$(GC_MEMORY) $(LIBTOOLS) $(OBJS)
 							@$(CC) $(FLAGS) $^ -o $@ -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib
@@ -104,16 +117,19 @@ $(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
 							@make -C $(GC_MEMORY_PATH) all 
 
 .c.o		 		:	$(HEADERS)
+							@printf "%-100.900b\r" "$(COM_COLOR)$(COM_STRING) $(OBJ_COLOR)$(@)$(NO_COLOR)\n";
 							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include) -I /opt/homebrew/Cellar/readline/8.2.1/include
 
 clean   			:	
-							@echo "$(BLUE) Deleting objects $(RESET)" 
+							@printf "   %b %b  %b" "$(BLUE) $(DELETE)" "$(GREEN) $(SHLEET)" "$(OK_COLOR) $(OK_STRING) \n$(RESET)" 
+							@printf "%b %b  %-27b" "$(BLUE) $(DELETE)" "$(GREEN) $(GARBAGE)" "$(OK_COLOR) $(OK_STRING) \n$(RESET)" 
+							@printf "%b %b  %-27b" "$(BLUE) $(DELETE)" "$(GREEN) $(LIBT)" "$(OK_COLOR) $(OK_STRING) \n$(RESET)" 
 							@$(RM) $(OBJS)
 							@make -C $(GC_MEMORY_PATH) clean
 							@make -C $(LIBTOOLS_PATH) clean
 
 fclean 				:  	clean
-							@echo "$(BLUE) Deleting $(RESET)" 
+							@printf "\n\n   %b\t\t   %b\n" "$(BLUE) Deleting everything $(RESET)" "$(OK_COLOR)$(OK_STRING) $(RESET)"
 							@make -C $(GC_MEMORY_PATH) fclean
 							@make -C $(LIBTOOLS_PATH) fclean
 							@$(RM) $(NAME)

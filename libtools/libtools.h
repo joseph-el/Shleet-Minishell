@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:27:32 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/07 09:56:50 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/11 22:54:24 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
-char	*get_next_line(int fd);
+
 int		ft_isalnum(int c);
 int		ft_isdigit(int c);
 int		ft_isspace(int c);

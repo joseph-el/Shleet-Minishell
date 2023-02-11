@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:23 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/10 21:07:23 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:14:41 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	shleet_pwd(char **cmd_args)
 	{
 		pwd = find_environment(g_global.envp, "PWD");
 		if (!pwd)
+		{
+			g_global.status = 0;
 			return ((void)get_cwd());
+		}
 		ft_putstr_fd(pwd->content, STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		g_global.status = 0;

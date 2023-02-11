@@ -6,48 +6,49 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/05 11:07:12 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/11 11:50:35 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_number(char *arg)
+int	is_number(char *arg)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (arg[++i])
-    {
-        if (i == 0 && (arg[i] == '+' || arg[i] == '-'))
-        {
-            i++;
-            continue;
-        }
-        if (!ft_isdigit(arg[i]))
-            return (false);
-    }
-    return (true);
+	i = -1;
+	while (arg[++i])
+	{
+		if (i == 0 && (arg[i] == '+' || arg[i] == '-'))
+		{
+			i++;
+			continue ;
+		}
+		if (!ft_isdigit(arg[i]))
+			return (false);
+	}
+	return (true);
 }
 
-void    exit_code(int status, bool mode)
+void	exit_code(int status, bool mode)
 {
-    gc_purifying(&g_global.gc, CLEAN_ALL);
-    rl_clear_history();
-    if (mode)
-        exit(status);
-    else
-        exit(EXIT_SUCCESS);
+	gc_purifying(&g_global.gc, CLEAN_ALL);
+	rl_clear_history();
+	if (mode)
+		exit(status);
+	else
+		exit(EXIT_SUCCESS);
 }
 
-void    shleet_exit(char **args)
+void	shleet_exit(char **args)
 {
-    if (!args[0])
-        exit_code(0, false);
-    else if (!is_number(args[0]))
-        return (shleet_error("exit", "numeric argument required", 2), exit_code(255, true));
-    else if (args[1])
-        return (shleet_error("exit", "too many arguments", 2));
-    else
-        exit_code(ft_atoi(args[0]), true);
+	if (!args[0])
+		exit_code(0, false);
+	else if (!is_number(args[0]))
+		return (shleet_error("exit", "numeric argument required", 2), \
+			exit_code(255, true));
+	else if (args[1])
+		return (shleet_error("exit", "too many arguments", 2));
+	else
+		exit_code(ft_atoi(args[0]), true);
 }

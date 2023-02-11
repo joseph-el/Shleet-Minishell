@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   environment_utils3.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:35:08 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/01 23:42:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/11 12:08:44 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char    **export_to_array(t_env *head)
+char	**export_to_array(t_env *head)
 {
-	char **ret;
+	char	**ret;
 	int		i;
 
 	if (!head)
@@ -35,8 +35,8 @@ char    **export_to_array(t_env *head)
 
 char	**sort_arr(char **env_type)
 {
-	int i;
 	char	*tmp;
+	int		i;
 
 	i = 0;
 	while (env_type[i])
@@ -56,9 +56,9 @@ char	**sort_arr(char **env_type)
 
 void	print_exp_environment(t_env *env, char **sorted_arr, int fd)
 {
-	int		i;
 	t_env	*hold;
 	t_env	*tmp;
+	int		i;
 
 	if (!env)
 		return ;
@@ -66,7 +66,7 @@ void	print_exp_environment(t_env *env, char **sorted_arr, int fd)
 	i = 0;
 	while (tmp)
 	{
-		ft_putstr_fd(PLACE_HOLDER , fd);
+		ft_putstr_fd(PLACE_HOLDER, fd);
 		hold = find_environment(env, sorted_arr[i]);
 		ft_putstr_fd(hold->type, fd);
 		print_exp_env(hold, fd);
@@ -76,23 +76,24 @@ void	print_exp_environment(t_env *env, char **sorted_arr, int fd)
 	}
 }
 
-char    **export_array(t_env *env)
+char	**export_array(t_env *env)
 {
-    char    **ret;
-    int     i;
-    
-    i = 0;
-    ret = gc(g_global.gc, malloc(sizeof(char *) * (size_environment(env) + 1)), TMP);
-    if (!ret)
-        return (NULL);
-    while (env)
-    {
-        ret[i++] = gc(g_global.gc, ft_strjoin(gc(g_global.gc, \
+	char	**ret;
+	int		i;
+
+	i = 0;
+	ret = gc(g_global.gc, malloc(sizeof(char *) * \
+		(size_environment(env) + 1)), TMP);
+	if (!ret)
+		return (NULL);
+	while (env)
+	{
+		ret[i++] = gc(g_global.gc, ft_strjoin(gc(g_global.gc, \
 			ft_strjoin(env->type, "="), TMP), env->content), TMP);
 		env = env->next;
-    }
+	}
 	ret[i] = NULL;
-    return (ret);
+	return (ret);
 }
 
 void	join_and_insert(t_env **env, char *cmd)

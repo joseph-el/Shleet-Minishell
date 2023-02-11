@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/02 18:52:37 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:59:37 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,34 @@ int	set_rederct(int *io_infile, int *io_outfile, char *filename, t_token token)
 	return (*io_infile = fds[0]);
 }
 
+char	*expand_heredoc(char *line)
+{
+	char	*ret;
+	int		i;
+	int		j;
+
+	i = 0;
+	ret = "";
+	while (line[i])
+	{
+		while (line[i] && line[i] != '$')
+			ret = gc(g_global.gc, ft_strjoin(ret, gc(g_global.gc, \
+				ft_strndup(line + i++, 1), TMP)), TMP);
+		i += (line[i] == '$');
+		j = i;
+		while (line[j] && (line[j] == '_' || ft_isalnum(line[j])))
+			j++;
+		if (j > i)
+			ret = gc(g_global.gc, ft_strjoin(ret, get_environment(g_global.envp, \
+				gc(g_global.gc, ft_strndup(line + i, j - i), TMP))), TMP);
+		else
+			ret = gc(g_global.gc, ft_strjoin(ret, gc(g_global.gc, \
+				ft_strndup(line + (i - 1), 1), TMP)), TMP);
+		i = j;
+	}
+	return (ret);
+}
+
 int herdoc(char *limiter, int *fds)
 {
     char    *line;
@@ -45,9 +73,11 @@ int herdoc(char *limiter, int *fds)
     while (true)
     {
         line = readline("> ");
+        gc_adding_adress(g_global.gc, line, TMP);
         if (!line || !ft_memcmp(limiter, line, limiter_size + 1))
 			break ;
-        gc_adding_adress(g_global.gc, line, TMP);
+		if (ft_strchr(line, '$'))
+			line = expand_heredoc(line);
         write(fds[WIRITE_], line, ft_strlen(line));
 		write(fds[WIRITE_], "\n", 1);
     }
@@ -102,16 +132,4 @@ char	**realloc_array(char **array, char *new, int flag)
 	if (flag & ~WILD)
 		ret[i++] = gc(g_global.gc, ft_strdup(new), TMP);
 	return (ret[i] = NULL, ret);
-}
-
-void    add_cmdexc_back(t_grb **grb, t_cmdexc *new_cmdexc)
-{
-    if (!(*grb)->head)
-        (*grb)->head = new_cmdexc;
-    else
-    {
-        (*grb)->tail->next = new_cmdexc;
-        new_cmdexc->prev = (*grb)->tail;
-    }
-    (*grb)->tail = new_cmdexc;
 }

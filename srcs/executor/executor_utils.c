@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/10 22:10:25 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/11 20:08:40 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void    run_logical(t_exp *left, t_exp *right, t_type type)
     {
         if (WIFEXITED(g_global.status) && WEXITSTATUS(g_global.status) != 0)
             run_grb(right->grb);
+        else
+            right->grb->is_executed = 1;
     }
 }
 
@@ -42,7 +44,8 @@ void    run_grb(t_grb *grb)
     grb->is_executed = true;
     while (wait(&status) != -1)
         ;
-    g_global.status = status;
+    if (status != 0)
+        g_global.status = status;
     reset_io(g_global.fd_io);
 }
 
@@ -50,20 +53,20 @@ bool    builtins(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 {
     if (is_builtins(*obj->cmdexc))
         fd_duplicate(obj, fds, fd_tmp, flag);
-    if (!ft_strncmp(*obj->cmdexc, "echo", ft_strlen("echo")))
+    if (!ft_strncmp(*obj->cmdexc, "echo", sizeof("echo") + 1))
         return (shleet_echo(obj->cmdexc + 1), true);
-    else if (!ft_strncmp(*obj->cmdexc, "exit", ft_strlen("exit")))
+    else if (!ft_strncmp(*obj->cmdexc, "exit", sizeof("exit") + 1))
         return (shleet_exit(obj->cmdexc + 1), true);
-    else if (!ft_strncmp(*obj->cmdexc, "export", ft_strlen("export")))
+    else if (!ft_strncmp(*obj->cmdexc, "export", sizeof("export") + 1))
         return (shleet_export(obj->cmdexc + 1), true);
-    else if (!ft_strncmp(*obj->cmdexc, "cd", ft_strlen("cd")))
+    else if (!ft_strncmp(*obj->cmdexc, "cd", sizeof("cd") + 1))
         return (shleet_cd(obj->cmdexc + 1), true);
-    else if (!ft_strncmp(*obj->cmdexc, "unset", ft_strlen("unset")))
+    else if (!ft_strncmp(*obj->cmdexc, "unset", sizeof("unset") + 1))
         return (shleet_unset(obj->cmdexc + 1), true);
-    else if (!ft_strncmp(*obj->cmdexc, "pwd", ft_strlen("pwd")))
+    else if (!ft_strncmp(*obj->cmdexc, "pwd", sizeof("pwd") + 1))
         return (shleet_pwd(obj->cmdexc + 1), true);
-    else if (!ft_strncmp(*obj->cmdexc, "env", ft_strlen("env")))
-        return (shleet_env(obj->cmdexc + 1), 1);
+    else if (!ft_strncmp(*obj->cmdexc, "env", sizeof("env") + 1))
+        return (shleet_env(obj->cmdexc + 1), true);
     else
         return (false);
 }

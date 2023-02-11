@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:23:18 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/10 20:36:04 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/11 20:04:06 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,12 @@ int     executor(t_expander *l_expander)
             run_logical(head, head->next->next, head->next->nature);
             head = head->next->next;
         }
-        else if (!head->prev && head->nature & NODE_CMDEXC)
+        else if (head->nature & NODE_CMDEXC)
         {
+            fprintf(stderr, "Iam here\n");
             run_grb(head->grb);
             head = head->next;
         }
-        else
-            head = head->next;
     }
     return (EXIT_SUCCESS);
 }

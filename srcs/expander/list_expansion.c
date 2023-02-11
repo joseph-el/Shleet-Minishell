@@ -6,11 +6,23 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:21:11 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/10 17:09:06 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:00:17 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void    add_cmdexc_back(t_grb **grb, t_cmdexc *new_cmdexc)
+{
+    if (!(*grb)->head)
+        (*grb)->head = new_cmdexc;
+    else
+    {
+        (*grb)->tail->next = new_cmdexc;
+        new_cmdexc->prev = (*grb)->tail;
+    }
+    (*grb)->tail = new_cmdexc;
+}
 
 t_list  *quotes_removal(t_list *e_list)
 {

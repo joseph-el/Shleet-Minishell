@@ -6,11 +6,11 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:00:38 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/01 19:04:19 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:21:24 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 bool match(char *text, char *pattern)
 {
@@ -39,8 +39,7 @@ t_node  *wildcard(t_node *target)
                 ft_strjoin(ret, element->d_name), TMP), " "), TMP);
         element = readdir(folder);
     }
-    closedir(folder);
-    if (*ret)
+    if (ret)
         return (target->data = ret, target);
     else
         target->tok = WORD;

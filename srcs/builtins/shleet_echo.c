@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:36:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/01 11:28:45 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:53:06 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 bool	check_arg(char *cmd_arg)
 {
@@ -38,6 +38,8 @@ int	shleet_echo(char **cmd)
 	int	i;
 
 	i = 0;
+	if (!cmd || !*cmd)
+		return (EXIT_FAILURE);
 	if (!cmd[i])
 		return (ft_putstr_fd("\n", STDOUT_FILENO), EXIT_SUCCESS);
 	if (cmd[i] && check_arg(cmd[i]))

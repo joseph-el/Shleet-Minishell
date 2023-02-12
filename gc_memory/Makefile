@@ -6,7 +6,7 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 18:49:05 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/02/01 12:05:23 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/01/24 18:50:04 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,14 +17,14 @@ FLAGS := -Wall -Wextra -Werror
 SRCS  := ./tools/gc_memory.c
 INC   := include
 OBJS  := $(SRCS:.c=.o)
-
 all : $(NAME)
+	@echo "~gc_memory"
 
 $(NAME) : $(OBJS)
 	@ar -rc $@ $^
 	
 .c.o : 
-		@cc $(FLAGS) -c $< -o $@ -I $(INC)
+		@cc $(FLAGS) -c -I $(INC) $< -o $@
 
 clean :
 		@rm -drf $(OBJS)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_export_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/12 18:05:58 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:16:16 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_bonus.h"
+#include "minishell.h"
 
 int	sort_and_print_env(int fd)
 {
@@ -79,10 +79,7 @@ void	shleet_export(char **cmd)
 		return ;
 	status = 0;
 	if (!cmd[0])
-	{
-		g_global.status = 0;
-		return ((void)sort_and_print_env(STDOUT_FILENO));
-	}
+		return (g_global.status = 0, (void)sort_and_print_env(1));
 	i = -1;
 	while (cmd[++i])
 	{

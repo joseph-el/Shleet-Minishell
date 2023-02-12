@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:22:00 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/24 19:03:12 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		len1;
 	int		len2;
 
-	if (!s1 || !s2)
-		return (NULL);
+	if (!s1)
+		s1 = "";
+	if (!s2)
+		s2 = "";
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	str = malloc((len1 + len2) + 1);

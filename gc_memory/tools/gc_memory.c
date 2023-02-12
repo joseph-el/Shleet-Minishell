@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gc_memory.c                                        :+:      :+:    :+:   */
+/*   gc_memory_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:52:12 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/01/29 17:00:46 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	gc_purifying(t_gc **gc, int flag)
 
 t_gc	*gc_adding_adress(t_gc *gc, void *address, int flag)
 {
-	t_dustbin *dustbin;
+	t_dustbin	*dustbin;
 
 	dustbin = malloc(sizeof(t_dustbin));
 	if (!dustbin)

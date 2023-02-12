@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shleet_echo.c                                      :+:      :+:    :+:   */
+/*   shleet_echo_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:36:30 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/30 17:53:06 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 bool	check_arg(char *cmd_arg)
 {
@@ -33,25 +33,31 @@ bool	check_arg(char *cmd_arg)
 	return (false);
 }
 
-int	shleet_echo(char **cmd)
+void	shleet_echo(char **cmd)
 {
 	int	i;
 
 	i = 0;
-	if (!cmd || !*cmd)
-		return (EXIT_FAILURE);
 	if (!cmd[i])
-		return (ft_putstr_fd("\n", STDOUT_FILENO), EXIT_SUCCESS);
+	{
+		g_global.status = 0;
+		return (ft_putstr_fd("\n", STDOUT_FILENO));
+	}
 	if (cmd[i] && check_arg(cmd[i]))
 		i = 1;
 	while (cmd[i])
 	{
-		ft_putstr_fd(cmd[i++], STDOUT_FILENO);
-		if (!cmd[i])
-			break ;
-		ft_putstr_fd(" ", STDOUT_FILENO);
+		if (check_arg(cmd[i]))
+			i++;
+		else
+		{
+			ft_putstr_fd(cmd[i++], STDOUT_FILENO);
+			if (!cmd[i])
+				break ;
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		}
 	}
 	if (!check_arg(cmd[0]))
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	return (EXIT_SUCCESS);
+	g_global.status = 0;
 }

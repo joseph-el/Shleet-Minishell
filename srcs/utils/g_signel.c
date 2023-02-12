@@ -1,44 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shleet_pwd_bonus.c                                 :+:      :+:    :+:   */
+/*   g_signel.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 14:39:23 by aelkhali          #+#    #+#             */
+/*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
 /*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_cwd(void)
+void	interrput_handler(int sig)
 {
-	char	cwd[PATH_MAX];
-
-	if (getcwd(cwd, sizeof(cwd)) < 0)
-		return (EXIT_FAILURE);
-	ft_putstr_fd(cwd, STDOUT_FILENO);
+	(void)sig;
 	ft_putstr_fd("\n", STDOUT_FILENO);
-	return (EXIT_SUCCESS);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	g_global.status = 256;
 }
 
-void	shleet_pwd(char **cmd_args)
+int	shleet_status(void)
 {
-	t_env	*pwd;
+	if (WIFEXITED(g_global.status))
+		return (WEXITSTATUS(g_global.status));
+	if (WIFSTOPPED(g_global.status))
+		return (128 + WSTOPSIG(g_global.status));
+	if (WIFSIGNALED(g_global.status))
+		return (128 + WTERMSIG(g_global.status));
+	return (EXIT_FAILURE);
+}
 
-	if (!cmd_args[0])
-	{
-		pwd = find_environment(g_global.envp, "PWD");
-		if (!pwd)
-		{
-			g_global.status = 0;
-			return ((void)get_cwd());
-		}
-		ft_putstr_fd(pwd->content, STDOUT_FILENO);
-		ft_putstr_fd("\n", STDOUT_FILENO);
-		g_global.status = 0;
-		return ;
-	}
-	shleet_error("pwd", "Args and options Not required by the subject !", 1);
+void	init_signal(void)
+{
+	if (signal(SIGINT, interrput_handler) == SIG_ERR || \
+		signal(SIGQUIT, SIG_IGN) == SIG_ERR || \
+		signal(SIGTSTP, SIG_IGN) == SIG_ERR)
+		shleet_error("signal", strerror(errno), 1);
 }

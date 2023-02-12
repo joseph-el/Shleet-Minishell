@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   g_fd_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 10:22:49 by yoel-idr          #+#    #+#             */
+/*   Created: 2023/02/04 21:06:21 by yoel-idr          #+#    #+#             */
 /*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libtools.h"
+#include "minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+int	*io_save(void)
 {
-	char	*str;
-	char	*p;
+	int	*fds;
 
-	if (!s)
+	fds = gc(g_global.gc, malloc(sizeof(int) * 2), OVR);
+	if (!fds)
 		return (NULL);
-	if (ft_strlen(s) < start || len == 0)
-		return (ft_strdup(""));
-	if (ft_strlen(s) - start < len)
-		len = ft_strlen(s) - start;
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	p = str;
-	s += start;
-	while (len-- > 0)
-		*str++ = *s++;
-	*str = 0;
-	return (p);
+	fds[0] = dup(0);
+	fds[1] = dup(1);
+	if (fds[0] < 0 || fds[1] < 0)
+		return (shleet_error("input output", "Failed to save", 1), NULL);
+	return (fds);
+}
+
+void	reset_io(int *fds)
+{
+	int	ret1;
+	int	ret2;
+
+	ret1 = ft_dup2(fds[0], 0);
+	ret2 = ft_dup2(fds[1], 1);
+	if (ret1 < 0 || ret2 < 0)
+		return (shleet_error("input output", "Failed to reset", 1));
 }

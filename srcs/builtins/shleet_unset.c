@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shleet_unset.c                                     :+:      :+:    :+:   */
+/*   shleet_unset_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:27 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/01/28 19:50:54 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-void	shleet_unset(t_env **env, char *type)
+void	unset_node(char *type)
 {
 	t_env	*target_env;
 	t_env	*tmp;
 
-	target_env = find_environment(*env, type);
-	if (!env || !type || !target_env)
+	target_env = find_environment(g_global.envp, type);
+	if (!target_env)
 		return ;
 	if (!target_env->prev && !target_env->next)
-		(*env) = NULL;
+		g_global.envp = NULL;
 	if (!target_env->prev)
 	{
-		(*env) = (*env)->next;
-		(*env)->prev = NULL;
+		g_global.envp = (g_global.envp)->next;
+		(g_global.envp)->prev = NULL;
 		return ;
 	}
 	if (!target_env->next)
@@ -37,4 +37,16 @@ void	shleet_unset(t_env **env, char *type)
 	target_env->prev->next = tmp;
 	target_env->prev = NULL;
 	target_env->next = NULL;
+}
+
+void	shleet_unset(char **args)
+{
+	int		i;
+
+	if (!g_global.envp || !args || !*args)
+		return ;
+	i = -1;
+	while (args[++i])
+		unset_node(type_environment(args[i]));
+	g_global.status = 0;
 }

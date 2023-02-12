@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:58:23 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:03:02 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*get_path(char *cmdline)
 
 	if (ft_strchr(cmdline, '/'))
 		return (cmdline);
-	p_cmd = find_environment(g_global.envp, "PATH")->content;
+	p_cmd = get_environment(g_global.envp, "PATH");
 	if (!p_cmd)
 		return (NULL);
 	cmdline = gc(g_global.gc, ft_strjoin("/", cmdline), TMP);

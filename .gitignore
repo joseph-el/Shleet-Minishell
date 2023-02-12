@@ -6,4 +6,3 @@ a.out
 *.a
 minishell
 *.dSYM
-pipe/*

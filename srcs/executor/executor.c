@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:23:18 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 12:15:49 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	fd_duplicate(t_cmdexc *obj, int fds[2], int fd_tmp, int flag)
 	if (obj->io_dest == -1 || obj->io_src == -1)
 		return (shleet_error("No such file or directory", NULL, 1), -1);
 	fd_read = obj->io_src;
-	fd_write = fds[1];
+	fd_write = obj->io_dest;
+	if (flag & (INPUT | PROCESS) && obj->io_dest == 1)
+		fd_write = fds[1];
 	if (flag & PROCESS)
 	{
 		fd_read = fd_tmp;

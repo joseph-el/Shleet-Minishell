@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:19:48 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ int	shleet_status(void)
 {
 	if (WIFEXITED(g_global.status))
 		return (WEXITSTATUS(g_global.status));
-	if (WIFSTOPPED(g_global.status))
-		return (128 + WSTOPSIG(g_global.status));
-	if (WIFSIGNALED(g_global.status))
-		return (128 + WTERMSIG(g_global.status));
 	return (EXIT_FAILURE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:07:23 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	run_grb(t_grb *grb)
 	int	fds[2];
 	int	status;
 
-	status = 0;
+	status = -1;
 	if (!grb || !grb->head || grb->is_executed)
 		return ;
 	if (is_pipe(grb->head))
@@ -47,7 +47,8 @@ void	run_grb(t_grb *grb)
 	grb->is_executed = true;
 	while (wait(&status) != -1)
 		;
-	g_global.status = status;
+	if (status != -1)
+		g_global.status = status;
 	reset_io(g_global.fd_io);
 }
 

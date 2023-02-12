@@ -6,7 +6,7 @@
 /*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/12 12:32:51 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:05:58 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ void	delete_and_insert(char *cmd)
 void	shleet_export(char **cmd)
 {
 	int		i;
+	int		status;
 
 	if (!g_global.envp)
 		return ;
+	status = 0;
 	if (!cmd[0])
 	{
 		g_global.status = 0;
@@ -92,7 +94,10 @@ void	shleet_export(char **cmd)
 				delete_and_insert(cmd[i]);
 		}
 		else
+		{
+			status = 1;
 			shleet_error(cmd[i], "not a valid identifier", EXIT_FAILURE);
+		}
 	}
-	g_global.status = 0;
+	g_global.status = status;
 }

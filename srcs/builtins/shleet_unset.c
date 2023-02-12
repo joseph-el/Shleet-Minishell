@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shleet_unset_bonus.c                               :+:      :+:    :+:   */
+/*   shleet_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:27 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:06:37 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,21 @@ void	unset_node(char *type)
 void	shleet_unset(char **args)
 {
 	int		i;
+	int		status;
 
 	if (!g_global.envp || !args || !*args)
 		return ;
+	status = 0;
 	i = -1;
 	while (args[++i])
-		unset_node(type_environment(args[i]));
-	g_global.status = 0;
+	{
+		if (key_isvalid(args[i]))
+			unset_node(type_environment(args[i]));
+		else
+		{
+			shleet_error(args[i], "not a valid identifier", EXIT_FAILURE);
+			status = 1;
+		}
+	}
+	g_global.status = status;
 }

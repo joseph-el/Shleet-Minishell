@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 12:40:37 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:09:22 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,11 @@ void		shleet_exit(char **args);
 void		shleet_echo(char **cmd);
 void		shleet_env(char **args);
 void		shleet_pwd(char **cmd);
+
+/**
+ *  @brief builtins commands utils
+ */
+
+int			key_isvalid(char *_env);
 
 #endif

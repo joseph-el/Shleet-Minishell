@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_helpful2.c                                :+:      :+:    :+:   */
+/*   expander_helpful2_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 12:29:31 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/12 12:33:48 by aelkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_bonus.h"
 
 int	set_rederct(int *io_infile, int *io_outfile, char *filename, t_token token)
 {

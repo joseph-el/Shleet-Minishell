@@ -6,12 +6,11 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 11:31:53 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/02/12 13:15:50 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/02/12 13:12:30 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	 			:= minishell
-BNAME				:= minishell_bonus
+NAME	 			:= minishell_bonus
 
 FLAGS 				:= -Wall -Wextra -Werror -fsanitize=address -g
 # READ_L				:= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib -I /opt/homebrew/Cellar/readline/8.2.1/include
@@ -22,7 +21,7 @@ SRCS 				:= srcs/
 CC 					:= cc
 RM					:= rm -f
 INCLUDES			:= includes/
-HEADERS 			:= environment.h executor.h expander.h lexer.h minishell.h
+HEADERS 			:= environment_bonus.h executor_bonus.h expander_bonus.h lexer_bonus.h minishell_bonus.h
 HEADERS 			:= $(addprefix $(INCLUDES), $(HEADERS))
 
 RED    				:= \033[1;00m
@@ -37,52 +36,52 @@ NO_COLOR    		:= \033[m
 
 OK_STRING    		:= "[OK]"
 COM_STRING  	    := "Compiling"
-SHLEET    	 		:= "Shleet-minishell"
-GARBAGE      		:= "gc_memory"
-LIBT		 		:= "libtools"
-DELETE       		:= "Deleting objects"
+SHLEET    	 		:= "Shleet-minishell_bonus"
+GARBAGE      		:= "gc_memory_bonus"
+LIBT		 		:= "libtools_bonus"
+DELETE       		:= "Deleting Bonus objects"
 
 
-MINISHELL_FILE  	:=	minishell.c
+MINISHELL_FILE  	:=	minishell_bonus.c
 
-UTILS_FILES 		:=  utils/g_error.c \
-						utils/g_signel.c \
-						utils/g_utils.c \
-						utils/g_fd_utils.c \
+UTILS_FILES 		:=  utils/g_error_bonus.c \
+						utils/g_signel_bonus.c \
+						utils/g_utils_bonus.c \
+						utils/g_fd_utils_bonus.c \
 
-LEXER_FILES 		:= 	lexer/lexer.c \
-						lexer/lexer_helpful1.c \
-						lexer/lexer_helpful2.c \
-						lexer/list_construct.c \
-						lexer/list_destroyer.c \
+LEXER_FILES 		:= 	lexer/lexer_bonus.c \
+						lexer/lexer_helpful1_bonus.c \
+						lexer/lexer_helpful2_bonus.c \
+						lexer/list_construct_bonus.c \
+						lexer/list_destroyer_bonus.c \
 
-SYNTAX_FILES 		:=	lexer/syntax.c \
+SYNTAX_FILES 		:=	lexer/syntax_bonus.c \
 
-EXPANDER_FILES 		:=	expander/expander.c \
-						expander/expander_helpful1.c \
-						expander/expander_helpful2.c \
-						expander/list_expansion.c \
-						expander/list_construct.c \
-						expander/wildcard.c \
+EXPANDER_FILES 		:=	expander/expander_bonus.c \
+						expander/expander_helpful1_bonus.c \
+						expander/expander_helpful2_bonus.c \
+						expander/list_expansion_bonus.c \
+						expander/list_construct_bonus.c \
+						expander/wildcard_bonus.c \
 
-EXECUTOR_FILES  	:=	executor/executor.c \
-						executor/executor_utils.c \
-						executor/ft_execve.c \
-
-
-ENVIROMENT_FILES 	:= 	environment/environment.c \
-						environment/environment_utils1.c \
-						environment/environment_utils2.c \
-						environment/environment_utils3.c \
+EXECUTOR_FILES  	:=	executor/executor_bonus.c \
+						executor/executor_utils_bonus.c \
+						executor/ft_execve_bonus.c \
 
 
-BUILTINS_FILES  	:=  builtins/shleet_cd.c \
-						builtins/shleet_echo.c \
-						builtins/shleet_env.c \
-						builtins/shleet_exit.c \
-						builtins/shleet_export.c \
-						builtins/shleet_pwd.c \
-						builtins/shleet_unset.c \
+ENVIROMENT_FILES 	:= 	environment/environment_bonus.c \
+						environment/environment_utils1_bonus.c \
+						environment/environment_utils2_bonus.c \
+						environment/environment_utils3_bonus.c \
+
+
+BUILTINS_FILES  	:=  builtins/shleet_cd_bonus.c \
+						builtins/shleet_echo_bonus.c \
+						builtins/shleet_env_bonus.c \
+						builtins/shleet_exit_bonus.c \
+						builtins/shleet_export_bonus.c \
+						builtins/shleet_pwd_bonus.c \
+						builtins/shleet_unset_bonus.c \
 
 FILES   			:= 	$(ENVIROMENT_FILES) \
 						$(MINISHELL_FILE)   \
@@ -99,25 +98,23 @@ OBJS 				:= $(FILES:%.c=%.o)
 GC_MEMORY_PATH		:= 	gc_memory/
 LIBTOOLS_PATH		:= 	libtools/
 
-GC_MEMORY 			:= $(addprefix $(GC_MEMORY_PATH), gc_memory.a)
-LIBTOOLS 			:= $(addprefix $(LIBTOOLS_PATH), libtools.a)
+GC_MEMORY 			:= $(addprefix $(GC_MEMORY_PATH), gc_memory_bonus.a)
+LIBTOOLS 			:= $(addprefix $(LIBTOOLS_PATH), libtools_bonus.a)
 
 
 all 				:	$(NAME)
 							@printf "\n%b          %b" "$(GREEN) $(GARBAGE)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; 
 							@printf "%b           %b" "$(GREEN) $(LIBT)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; 
 							@printf "%b   %b" "$(GREEN) $(SHLEET)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; 
-
-bonus				:
-						@make -C bonus/ all
-
+		
 $(NAME) 			:  	$(GC_MEMORY) $(LIBTOOLS) $(OBJS)
 							@$(CC) $(FLAGS) $^ -o $@ -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib
+							@mv $(NAME) ../
 
-$(LIBTOOLS)			: 	$(addprefix $(LIBTOOLS_PATH), libtools.h)
+$(LIBTOOLS)			: 	$(addprefix $(LIBTOOLS_PATH), libtools_bonus.h)
 							@make -C  $(LIBTOOLS_PATH) all 
 
-$(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
+$(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory_bonus.h)
 							@make -C $(GC_MEMORY_PATH) all 
 
 .c.o		 		:	$(HEADERS)
@@ -125,21 +122,15 @@ $(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
 							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include) -I /opt/homebrew/Cellar/readline/8.2.1/include
 
 clean   			:	
-							@printf "   %b %b  %b" "$(BLUE) $(DELETE)" "$(GREEN) $(SHLEET)" "$(OK_COLOR) $(OK_STRING) \n$(RESET)" 
-							@printf "%b %b  %-27b" "$(BLUE) $(DELETE)" "$(GREEN) $(GARBAGE)" "$(OK_COLOR) $(OK_STRING) \n$(RESET)" 
-							@printf "%b %b  %-27b" "$(BLUE) $(DELETE)" "$(GREEN) $(LIBT)" "$(OK_COLOR) $(OK_STRING) \n$(RESET)" 
 							@$(RM) $(OBJS)
 							@make -C $(GC_MEMORY_PATH) clean
 							@make -C $(LIBTOOLS_PATH) clean
-							@make -C bonus/ fclean
 
 fclean 				:  	clean
-							@printf "\n\n   %b\t\t   %b\n" "$(BLUE) Deleting everything $(RESET)" "$(OK_COLOR)$(OK_STRING) $(RESET)"
 							@make -C $(GC_MEMORY_PATH) fclean
 							@make -C $(LIBTOOLS_PATH) fclean
-							@make -C bonus/ fclean
-							@$(RM) $(NAME) $(BNAME)
+							@$(RM) $(NAME)
 
 re 					: 	fclean all
 
-.PHONY 				: 	all clean fclean bonus re
+.PHONY 				: 	all clean fclean re

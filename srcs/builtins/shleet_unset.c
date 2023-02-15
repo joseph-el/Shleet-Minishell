@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shleet_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:27 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/12 18:06:37 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:30:04 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,26 @@
 void	unset_node(char *type)
 {
 	t_env	*target_env;
-	t_env	*tmp;
+	char 	*env_utils;
 
 	target_env = find_environment(g_global.envp, type);
 	if (!target_env)
 		return ;
-	if (!target_env->prev && !target_env->next)
-		g_global.envp = NULL;
 	if (!target_env->prev)
 	{
 		g_global.envp = (g_global.envp)->next;
-		(g_global.envp)->prev = NULL;
+		if (g_global.envp)
+			(g_global.envp)->prev = NULL;
 		return ;
 	}
 	if (!target_env->next)
 	{
-		target_env->prev->next = NULL;
+		if (target_env->prev)
+			target_env->prev->next = NULL;
 		return ;
 	}
-	tmp = target_env->next;
-	target_env->prev->next = tmp;
-	target_env->prev = NULL;
-	target_env->next = NULL;
+	target_env->prev->next = target_env->next;
+	target_env->next->prev = target_env->prev;
 }
 
 void	shleet_unset(char **args)

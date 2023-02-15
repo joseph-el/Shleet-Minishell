@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:59:26 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:31:28 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_list	*set_token(char *l_cmd)
 		else if (*l_cmd == '(' || *l_cmd == ')')
 			l_cmd = parentheses(l_lexer, l_cmd);
 		else if (ft_strchr("<&|>", *l_cmd))
-			l_cmd = handle_state(l_lexer, l_cmd);
+				l_cmd = handle_state(l_lexer, l_cmd);
 		else
 			l_cmd = normal_stat(l_lexer, l_cmd);
 	}

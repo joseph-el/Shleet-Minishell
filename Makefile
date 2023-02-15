@@ -6,17 +6,13 @@
 #    By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 11:31:53 by yoel-idr          #+#    #+#              #
-#    Updated: 2023/02/12 13:15:50 by yoel-idr         ###   ########.fr        #
+#    Updated: 2023/02/14 18:31:09 by yoel-idr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	 			:= minishell
-BNAME				:= minishell_bonus
 
 FLAGS 				:= -Wall -Wextra -Werror -fsanitize=address -g
-# READ_L				:= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib -I /opt/homebrew/Cellar/readline/8.2.1/include
-# 	-lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include	
-
 
 SRCS 				:= srcs/
 CC 					:= cc
@@ -108,11 +104,8 @@ all 				:	$(NAME)
 							@printf "%b           %b" "$(GREEN) $(LIBT)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; 
 							@printf "%b   %b" "$(GREEN) $(SHLEET)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; 
 
-bonus				:
-						@make -C bonus/ all
-
 $(NAME) 			:  	$(GC_MEMORY) $(LIBTOOLS) $(OBJS)
-							@$(CC) $(FLAGS) $^ -o $@ -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib
+							@$(CC) $(FLAGS) $^ -o $@ -lreadline
 
 $(LIBTOOLS)			: 	$(addprefix $(LIBTOOLS_PATH), libtools.h)
 							@make -C  $(LIBTOOLS_PATH) all 
@@ -122,7 +115,7 @@ $(GC_MEMORY)    	:  	$(addprefix $(GC_MEMORY_PATH), include/gc_memory.h)
 
 .c.o		 		:	$(HEADERS)
 							@printf "%-100.900b\r" "$(COM_COLOR)$(COM_STRING) $(OBJ_COLOR)$(@)$(NO_COLOR)\n";
-							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include) -I /opt/homebrew/Cellar/readline/8.2.1/include
+							@$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES) -I $(LIBTOOLS_PATH) -I $(addprefix $(GC_MEMORY_PATH), include)
 
 clean   			:	
 							@printf "   %b %b  %b" "$(BLUE) $(DELETE)" "$(GREEN) $(SHLEET)" "$(OK_COLOR) $(OK_STRING) \n$(RESET)" 
@@ -131,14 +124,12 @@ clean   			:
 							@$(RM) $(OBJS)
 							@make -C $(GC_MEMORY_PATH) clean
 							@make -C $(LIBTOOLS_PATH) clean
-							@make -C bonus/ fclean
 
 fclean 				:  	clean
 							@printf "\n\n   %b\t\t   %b\n" "$(BLUE) Deleting everything $(RESET)" "$(OK_COLOR)$(OK_STRING) $(RESET)"
 							@make -C $(GC_MEMORY_PATH) fclean
 							@make -C $(LIBTOOLS_PATH) fclean
-							@make -C bonus/ fclean
-							@$(RM) $(NAME) $(BNAME)
+							@$(RM) $(NAME)
 
 re 					: 	fclean all
 

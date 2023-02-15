@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_bonus.h                                      :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:46:35 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:30 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:33:21 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@
 
 typedef enum s_token
 {
-	BEGINOFCMD = 1 << 0,
-	ENDOFCMD = 1 << 1,
-	WORD = 1 << 2,
-	WSPACE = 1 << 3,
-	VAR = 1 << 4,
-	PIPE = 1 << 5,
-	GREAT = 1 << 6,
-	LESS = 1 << 7,
-	SQUOTE = 1 << 8,
-	DQUOTE = 1 << 9,
-	WILD = 1 << 10,
-	LPAR = 1 << 11,
-	RPAR = 1 << 12,
-	OR = 1 << 13,
-	AND = 1 << 14,
-	APPEND = 1 << 15,
-	HERDOC = 1 << 16,
+	BEGINOFCMD = 2 << 0,
+	ENDOFCMD = 2 << 1,
+	WORD = 2 << 2,
+	WSPACE = 2 << 3,
+	VAR = 2 << 4,
+	PIPE = 2 << 5,
+	GREAT = 2 << 6,
+	LESS = 2 << 7,
+	SQUOTE = 2 << 8,
+	DQUOTE = 2 << 9,
+	WILD = 2 << 10,
+	LPAR = 2 << 11,
+	RPAR = 2 << 12,
+	OR = 2 << 13,
+	AND = 2 << 14,
+	APPEND = 2 << 15,
+	HERDOC = 2 << 16,
 	CONNECTOR = (PIPE | OR | AND),
 	STRING = (SQUOTE | DQUOTE | WORD | VAR | WILD),
 	REDIRECT = (GREAT | LESS | APPEND | HERDOC)

@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:21:11 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:32:21 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,19 @@ t_list	*quotes_removal(t_list *e_list)
 
 t_node	*fill_content(t_list *l_list, t_node *object)
 {
-	if (object->prev && object->prev->tok & VAR && object->tok != HERDOC)
+	if (object->prev && object->prev->tok & VAR && object->tok & ~ERDOC)
 	{
-		object->prev->data = get_environment(g_global.envp, object->prev->data
-				+ 1);
+		if (get_node(object->prev->prev, LEFT)->tok == HERDOC)
+			return (object->prev->tok = WORD, object);
+		object->prev->data = get_environment(g_global.envp, \
+			object->prev->data + 1);
 		if (!object->prev->data)
 			object->prev->data = gc(g_global.gc, ft_strdup(""), TMP);
 		return (object);
 	}
 	while (object && object->tok & (WORD | VAR))
 	{
-		if (object->tok & VAR && get_node(object->prev, LEFT)->tok != HERDOC)
+		if (object->tok & VAR && get_node(object->prev, LEFT)->tok & ~HERDOC)
 		{
 			object->data = get_environment(g_global.envp, object->data + 1);
 			if (!object->data)

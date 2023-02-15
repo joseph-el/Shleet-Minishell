@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:14:16 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 20:19:48 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:21:04 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int	shleet_status(void)
 {
 	if (WIFEXITED(g_global.status))
 		return (WEXITSTATUS(g_global.status));
-	return (EXIT_FAILURE);
+	if (WIFSIGNALED(g_global.status))
+		return (128 + WTERMSIG(g_global.status));
+	return (1);
 }
 
 void	init_signal(void)
 {
 	if (signal(SIGINT, interrput_handler) == SIG_ERR || \
-		signal(SIGQUIT, SIG_IGN) == SIG_ERR || \
-		signal(SIGTSTP, SIG_IGN) == SIG_ERR)
+		signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		shleet_error("signal", strerror(errno), 1);
 }

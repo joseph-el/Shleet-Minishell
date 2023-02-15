@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkhali <aelkhali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:43:10 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 18:09:18 by aelkhali         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:26:39 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@
 # define YELLOW "\033[0;33m"
 # define GREEN "\033[0;32m"
 # define WHITE "\033[0;37m"
-# define BREAKING 1
-# define RUNING 2
 
 typedef struct s_global
 {
@@ -70,7 +68,7 @@ int			ft_close(int fds[2], int fd_tmp);
 int			ft_pipe(int fds[2]);
 pid_t		ft_fork(void);
 int			ft_dup2(int fd1, int fd2);
-
+void		interrput_handler(int sig);
 /**
  *  @brief builtins commands
  */

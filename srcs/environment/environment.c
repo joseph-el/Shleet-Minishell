@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:24:27 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:16:02 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_env	*insert_environment(t_env **envs, char *type, char *content, char *env)
 	t_env	*tmp_environment;
 	t_env	*new_env;
 
-	if (*envs == NULL)
+	if (!envs || *envs == NULL)
 	{
 		new_env = new_environment(content, type);
 		if (env && ft_strchr(env, '='))

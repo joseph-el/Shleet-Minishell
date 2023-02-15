@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shleet_cd_bonus.c                                  :+:      :+:    :+:   */
+/*   shleet_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:21 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:23:57 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ void	shleet_cd(char **cmd_args)
 	{
 		home = find_environment(g_global.envp, "HOME");
 		if (!home)
-			return (shleet_error("cd", "HOME not found", 2));
+			return (shleet_error("cd", "HOME not found", 1));
 		if (chdir(home->content) == 0)
 		{
 			g_global.status = 0;
 			return (update_pwds_data());
 		}
 		else
-			return (shleet_error("cd", "HOME not set", 2));
+			return (shleet_error("cd", "HOME not set", 1));
 	}
 	if (cmd_args[1])
-		return (shleet_error("cd", "too many args", 2));
+		return (shleet_error("cd", "too many args", 1));
 	if (!*cmd_args[0])
 		return ;
 	if (chdir(cmd_args[0]) == -1)
-		return (shleet_error("cd", strerror(errno), 2));
+		return (shleet_error("cd", strerror(errno), 1));
 	g_global.status = 0;
 	return (update_pwds_data());
 }

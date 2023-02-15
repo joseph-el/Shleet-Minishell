@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:24:31 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 20:07:23 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:20:45 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ void	run_grb(t_grb *grb)
 		;
 	if (status != -1)
 		g_global.status = status;
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+	{
+		ft_putstr_fd("Quit : ", 2);
+		ft_putstr_fd(gc(g_global.gc, ft_itoa(WTERMSIG(status)), TMP), 2);
+		ft_putstr_fd("\n", 2);
+	}
 	reset_io(g_global.fd_io);
 }
 
@@ -83,6 +89,9 @@ void	run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
 	pid = ft_fork();
 	if (!pid)
 	{
+		if (signal(SIGINT, SIG_DFL) == SIG_ERR || \
+			signal(SIGQUIT, SIG_DFL) == SIG_ERR)
+			shleet_error("signal", strerror(errno), 1);
 		close(*fds);
 		if (fd_duplicate(obj, fds, fd_tmp, flag) < 0)
 			exit(1);
@@ -90,7 +99,7 @@ void	run_cmdline(t_cmdexc *obj, int fd_tmp, int fds[2], int flag)
 		shleet_error(*obj->cmdexc, strerror(errno), 1);
 		if (errno == ENOENT)
 			exit(127);
-		if (errno == EACCES)
+		if (errno == EACCES || errno == ENOTDIR)
 			exit(126);
 		exit(EXIT_FAILURE);
 	}

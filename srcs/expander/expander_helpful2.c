@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:23:48 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 12:29:31 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:31:52 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ char	**adding_wildcard(char **array, char **wild)
 
 	i = -1;
 	j = -1;
-	while (array[++i])
+	while (array && array[++i])
 		;
-	while (wild[++j])
+	while (wild && wild[++j])
 		;
 	ret = gc(g_global.gc, malloc(sizeof(char *) * (i + j + 1)), TMP);
 	if (!ret)

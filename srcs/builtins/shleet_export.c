@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:39:25 by aelkhali          #+#    #+#             */
-/*   Updated: 2023/02/12 18:15:51 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:28:25 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	delete_and_insert(char *cmd)
 		return ;
 	tmp = find_environment(g_global.envp, type_environment(cmd));
 	if (tmp)
-		delete_environment(&tmp);
+		unset_node(tmp->type);
 	insert_environment(&g_global.envp, type_environment(cmd), \
 		content_environment(cmd), cmd);
 }
@@ -75,8 +75,8 @@ void	shleet_export(char **cmd)
 	int		i;
 	int		status;
 
-	if (!g_global.envp)
-		return ;
+	// if (!g_global.envp)
+	// 	return ;
 	status = 0;
 	if (!cmd[0])
 		return (g_global.status = 0, (void)sort_and_print_env(1));

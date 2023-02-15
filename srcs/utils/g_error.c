@@ -6,7 +6,7 @@
 /*   By: yoel-idr <yoel-idr@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:09:46 by yoel-idr          #+#    #+#             */
-/*   Updated: 2023/02/12 01:15:38 by yoel-idr         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:30:32 by yoel-idr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ pid_t	ft_fork(void)
 	pid_t	_pid;
 
 	_pid = fork();
-	if (_pid < 0)
+	if (_pid)
 	{
 		shleet_error("fork", "unable to creat a process", 1);
 		return (-1);
@@ -44,7 +44,7 @@ int	ft_dup2(int fd1, int fd2)
 	int	ret;
 
 	ret = dup2(fd1, fd2);
-	if (ret < 0)
+	if (ret)
 	{
 		shleet_error("dup2", "unable to duplicate", 1);
 		return (-1);
@@ -57,7 +57,7 @@ int	ft_pipe(int fds[2])
 	int	ret;
 
 	ret = pipe(fds);
-	if (ret < 0)
+	if (ret)
 	{
 		shleet_error("pipe", "unable to create a pipe", 1);
 		return (-1);

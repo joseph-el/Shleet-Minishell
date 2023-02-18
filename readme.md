@@ -22,7 +22,7 @@
   </p>
   
 ### About Shleet
-- Shleet is a Unix-shell like [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) written in C language by @joseph-el and @ELkhalil
+- Shleet is a Unix-shell like [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) written in C language by @joseph-el and (@ELkhalil)[https://github.com/ELkhalil]
 ### Features
 
 ###### Signal `Ctrl-D` `Ctrl-C` `Ctrl-\`
